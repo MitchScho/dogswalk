@@ -5,7 +5,7 @@ const Nav = () => {
   return (
     <nav>
       <span>DOGSWALK</span>
-      <span class="menu"> Menu</span>
+      <span className="menu"> Menu</span>
     </nav>
   );
 };
