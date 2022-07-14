@@ -24,6 +24,7 @@ const useApplicationData = () => {
         }));
       })
       .catch((err) => {
+        console.log('useApplicationData error');
         console.log(err.message);
       });
   }, []);
