@@ -3,7 +3,7 @@ import Extras from './components/Extras'
 import WalkCalendar from './components/WalkCalendar'
 import WalkForm from './components/WalkForm';
 import './App.scss';
-//import useApplicationData from './hooks/useApplicationData';
+import useApplicationData from './hooks/useApplicationData';
 // import { Calendar, dateFnsLocalizer } from "react-big-calendar";
 // import format from "date-fns/format";
 // import parse from "date-fns/parse";
@@ -56,7 +56,7 @@ import { useState } from "react";
 
 function App() {
 
-  //const { state } = useApplicationData();
+  const { state } = useApplicationData();
   // const[newWalk,setNewWalk] = useState({title: "", start: "", end: ""})
   // const[allWalks,setAllWalks] = useState({walks})
   const [showWalkForm, setShowWalkForm] = useState(false);
