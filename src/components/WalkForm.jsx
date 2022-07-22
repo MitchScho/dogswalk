@@ -1,9 +1,43 @@
+import DogAvatar from "./DogAvatar";
+import './WalkForm.scss';
+import { useState } from 'react';
+import classNames from 'classnames';
 
+const WalkForm = ({ date }) => {
 
-const WalkForm = () => { 
+  const [selectedDogs, setSelectedDogs] = useState([]);
+
+  
+
+  const confirmWalk = () => { 
+    console.log("clicked confirmWalk")
+  };
+  
+  const dogs = ["lexi", "Hugo", "Roxy"];
+
+  const dogList = dogs.map((dog) => {
+    return (
+      <DogAvatar
+        key={dog}
+        dog={dog}
+        setSelectedDogs={setSelectedDogs}
+        selectedDogs={selectedDogs}
+      />
+    );
+  })
+
   return (
-    <div> WALK FORM </div>
-  )
+    <>
+      <div className="walk-form-date">
+        {date.format("dddd")}
+        {date.format("MMM D")}
+      </div>
+      <div className="dog-form-controls">
+        <div style={{display:"flex", justifyContent: "space-between"}}>{dogList}</div>
+        <button onClick={confirmWalk}>Confirm Walk</button>
+      </div>
+    </>
+  );
 };
 
 export default WalkForm;
