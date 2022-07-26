@@ -1,21 +1,9 @@
-import classNames from 'classnames';
+//import classNames from 'classnames';
 import './DogAvatar.scss';
-const DogAvatar = ({dog, selectedDogs, setSelectedDogs}) => { 
+const DogAvatar = ({dog, selectDogs, selectedDogs}) => { 
   
-  const selected = selectedDogs.includes(dog);
-  
-  console.log("selected", selected);
-  const selectedClass = selected ? "selected-dog" : "unselected-dog";
-
-const selectDogs = (dog) => {
-  
-  if (selected) {
-    const newDogList = selectedDogs.filter((selectedDog) => selectedDog !== dog);
-    return setSelectedDogs(newDogList);
-  }
-
-  setSelectedDogs(prev => [...prev, dog])
-};
+const selected = selectedDogs.includes(dog);
+const selectedClass = selected ? "selected-dog" : "unselected-dog";
   
 
   

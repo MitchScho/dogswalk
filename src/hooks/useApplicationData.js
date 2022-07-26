@@ -3,7 +3,7 @@ import axios from "axios";
 
 
 const useApplicationData = () => {
-  console.log("useApplicationData called");
+  //console.log("useApplicationData called");
   const [state, setState] = useState({
     day: "Monday",
     days: []
@@ -16,7 +16,7 @@ const useApplicationData = () => {
       
     ])
       .then((all) => {
-        console.log(" axios request return days");
+        console.log(" axios request returned from server");
         setState((prev) => ({
           ...prev,
           days: all[0].data

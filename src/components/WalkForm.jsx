@@ -8,6 +8,17 @@ const WalkForm = ({ date }) => {
   const [selectedDogs, setSelectedDogs] = useState([]);
 
   
+  const selectDogs = (dog) => {
+    if (selectedDogs.includes(dog)) {
+      const newDogList = selectedDogs.filter(
+        (selectedDog) => selectedDog !== dog
+      );
+      return setSelectedDogs(newDogList);
+    }
+
+    setSelectedDogs((prev) => [...prev, dog]);
+  };
+  
 
   const confirmWalk = () => { 
     console.log("clicked confirmWalk")
@@ -20,11 +31,14 @@ const WalkForm = ({ date }) => {
       <DogAvatar
         key={dog}
         dog={dog}
-        setSelectedDogs={setSelectedDogs}
+        selectDogs={selectDogs}
         selectedDogs={selectedDogs}
       />
     );
   })
+
+  
+
 
   return (
     <>
