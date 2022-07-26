@@ -1,7 +1,7 @@
 import DogAvatar from "./DogAvatar";
 import './WalkForm.scss';
 import { useState } from 'react';
-import classNames from 'classnames';
+//import classNames from 'classnames';
 
 const WalkForm = ({ date }) => {
 
@@ -29,11 +29,13 @@ const WalkForm = ({ date }) => {
   return (
     <>
       <div className="walk-form-date">
-        {date.format("dddd")}
-        {date.format("MMM D")}
+        <div>{date.format("dddd")}</div>
+        <div>{date.format("MMM D")}</div>
       </div>
       <div className="dog-form-controls">
-        <div style={{display:"flex", justifyContent: "space-between"}}>{dogList}</div>
+        <div style={{ display: "flex", justifyContent: "space-between" }}>
+          {dogList}
+        </div>
         <button onClick={confirmWalk}>Confirm Walk</button>
       </div>
     </>
