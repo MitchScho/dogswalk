@@ -5,21 +5,23 @@ import axios from "axios";
 const useApplicationData = () => {
   //console.log("useApplicationData called");
   const [state, setState] = useState({
-    day: "Monday",
-    days: []
-    
+
+    walks: {}
+
   });
+  console.log("state", state)
 
   useEffect(() => {
     Promise.all([
-      axios.get("http://localhost:8000/api/days")
+      axios.get("http://localhost:8000/api/walks")
       
     ])
       .then((all) => {
         console.log(" axios request returned from server");
+        console.log("all data", all[0].data)
         setState((prev) => ({
           ...prev,
-          days: all[0].data
+          walks: all[0].data
           
         }));
       })

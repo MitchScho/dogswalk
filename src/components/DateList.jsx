@@ -1,13 +1,11 @@
 import DateListItem from "./DateListItem";
 import WalkForm from "./WalkForm";
 import "./DateList.scss";
-import { useState } from "react";
 import moment from "moment";
 import getCalendarWeek from "../helpers/getCalendarWeek";
 
-const DateList = (props) => {
-  const [addWalk, setAddWalk] = useState(null);
-
+const DateList = ({addWalk, setAddWalk}) => {
+  
   const startDate = moment();
   const endDate = moment().add(1, "week");
 

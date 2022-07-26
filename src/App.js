@@ -4,40 +4,11 @@ import DateList from './components/DateList'
 import './App.scss';
 import useApplicationData from './hooks/useApplicationData';
 
-//import { useState } from "react";
-
-// const walks = [
-//   {
-//     title: "walk",
-//     allDay: true,
-//     user_id: 1,
-//     dog_id: 1,
-//     spots: 11,
-//     start: new Date(2022, 7, 7),
-//     end: new Date(2022, 7, 10)
-//   },
-//   {
-//     title: "walk",
-//     allDay: true,
-//     user_id: 1,
-//     dog_id: 2,
-//     spots: 11,
-//     start: new Date(2022, 7, 8),
-//     end: new Date(2022, 7, 8)
-//   },
-//   {
-//     title: "walk",
-//     allDay: true,
-//     user_id: 1,
-//     dog_id: 1,
-//     spots: 11,
-//     start: new Date(2022, 7, 20),
-//     end: new Date(2022, 7, 20)
-//   }
-// ]
+import { useState } from "react";
 
 function App() {
 
+  const [addWalk, setAddWalk] = useState(null);
   const { state } = useApplicationData();
   
   
@@ -48,7 +19,7 @@ function App() {
     <div className="App">
       <Nav />
       <main>
-        <DateList />
+        <DateList addWalk={addWalk} setAddWalk={setAddWalk}/>
         <Extras />
       </main>
     </div>
