@@ -4,7 +4,7 @@ import "./DateList.scss";
 import moment from "moment";
 import getCalendarWeek from "../helpers/getCalendarWeek";
 
-const DateList = ({addWalk, setAddWalk}) => {
+const DateList = ({addWalk, setAddWalk, availibleSpots}) => {
   
   const startDate = moment();
   const endDate = moment().add(1, "week");
@@ -14,7 +14,7 @@ const DateList = ({addWalk, setAddWalk}) => {
     return (
     
     <div key={date} className="dateList">
-        {date.isSame(addWalk, 'day') ? <WalkForm date={date}/> : <DateListItem date={date} setAddWalk={setAddWalk} />}
+        {date.isSame(addWalk, 'day') ? <WalkForm date={date}/> : <DateListItem date={date} setAddWalk={setAddWalk} availibleSpots={availibleSpots} />}
     </div>
     
     );

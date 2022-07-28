@@ -19,7 +19,7 @@ function App() {
     <div className="App">
       <Nav />
       <main>
-        <DateList addWalk={addWalk} setAddWalk={setAddWalk}/>
+        <DateList addWalk={addWalk} setAddWalk={setAddWalk} availibleSpots={ state.walks[0].availible_spots}/>
         <Extras />
       </main>
     </div>

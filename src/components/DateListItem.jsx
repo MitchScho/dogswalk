@@ -1,6 +1,6 @@
 import "./DateListItem.scss"; 
 
-const DateListItem = ({ date, setAddWalk }) => {
+const DateListItem = ({ date, setAddWalk, availibleSpots }) => {
   
   const clickToAddWalk = () => {
     setAddWalk(date);
@@ -10,7 +10,7 @@ const DateListItem = ({ date, setAddWalk }) => {
   return (
     <div className="dateListItem">
       <div>{date.format('dddd')}</div> 
-      <div>Availible spots</div> 
+      <div>{availibleSpots}</div> 
       <button onClick={clickToAddWalk}>Add Walk</button>
       <div>{date.format('MMM D')}</div> 
     </div>

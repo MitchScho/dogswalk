@@ -50,7 +50,7 @@ const WalkForm = ({ date }) => {
         <div style={{ display: "flex", justifyContent: "space-between" }}>
           {dogList}
         </div>
-        <button onClick={confirmWalk}>Confirm Walk</button>
+        <button onClick={confirmWalk}>Request Walk</button>
       </div>
     </>
   );
