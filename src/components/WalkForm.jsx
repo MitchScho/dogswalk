@@ -1,13 +1,11 @@
 import DogAvatar from "./DogAvatar";
-import './WalkForm.scss';
-import { useState } from 'react';
+import "./WalkForm.scss";
+import { useState } from "react";
 //import classNames from 'classnames';
 
-const WalkForm = ({ date }) => {
-
+const WalkForm = ({ date, requestDogWalk, dogs }) => {
   const [selectedDogs, setSelectedDogs] = useState([]);
 
-  
   const selectDogs = (dog) => {
     if (selectedDogs.includes(dog)) {
       const newDogList = selectedDogs.filter(
@@ -18,27 +16,24 @@ const WalkForm = ({ date }) => {
 
     setSelectedDogs((prev) => [...prev, dog]);
   };
-  
 
-  const confirmWalk = () => { 
-    console.log("clicked confirmWalk")
+  const confirmWalk = () => {
+    console.log("clicked confirmWalk");
+    requestDogWalk(date, selectedDogs);
   };
-  
-  const dogs = ["lexi", "Hugo", "Roxy"];
+
+
 
   const dogList = dogs.map((dog) => {
     return (
       <DogAvatar
-        key={dog}
+        key={dog.id}
         dog={dog}
         selectDogs={selectDogs}
         selectedDogs={selectedDogs}
       />
     );
-  })
-
-  
-
+  });
 
   return (
     <>

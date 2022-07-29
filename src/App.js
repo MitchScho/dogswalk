@@ -8,8 +8,8 @@ import { useState } from "react";
 
 function App() {
 
-  const [addWalk, setAddWalk] = useState(null);
-  const { state } = useApplicationData();
+  const [addWalkDate, setAddWalkDate] = useState(null);
+  const { state, requestDogWalk } = useApplicationData();
   
   
 
@@ -19,7 +19,11 @@ function App() {
     <div className="App">
       <Nav />
       <main>
-        <DateList addWalk={addWalk} setAddWalk={setAddWalk} availibleSpots={ state.walks[0].availible_spots}/>
+        <DateList addWalk={addWalkDate}
+          setAddWalk={setAddWalkDate}
+          availibleSpots={state.walks[0]?.availible_spots}
+          requestDogWalk={requestDogWalk} />
+          dogs={state.dogs}
         <Extras />
       </main>
     </div>
@@ -27,3 +31,4 @@ function App() {
 }
 
 export default App;
+
