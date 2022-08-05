@@ -1,0 +1,29 @@
+{
+	"folders": [
+		{
+			"path": "../../../dogsWalk-api"
+		},
+		{
+			"path": "../../../scheduler"
+		},
+		{
+			"path": "../../../scheduler-api"
+		},
+		{
+			"path": "../../../lightBnB"
+		},
+		{
+			"path": "../.."
+		},
+		{
+			"path": "../../../smart-todo"
+		},
+		{
+			"path": "../../../canvas-api-"
+		},
+		{
+			"path": "../../../Canvas"
+		}
+	],
+	"settings": {}
+}

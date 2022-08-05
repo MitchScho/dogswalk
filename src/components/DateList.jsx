@@ -7,10 +7,13 @@ import getCalendarWeek from "../helpers/getCalendarWeek";
 const DateList = ({
   addWalk,
   setAddWalk,
-  availibleSpots,
+  walks,
   requestDogWalk,
   dogs,
 }) => {
+
+  console.log("dogs in datelist", dogs);
+  console.log("availible spots in datelist", walks);
   const startDate = moment();
   const endDate = moment().add(1, "week");
 
@@ -24,7 +27,7 @@ const DateList = ({
           <DateListItem
             date={date}
             setAddWalk={setAddWalk}
-            availibleSpots={availibleSpots}
+            walks={walks}
             requestDogWalk={requestDogWalk}
           />
         )}

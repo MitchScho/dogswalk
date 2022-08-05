@@ -10,7 +10,8 @@ function App() {
 
   const [addWalkDate, setAddWalkDate] = useState(null);
   const { state, requestDogWalk } = useApplicationData();
-  
+  console.log("state of dogs in app", state.dogs);
+  console.log("state of walks in app", state.walks);
   
 
   
@@ -19,11 +20,14 @@ function App() {
     <div className="App">
       <Nav />
       <main>
-        <DateList addWalk={addWalkDate}
+        <DateList
+          addWalk={addWalkDate}
           setAddWalk={setAddWalkDate}
-          availibleSpots={state.walks[0]?.availible_spots}
-          requestDogWalk={requestDogWalk} />
+          walks={state.walks}
+          requestDogWalk={requestDogWalk}
           dogs={state.dogs}
+        />
+          
         <Extras />
       </main>
     </div>

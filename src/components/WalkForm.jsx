@@ -4,6 +4,8 @@ import { useState } from "react";
 //import classNames from 'classnames';
 
 const WalkForm = ({ date, requestDogWalk, dogs }) => {
+
+  console.log("dogs in walk form", dogs);
   const [selectedDogs, setSelectedDogs] = useState([]);
 
   const selectDogs = (dog) => {
@@ -25,6 +27,7 @@ const WalkForm = ({ date, requestDogWalk, dogs }) => {
 
 
   const dogList = dogs.map((dog) => {
+    console.log("dog in map", dog);
     return (
       <DogAvatar
         key={dog.id}

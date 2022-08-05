@@ -9,7 +9,7 @@ const selectedClass = selected ? "selected-dog" : "unselected-dog";
   
   return (
     <div onClick={() => selectDogs(dog)} className={selectedClass}>
-      {dog}
+      {dog.name}
     </div>
   );
 
