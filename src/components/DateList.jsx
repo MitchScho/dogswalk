@@ -10,10 +10,9 @@ const DateList = ({
   walks,
   requestDogWalk,
   dogs,
+  availibleSpots,
 }) => {
 
-  console.log("dogs in datelist", dogs);
-  console.log("availible spots in datelist", walks);
   const startDate = moment();
   const endDate = moment().add(1, "week");
 
@@ -28,7 +27,8 @@ const DateList = ({
             date={date}
             setAddWalk={setAddWalk}
             walks={walks}
-            requestDogWalk={requestDogWalk}
+              requestDogWalk={requestDogWalk}
+              availibleSpots={availibleSpots}
           />
         )}
       </div>

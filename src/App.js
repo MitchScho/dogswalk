@@ -10,10 +10,6 @@ function App() {
 
   const [addWalkDate, setAddWalkDate] = useState(null);
   const { state, requestDogWalk } = useApplicationData();
-  console.log("state of dogs in app", state.dogs);
-  console.log("state of walks in app", state.walks);
-  
-
   
 
   return (
@@ -26,6 +22,7 @@ function App() {
           walks={state.walks}
           requestDogWalk={requestDogWalk}
           dogs={state.dogs}
+          availibleSpots={state.availibleSpots}
         />
           
         <Extras />

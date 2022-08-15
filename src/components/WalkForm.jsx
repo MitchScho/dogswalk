@@ -20,14 +20,13 @@ const WalkForm = ({ date, requestDogWalk, dogs }) => {
   };
 
   const confirmWalk = () => {
-    console.log("clicked confirmWalk");
     requestDogWalk(date, selectedDogs);
   };
 
 
 
   const dogList = dogs.map((dog) => {
-    console.log("dog in map", dog);
+    
     return (
       <DogAvatar
         key={dog.id}
