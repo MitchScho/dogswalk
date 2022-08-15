@@ -3,7 +3,7 @@ import "./WalkForm.scss";
 import { useState } from "react";
 //import classNames from 'classnames';
 
-const WalkForm = ({ date, requestDogWalk, dogs }) => {
+const WalkForm = ({ date, requestDogWalk, dogs, setAddWalkDate }) => {
 
   console.log("dogs in walk form", dogs);
   const [selectedDogs, setSelectedDogs] = useState([]);
@@ -21,6 +21,8 @@ const WalkForm = ({ date, requestDogWalk, dogs }) => {
 
   const confirmWalk = () => {
     requestDogWalk(date, selectedDogs);
+    setAddWalkDate(null);
+
   };
 
 

@@ -21,7 +21,7 @@ const DateListItem = ({ date, setAddWalk, walks, availibleSpots }) => {
     <div className="dateListItem">
       <div>{date.format('dddd')}</div> 
       <div>{availibleSpotsForDate}</div> 
-      <button onClick={clickToAddWalk}>Add Walk</button>
+      <button onClick={clickToAddWalk}>Add To Walk</button>
       <div>{date.format('MMM D')}</div> 
     </div>
   );

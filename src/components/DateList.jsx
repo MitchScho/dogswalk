@@ -21,7 +21,7 @@ const DateList = ({
     return (
       <div key={date} className="dateList">
         {date.isSame(addWalk, "day") ? (
-          <WalkForm date={date} requestDogWalk={requestDogWalk} dogs={dogs} />
+          <WalkForm date={date} requestDogWalk={requestDogWalk} dogs={dogs} setAddWalkDate={setAddWalk}/>
         ) : (
           <DateListItem
             date={date}
