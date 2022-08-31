@@ -5,7 +5,7 @@ import { useState } from "react";
 
 const WalkForm = ({ date, requestDogWalk, dogs, setAddWalkDate }) => {
 
-  console.log("dogs in walk form", dogs);
+  // console.log("dogs in walk form", dogs);
   const [selectedDogs, setSelectedDogs] = useState([]);
 
   const selectDogs = (dog) => {

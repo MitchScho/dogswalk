@@ -12,10 +12,10 @@ const useApplicationData = () => {
     availibleSpots: 10,
 
   });
-  console.log("state before api call", state);
+  // console.log("state before api call", state);
 
   useEffect(() => {
-    console.log("in useEffect");
+    // console.log("in useEffect");
     Promise.all([
       axios.get("http://localhost:8000/api/walks"),
       axios.get("http://localhost:8000/api/dogs"),
@@ -46,9 +46,9 @@ const useApplicationData = () => {
     
     return axios.post(`http://localhost:8000/api/walks`, walk)
       .then((data) => {
-        console.log("request dog walk data", data);
-        console.log("request dog walk data.dogs", data.data.dogs);
-        console.log("request dog walk data.dogs.length", data.data.dogs.length);
+        // console.log("request dog walk data", data);
+        // console.log("request dog walk data.dogs", data.data.dogs);
+        // console.log("request dog walk data.dogs.length", data.data.dogs.length);
         setState({
           ...state, 
         });
@@ -64,6 +64,7 @@ const useApplicationData = () => {
     const updatedSpots = availibleSpots - dogs;
     setAvailibleSpots(prev => [...prev, updatedSpots])
     ???return updatedSpots;
+    .
     */
   
 }

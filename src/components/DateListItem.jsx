@@ -1,12 +1,12 @@
 import "./DateListItem.scss"; 
 
 const DateListItem = ({ date, setAddWalk, walks, availibleSpots }) => {
-  console.log("walks in datelist item", walks);
+  // console.log("walks in datelist item", walks);
 
   const walksForDate = walks.filter((walk) => {
     return date.isSame(walk.date, "day");
   })
-  console.log("walks for date", walksForDate);
+  // console.log("walks for date", walksForDate);
   
   const availibleSpotsForDate = 12 - walksForDate.length;
 
