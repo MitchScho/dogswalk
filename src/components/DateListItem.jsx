@@ -1,17 +1,23 @@
-import "./DateListItem.scss"; 
+import "./DateListItem.scss";
 
 const DateListItem = ({ date, setAddWalk, walks, availibleSpots }) => {
-  console.log("walks in datelist item", walks);
 
   const walksForDate = walks.filter((walk) => {
-    return date.isSame(walk.date, "day");
+    return date.isSame(walk.date, "day")
+  });
+
+  const dogsForDate = walksForDate.filter((walk) => {
+    return walk.dogs;
   })
-  console.log("walks for date", walksForDate);
+
+  let allDogsForDate = 0;
+  for (const item of dogsForDate) {
+    
+    allDogsForDate += item.dogs.length;
+  }
+
+  const availibleSpotsForDate = 12 - allDogsForDate;
   
-  const availibleSpotsForDate = 12 - walksForDate.length;
-
-
-
 
   const clickToAddWalk = () => {
     setAddWalk(date);
@@ -19,10 +25,10 @@ const DateListItem = ({ date, setAddWalk, walks, availibleSpots }) => {
 
   return (
     <div className="dateListItem">
-      <div>{date.format('dddd')}</div> 
-      <div>{availibleSpotsForDate}</div> 
+      <div>{date.format("dddd")}</div>
+      <div>{availibleSpotsForDate}</div>
       <button onClick={clickToAddWalk}>Add To Walk</button>
-      <div>{date.format('MMM D')}</div> 
+      <div>{date.format("MMM D")}</div>
     </div>
   );
 };

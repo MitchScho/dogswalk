@@ -46,7 +46,7 @@ const useApplicationData = () => {
     
     return axios.post(`http://localhost:8000/api/walks`, walk)
       .then((data) => {
-        // console.log("request dog walk data", data);
+        console.log("request dog walk data", data);
         // console.log("request dog walk data.dogs", data.data.dogs);
         // console.log("request dog walk data.dogs.length", data.data.dogs.length);
         // console.l og("request dog walk data.dogs.length", data.data.dogs.length);
