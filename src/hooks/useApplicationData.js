@@ -45,30 +45,27 @@ const useApplicationData = () => {
     const walk = { date, selectedDogs };
     
     return axios.post(`http://localhost:8000/api/walks`, walk)
-      .then((data) => {
-        console.log("request dog walk data", data);
+      .then((response) => {
+        console.log("request dog walk response", response);
         // console.log("request dog walk data.dogs", data.data.dogs);
         // console.log("request dog walk data.dogs.length", data.data.dogs.length);
         // console.l og("request dog walk data.dogs.length", data.data.dogs.length);
-        setState({
-          ...state, 
-        });
+        // const walk = {
+        //   ...state.walks[date],
+        //   dogs: { ...selectedDogs },
+        // };
+        // console.log("walk", walk)
+        // const walks = {
+        //   ...state.walks,
+        //   [date]: walk,
+        // };
+        // console.log("walks", walks)
+        // setState({
+        //   ...state, walks
+        // });
       })
 
   };
-
-  const updateAvailibleSpots = (state, dogs) => {
-    /* take in availible spots state
-    take in dogs added to walk to be removed from availible spots
-    const availibleSpots = state.availibleSpots;
-    const dogs = dogs.length;
-    const updatedSpots = availibleSpots - dogs;
-    setAvailibleSpots(prev => [...prev, updatedSpots])
-    ???return updatedSpots;
-    .
-    */
-  
-}
 
 
   return {state, requestDogWalk};

@@ -1,6 +1,6 @@
 import "./DateListItem.scss";
 
-const DateListItem = ({ date, setAddWalk, walks, availibleSpots }) => {
+const DateListItem = ({ date, setAddWalk, walks }) => {
 
   const walksForDate = walks.filter((walk) => {
     return date.isSame(walk.date, "day")
@@ -12,8 +12,7 @@ const DateListItem = ({ date, setAddWalk, walks, availibleSpots }) => {
 
   let allDogsForDate = 0;
   for (const item of dogsForDate) {
-    
-    allDogsForDate += item.dogs.length;
+      allDogsForDate += item.dogs.length; 
   }
 
   const availibleSpotsForDate = 12 - allDogsForDate;

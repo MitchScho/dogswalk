@@ -27,15 +27,14 @@ const DateList = ({
             date={date}
             setAddWalk={setAddWalk}
             walks={walks}
-              requestDogWalk={requestDogWalk}
-              availibleSpots={availibleSpots}
+            requestDogWalk={requestDogWalk}
           />
         )}
       </div>
     );
   });
 
-  return <ul>{datesArray}</ul>;
+  return <div>{datesArray}</div>;
 };
 
 export default DateList;
