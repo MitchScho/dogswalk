@@ -1,7 +1,11 @@
 import "./DateListItem.scss";
+//----------------------------------------------------------------------------------------------------
 
 const DateListItem = ({ date, setAddWalk, walks }) => {
 
+//--------------------------------------------------------------------------------------------------
+//Update availible spots
+  
   const walksForDate = walks.filter((walk) => {
     return date.isSame(walk.date, "day")
   });
@@ -17,19 +21,41 @@ const DateListItem = ({ date, setAddWalk, walks }) => {
 
   const availibleSpotsForDate = 12 - allDogsForDate;
   
-
+//-----------------------------------------------------------------------------------------------------------
   const clickToAddWalk = () => {
     setAddWalk(date);
   };
 
+//------------------------------------------------------------------------------------------------------------
+  
+  const handleBlur = (e) => {
+    // const currentTarget = e.currentTarget;
+
+    // // Check the newly focused element in the next tick of the event loop
+    // setTimeout(() => {
+    //   // Check if the new activeElement is a child of the original container
+    //   if (!currentTarget.contains(document.activeElement)) {
+    //     // You can invoke a callback or add custom logic here
+    //     console.log("blur");
+    //   }
+    // }, 0);
+    console.log("blur");
+  };
+
+//-----------------------------------------------------------------------------------------------------------
+//Component return
+
   return (
-    <div className="dateListItem">
+    <div tabIndex="1" onBlur={handleBlur} className="dateListItem">
       <div>{date.format("dddd")}</div>
       <div>{availibleSpotsForDate}</div>
-      <button onClick={clickToAddWalk}>Add To Walk</button>
+      <button onClick={clickToAddWalk}>
+        Add To Walk
+      </button>
       <div>{date.format("MMM D")}</div>
     </div>
   );
+
 };
 
 export default DateListItem;

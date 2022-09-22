@@ -3,13 +3,13 @@ import Extras from './components/Extras'
 import DateList from './components/DateList'
 import './App.scss';
 import useApplicationData from './hooks/useApplicationData';
-
 import { useState } from "react";
+//------------------------------------------------------------------------------------------------------------
 
 function App() {
 
   const [addWalkDate, setAddWalkDate] = useState(null);
-  const { state, requestDogWalk } = useApplicationData();
+  const { state, createDogWalk } = useApplicationData();
   
 
   return (
@@ -20,7 +20,7 @@ function App() {
           addWalk={addWalkDate}
           setAddWalk={setAddWalkDate}
           walks={state.walks}
-          requestDogWalk={requestDogWalk}
+          createDogWalk={createDogWalk}
           dogs={state.dogs}
           availibleSpots={state.availibleSpots}
         />
@@ -29,6 +29,7 @@ function App() {
       </main>
     </div>
   );
+
 }
 
 export default App;

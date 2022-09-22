@@ -1,12 +1,12 @@
 import DogAvatar from "./DogAvatar";
 import "./WalkForm.scss";
 import { useState } from "react";
-//import classNames from 'classnames';
+//--------------------------------------------------------------------------------------------------------------
 
-const WalkForm = ({ date, requestDogWalk, dogs, setAddWalkDate }) => {
+const WalkForm = ({ date, createDogWalk, dogs, setAddWalkDate }) => {
 
-  // console.log("dogs in walk form", dogs);
   const [selectedDogs, setSelectedDogs] = useState([]);
+
 
   const selectDogs = (dog) => {
     if (selectedDogs.includes(dog)) {
@@ -15,16 +15,16 @@ const WalkForm = ({ date, requestDogWalk, dogs, setAddWalkDate }) => {
       );
       return setSelectedDogs(newDogList);
     }
-
     setSelectedDogs((prev) => [...prev, dog]);
   };
 
+
   const confirmWalk = () => {
-    requestDogWalk(date, selectedDogs);
-    setAddWalkDate(null);
-
+    if (selectedDogs.length > 0) {
+      createDogWalk(date, selectedDogs);
+      setAddWalkDate(null);
+    }
   };
-
 
 
   const dogList = dogs.map((dog) => {
@@ -38,6 +38,7 @@ const WalkForm = ({ date, requestDogWalk, dogs, setAddWalkDate }) => {
       />
     );
   });
+
 
   return (
     <>
@@ -53,6 +54,7 @@ const WalkForm = ({ date, requestDogWalk, dogs, setAddWalkDate }) => {
       </div>
     </>
   );
+
 };
 
 export default WalkForm;

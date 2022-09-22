@@ -1,4 +1,6 @@
 import './DogAvatar.scss';
+//--------------------------------------------------------------------------------------------------------------------
+
 const DogAvatar = ({dog, selectDogs, selectedDogs}) => { 
   
 const selected = selectedDogs.includes(dog);
