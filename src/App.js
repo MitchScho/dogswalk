@@ -22,7 +22,6 @@ function App() {
           walks={state.walks}
           createDogWalk={createDogWalk}
           dogs={state.dogs}
-          availibleSpots={state.availibleSpots}
         />
           
         <Extras />
