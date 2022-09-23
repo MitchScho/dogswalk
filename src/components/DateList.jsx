@@ -3,16 +3,16 @@ import WalkForm from "./WalkForm";
 import "./DateList.scss";
 import moment from "moment";
 import getCalendarWeek from "../helpers/getCalendarWeek";
+import { useState } from "react";
 //-------------------------------------------------------------------------------------------------------
 
 const DateList = ({
-  addWalk,
-  setAddWalk,
   walks,
   createDogWalk,
   dogs,
 }) => {
-
+//-------------------------------------------------------------------------------
+const [addWalkDate, setAddWalkDate] = useState(null);
 //------------------------------------------------------------------------------------------------------
 //Create Date List
 
@@ -24,17 +24,17 @@ const DateList = ({
 
     return (
       <div key={date} className="dateList">
-        {date.isSame(addWalk, "day") ? (
+        {date.isSame(addWalkDate, "day") ? (
           <WalkForm
             date={date}
             createDogWalk={createDogWalk}
             dogs={dogs}
-            setAddWalkDate={setAddWalk}
+            setAddWalkDate={setAddWalkDate}
           />
         ) : (
           <DateListItem
             date={date}
-            setAddWalk={setAddWalk}
+            setAddWalkDate={setAddWalkDate}
             walks={walks}
           />
         )}

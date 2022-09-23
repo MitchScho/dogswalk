@@ -50,7 +50,10 @@ const WalkForm = ({ date, createDogWalk, dogs, setAddWalkDate }) => {
         <div style={{ display: "flex", justifyContent: "space-between" }}>
           {dogList}
         </div>
+        <div className= "walk-request-buttons">
+        <button onClick={(() => {setAddWalkDate(null)})}>Cancel</button>
         <button onClick={confirmWalk}>Request Walk</button>
+        </div>
       </div>
     </>
   );

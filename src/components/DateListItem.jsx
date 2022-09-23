@@ -1,7 +1,7 @@
 import "./DateListItem.scss";
 //----------------------------------------------------------------------------------------------------
 
-const DateListItem = ({ date, setAddWalk, walks }) => {
+const DateListItem = ({ date, setAddWalkDate, walks }) => {
 
 //--------------------------------------------------------------------------------------------------
 //Update availible spots
@@ -23,7 +23,7 @@ const DateListItem = ({ date, setAddWalk, walks }) => {
   
 //-----------------------------------------------------------------------------------------------------------
   const clickToAddWalk = () => {
-    setAddWalk(date);
+    setAddWalkDate(date);
   };
 
 //------------------------------------------------------------------------------------------------------------
@@ -43,15 +43,13 @@ const DateListItem = ({ date, setAddWalk, walks }) => {
   };
 
 //-----------------------------------------------------------------------------------------------------------
-//Component return
+//---- Component return --------
 
   return (
     <div tabIndex="1" onBlur={handleBlur} className="dateListItem">
       <div>{date.format("dddd")}</div>
       <div>{availibleSpotsForDate}</div>
-      <button onClick={clickToAddWalk}>
-        Add To Walk
-      </button>
+      <button onClick={clickToAddWalk}>Add To Walk</button>
       <div>{date.format("MMM D")}</div>
     </div>
   );
