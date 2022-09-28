@@ -14,28 +14,22 @@ const useApplicationData = () => {
   });
   
   //-------------------------------------------------------------------------------------------------
+  const getUsers = () => {
 
-  useEffect(() => {
-    
-    Promise.all([
-      // axios.get("http://localhost:8000/api/dogs"),
-      axios.get("http://localhost:8000/api/users")
-      
-    ])
-      .then((all) => {
-
+    return axios.get("http://localhost:8000/api/users")
+      .then((users) => {
         setState((prev) => ({
-          ...prev,
-          // dogs: all[0].data,
-          users: all[0].data
-        }));
-
+          ...prev, users: users.data
+        }))
       })
-      .catch((err) => {
-        console.log(err.message);
-      });
+  }
+  useEffect(() => {
+    getUsers();
+
   }, []);
+
   //-----------------------------------------------------------------------------------------------
+  
   const getDogs = () => {
 
     return axios.get("http://localhost:8000/api/dogs")
@@ -50,6 +44,7 @@ const useApplicationData = () => {
     getDogs()
 
   }, []);
+
   //------------------------------------------------------------------------------------------------
 
   const createDogWalk = (date, selectedDogs) => { 

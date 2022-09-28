@@ -1,9 +1,9 @@
 import Nav from './components/Nav'
-import Extras from './components/Extras'
+import Register from './pages/Register';
 import DateList from './components/DateList'
 import './App.scss';
 import useApplicationData from './hooks/useApplicationData';
-
+import { Routes, Route } from "react-router-dom";
 //------------------------------------------------------------------------------------------------------------
 
 function App() {
@@ -13,18 +13,21 @@ function App() {
   
 
   return (
-    <div className="App">
-      <Nav />
-      <main>
-        <DateList
-          walks={state.walks}
-          createDogWalk={createDogWalk}
-          dogs={state.dogs}
-        />
-          
-        <Extras />
-      </main>
-    </div>
+    <>
+      <div className="App">
+        <Nav />
+        <main>
+            <Routes>
+              <Route path="/" element={<DateList
+                walks={state.walks}
+                createDogWalk={createDogWalk}
+                dogs={state.dogs} />}>
+              </Route>
+              <Route path="register" element={<Register/>}></Route>
+            </Routes>
+        </main>
+      </div>
+    </>
   );
 
 }

@@ -23,29 +23,33 @@ const [addWalkDate, setAddWalkDate] = useState(null);
   const datesArray = dates.map((date) => {
 
     return (
-      <div key={date} className="dateList">
-        {date.isSame(addWalkDate, "day") ? (
-          <WalkForm
+        <div key={date} className="dateList">
+          {date.isSame(addWalkDate, "day") ? (
+            <WalkForm
             date={date}
             createDogWalk={createDogWalk}
             dogs={dogs}
             setAddWalkDate={setAddWalkDate}
-          />
-        ) : (
-          <DateListItem
-            date={date}
-            setAddWalkDate={setAddWalkDate}
-            walks={walks}
-          />
-        )}
-      </div>
+            />
+            ) : (
+              <DateListItem
+              date={date}
+              setAddWalkDate={setAddWalkDate}
+              walks={walks}
+              />
+              )}
+        </div>
     );
   });
 
 //----------------------------------------------------------------------------------------------------------
 //Component Return
 
-  return <div>{datesArray}</div>;
+  return (
+    <>
+      <div>{datesArray}</div>;
+    </>
+  );
 
 };
 
