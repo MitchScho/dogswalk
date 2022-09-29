@@ -1,5 +1,6 @@
 import Nav from './components/Nav'
 import Register from './pages/Register';
+import Admin from './pages/Admin';
 import DateList from './components/DateList'
 import './App.scss';
 import useApplicationData from './hooks/useApplicationData';
@@ -24,6 +25,7 @@ function App() {
                 dogs={state.dogs} />}>
               </Route>
               <Route path="register" element={<Register/>}></Route>
+              <Route path="admin" element={<Admin/>}></Route>
             </Routes>
         </main>
       </div>

@@ -1,10 +1,17 @@
 
 const Admin = () => {
   return (
-    <div>
+    <h3
+      style={{
+        display: "flex",
+        justifyContent: "space-between",
+        alignItems: "center",
+        flexDirection: " column",
+      }}
+    >
       Admin Page
-    </div>
-)
+    </h3>
+  );
 };
 
 export default Admin;
