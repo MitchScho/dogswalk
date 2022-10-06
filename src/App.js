@@ -9,24 +9,27 @@ import { Routes, Route } from "react-router-dom";
 
 function App() {
 
-  
+
   const { state, createDogWalk } = useApplicationData();
-  
+
 
   return (
     <>
       <div className="App">
         <Nav />
         <main>
-            <Routes>
-              <Route path="/" element={<DateList
-                walks={state.walks}
-                createDogWalk={createDogWalk}
-                dogs={state.dogs} />}>
-              </Route>
-              <Route path="register" element={<Register/>}></Route>
-              <Route path="admin" element={<Admin/>}></Route>
-            </Routes>
+          <Routes>
+            <Route path="/" element={<DateList
+              walks={state.walks}
+              createDogWalk={createDogWalk}
+              dogs={state.dogs} />}>
+            </Route>
+            <Route path="register" element={<Register />}></Route>
+            <Route path="admin" element={<Admin
+              walks={state.walks}
+              dogs={state.dogs}
+            />}></Route>
+          </Routes>
         </main>
       </div>
     </>

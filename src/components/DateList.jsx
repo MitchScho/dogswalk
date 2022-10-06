@@ -47,7 +47,7 @@ const [addWalkDate, setAddWalkDate] = useState(null);
 
   return (
     <>
-      <div>{datesArray}</div>;
+      <div>{datesArray}</div>
     </>
   );
 
