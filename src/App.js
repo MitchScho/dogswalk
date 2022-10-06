@@ -1,6 +1,6 @@
 import Nav from './components/Nav'
-import Register from './pages/Register';
-import Admin from './pages/Admin';
+import Register from './Auth';
+import Admin from './Admin';
 import DateList from './components/DateList'
 import './App.scss';
 import useApplicationData from './hooks/useApplicationData';

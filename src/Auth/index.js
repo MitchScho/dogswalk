@@ -1,4 +1,3 @@
-
 const Register = () => {
 
   return (
@@ -7,7 +6,7 @@ const Register = () => {
         style={{
           display: "flex",
           justifyContent: "space-between",
-          alignItems:"center",
+          alignItems: "center",
           flexDirection: " column",
         }}
       >
