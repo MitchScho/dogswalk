@@ -6,6 +6,7 @@ import AdminListItem from '../components/AdminListItem';
 const Admin = ({ walks }) => {
 
   const [toggleAdmin, setToggleAdmin] = useState(null);
+  const [selectedAdminDate, setSelectedAdminDate] = useState(null);
 
 //----------------------------------------------------------------------------------------------
   const getUnAcceptedDogWalks = () => {
@@ -29,7 +30,12 @@ const Admin = ({ walks }) => {
     console.log(walk);
 
     return (
-      <AdminList key={walk.id} date={walk.date} setToggleAdmin={setToggleAdmin} />
+      <AdminList
+        key={walk.id}
+        date={walk.date}
+        dogs={walk.dogs} 
+        setToggleAdmin={setToggleAdmin}
+        setSelectedAdminDate={setSelectedAdminDate} />
     )
   })
 //---------------------------------------------------------------------------------------------------
@@ -50,12 +56,17 @@ const Admin = ({ walks }) => {
         </h3>
         {toggleAdmin ? <button onClick={() => setToggleAdmin(false)}>Back</button>: <div></div>}
       </div>
+      {!toggleAdmin &&<div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom:"1em" }}>
+          <div>Day</div>
+          <div>Date</div>
+          <div>Number of Dogs To Be Accepted</div>
+        </div>}
       {!toggleAdmin ? 
       <div>
         {walksArray}
         </div>
         :
-        <AdminListItem/>
+        <AdminListItem date={selectedAdminDate} />
       }
     </>
 
