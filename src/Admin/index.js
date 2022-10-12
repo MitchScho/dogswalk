@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
 import axios from "axios";
-import AdminList from '../components/AdminList';
+import AdminWalkList from '../components/AdminWalkList';
 import AdminListItem from '../components/AdminListItem';
 //------------------------------------------------------------------------------------------------------
 const Admin = ({ walks }) => {
 
   const [toggleAdmin, setToggleAdmin] = useState(null);
-  const [selectedAdminDate, setSelectedAdminDate] = useState(null);
+  const [selectedAdminWalk, setSelectedAdminWalk] = useState(null);
 
 //----------------------------------------------------------------------------------------------
   const getUnAcceptedDogWalks = () => {
@@ -15,7 +15,6 @@ const Admin = ({ walks }) => {
     return axios.get("http://localhost:8000/api/admin/walks")
       .then((walks) => {
       
-        console.log("Admin Walks", walks);
       })
   }
 
@@ -27,15 +26,15 @@ const Admin = ({ walks }) => {
 //---------------------------------------------------------------------------------------------
   
   const walksArray = walks.map((walk) => {
-    console.log(walk);
 
     return (
-      <AdminList
+      <AdminWalkList
         key={walk.id}
         date={walk.date}
         dogs={walk.dogs} 
+        walk={walk}
         setToggleAdmin={setToggleAdmin}
-        setSelectedAdminDate={setSelectedAdminDate} />
+        setSelectedAdminWalk={setSelectedAdminWalk} />
     )
   })
 //---------------------------------------------------------------------------------------------------
@@ -66,7 +65,18 @@ const Admin = ({ walks }) => {
         {walksArray}
         </div>
         :
-        <AdminListItem date={selectedAdminDate} />
+        <div>
+          <div style={{ display: "flex", justifyContent: "space-between" }}>
+            <div>Day</div>
+            <div>Date</div>
+            <div>User</div>
+            <div>Dogs</div>
+            <div>Payed For</div>
+            <div>Is Accepted</div>
+            <div>no. Of Dogs On Walk</div>
+          </div>
+          <AdminListItem selectedAdminWalk={selectedAdminWalk} />
+        </div>
       }
     </>
 
