@@ -12,8 +12,10 @@ const Admin = ({walks}) => {
   const [selectedAdminWalk, setSelectedAdminWalk] = useState(null);
   const [adminWalks, setAdminWalks] = useState(walks);
   const [isAccepted, setIsAccepted] = useState(true);
-  const [reFreshKey, setReFreshKey] = useState(0)
-  console.log("admin walks", adminWalks);
+  const [state, setState] = useState({
+    reFreshKey: 0
+  })
+  
 //----------------------------------------------------------------------------------------------
   
   const getUnAcceptedDogWalks = () => {
@@ -28,7 +30,7 @@ const Admin = ({walks}) => {
   useEffect(() => {
     getUnAcceptedDogWalks()
 
-  }, [reFreshKey]);
+  }, [state.reFreshKey]);
 
 //-----------------------------------------------------------------------------------------------------------
 
@@ -38,10 +40,9 @@ const Admin = ({walks}) => {
     return axios
       .put(`http://localhost:8000/api/admin/walks/${id}`, isAccepted)
       .then(() => {
-        setReFreshKey((prev) => ({
-          ...prev,
-          reFreshKey: prev.reFreshKey + 1,
-        }));
+        setState((prev) => ({
+          ...prev, reFreshKey: prev.reFreshKey + 1
+        }))
       });
   };
 
