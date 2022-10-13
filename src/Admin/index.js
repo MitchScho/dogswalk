@@ -11,7 +11,7 @@ const Admin = ({walks}) => {
   const [toggleAdmin, setToggleAdmin] = useState(null);
   const [selectedAdminWalk, setSelectedAdminWalk] = useState(null);
   const [adminWalks, setAdminWalks] = useState(walks);
-  const [isAccepted, setIsAccepted] = useState(true);
+ 
   const [state, setState] = useState({
     reFreshKey: 0
   })
@@ -34,11 +34,11 @@ const Admin = ({walks}) => {
 
 //-----------------------------------------------------------------------------------------------------------
 
-  const updateIsAcceptedDogWalks = () => {
+  const updateDogWalk = (data) => {
     
     const id = selectedAdminWalk.id;
     return axios
-      .put(`http://localhost:8000/api/admin/walks/${id}`, isAccepted)
+      .put(`http://localhost:8000/api/admin/walks/${id}`, data)
       .then(() => {
         setState((prev) => ({
           ...prev, reFreshKey: prev.reFreshKey + 1
@@ -100,8 +100,7 @@ const Admin = ({walks}) => {
           <AdminListItem
             selectedAdminWalk={selectedAdminWalk}
             walks={adminWalks}
-            setIsAccepted={setIsAccepted}
-            updateIsAcceptedDogWalks={updateIsAcceptedDogWalks}
+            updateDogWalk={updateDogWalk}
           />
         </div>
       }

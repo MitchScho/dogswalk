@@ -8,8 +8,7 @@ import { useEffect, useState } from "react";
 const AdminListItem = ({
   selectedAdminWalk,
   walks,
-  setIsAccepted,
-  updateIsAcceptedDogWalks,
+  updateDogWalk,
 }) => {
 
   //--------------------------------------------------------------------------------------------------------
@@ -25,8 +24,8 @@ const AdminListItem = ({
   //--------------------------------------------------------------------------------------------------
   const handleIsAccepted = () => {
     console.log("handle is Accepted pressed");
-    setIsAccepted(true);
-    updateIsAcceptedDogWalks();
+    
+    updateDogWalk({isAccepted: true});
   };
 
   //-------------------------------------------------------------------------------------------------------
