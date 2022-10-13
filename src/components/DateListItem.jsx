@@ -8,6 +8,7 @@ const DateListItem = ({ date, setAddWalkDate, walks }) => {
 //Update availible spots
  
   const availibleSpotsForDate = getAvailibleSpots(date, walks);
+  
 //-----------------------------------------------------------------------------------------------------------
   const clickToAddWalk = () => {
     setAddWalkDate(date);

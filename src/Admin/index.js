@@ -2,6 +2,9 @@ import { useEffect, useState } from 'react';
 import axios from "axios";
 import AdminWalkList from '../components/AdminWalkList';
 import AdminListItem from '../components/AdminListItem';
+import './index.scss';
+
+
 //------------------------------------------------------------------------------------------------------
 const Admin = ({ walks }) => {
 
@@ -10,7 +13,6 @@ const Admin = ({ walks }) => {
 
 //----------------------------------------------------------------------------------------------
   const getUnAcceptedDogWalks = () => {
-
 
     return axios.get("http://localhost:8000/api/admin/walks")
       .then((walks) => {
@@ -23,15 +25,14 @@ const Admin = ({ walks }) => {
 
   }, []);
 
-//---------------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------------------
+
   
   const walksArray = walks.map((walk) => {
 
     return (
       <AdminWalkList
-        key={walk.id}
-        date={walk.date}
-        dogs={walk.dogs} 
+        key={walk.id} 
         walk={walk}
         setToggleAdmin={setToggleAdmin}
         setSelectedAdminWalk={setSelectedAdminWalk} />
@@ -75,7 +76,7 @@ const Admin = ({ walks }) => {
             <div>Is Accepted</div>
             <div>no. Of Dogs On Walk</div>
           </div>
-          <AdminListItem selectedAdminWalk={selectedAdminWalk} />
+          <AdminListItem selectedAdminWalk={selectedAdminWalk} walks={walks}/>
         </div>
       }
     </>
