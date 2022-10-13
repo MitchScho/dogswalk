@@ -11,6 +11,9 @@ const AdminListItem = ({
   updateDogWalk,
 }) => {
 
+  console.log("walk is accepted", selectedAdminWalk.isAccepted);
+  console.log("walk is accepted", selectedAdminWalk.payedFor);
+
   //--------------------------------------------------------------------------------------------------------
   //-- Store selected admin walk date as a moment object --------
 
@@ -23,9 +26,14 @@ const AdminListItem = ({
 
   //--------------------------------------------------------------------------------------------------
   const handleIsAccepted = () => {
-    console.log("handle is Accepted pressed");
-    
-    updateDogWalk({isAccepted: true});
+
+    updateDogWalk({ isAccepted: true });
+  };
+
+  //--------------------------------------------------------------------------------------------------
+  const handlePayedFor = () => {
+
+    updateDogWalk({ payedFor: true });
   };
 
   //-------------------------------------------------------------------------------------------------------
@@ -40,11 +48,9 @@ const AdminListItem = ({
       <div>{adminWalkDate.format("MMM D")}</div>
       <div>User</div>
       <div>{dogs}</div>
-      <button>Payed For</button>
-      <button style={{ marginRight: "10em" }} onClick={handleIsAccepted}>
-        Is Accepted
-      </button>
-      <div>{numberOfDogsOnWalk}</div>
+      <button onClick={handlePayedFor}>Payed For</button>
+      <button style={{ marginRight: "10em" }} onClick={handleIsAccepted}>Is Accepted</button>
+      <div>{numberOfDogsOnWalk}/12</div>
     </div>
   );
 };;

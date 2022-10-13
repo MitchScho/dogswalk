@@ -31,14 +31,14 @@ const Admin = ({walks}) => {
     getUnAcceptedDogWalks()
 
   }, [state.reFreshKey]);
-
+  console.log(state.reFreshKey);
 //-----------------------------------------------------------------------------------------------------------
 
-  const updateDogWalk = (data) => {
+  const updateDogWalk = (payload) => {
     
     const id = selectedAdminWalk.id;
     return axios
-      .put(`http://localhost:8000/api/admin/walks/${id}`, data)
+      .put(`http://localhost:8000/api/admin/walks/${id}`, payload)
       .then(() => {
         setState((prev) => ({
           ...prev, reFreshKey: prev.reFreshKey + 1
@@ -95,7 +95,7 @@ const Admin = ({walks}) => {
             <div>Dogs</div>
             <div>Payed For</div>
             <div>Is Accepted</div>
-            <div>no. Of Dogs On Walk</div>
+            <div>no. Of Dogs For Acceptance</div>
           </div>
           <AdminListItem
             selectedAdminWalk={selectedAdminWalk}
