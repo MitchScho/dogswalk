@@ -6,29 +6,48 @@ import './index.scss';
 
 
 //------------------------------------------------------------------------------------------------------
-const Admin = ({ walks }) => {
+const Admin = ({walks}) => {
 
   const [toggleAdmin, setToggleAdmin] = useState(null);
   const [selectedAdminWalk, setSelectedAdminWalk] = useState(null);
-
+  const [adminWalks, setAdminWalks] = useState(walks);
+  const [isAccepted, setIsAccepted] = useState(true);
+  const [reFreshKey, setReFreshKey] = useState(0)
+  console.log("admin walks", adminWalks);
 //----------------------------------------------------------------------------------------------
+  
   const getUnAcceptedDogWalks = () => {
-
+   
     return axios.get("http://localhost:8000/api/admin/walks")
       .then((walks) => {
-      
+       
+        setAdminWalks(walks.data);
       })
   }
 
   useEffect(() => {
     getUnAcceptedDogWalks()
 
-  }, []);
+  }, [reFreshKey]);
 
 //-----------------------------------------------------------------------------------------------------------
 
+  const updateIsAcceptedDogWalks = () => {
+    
+    const id = selectedAdminWalk.id;
+    return axios
+      .put(`http://localhost:8000/api/admin/walks/${id}`, isAccepted)
+      .then(() => {
+        setReFreshKey((prev) => ({
+          ...prev,
+          reFreshKey: prev.reFreshKey + 1,
+        }));
+      });
+  };
+
+//---------------------------------------------------------------------------------------------------------  
   
-  const walksArray = walks.map((walk) => {
+  const walksArray = adminWalks.map((walk) => {
 
     return (
       <AdminWalkList
@@ -38,6 +57,7 @@ const Admin = ({ walks }) => {
         setSelectedAdminWalk={setSelectedAdminWalk} />
     )
   })
+
 //---------------------------------------------------------------------------------------------------
 
   return (
@@ -76,7 +96,12 @@ const Admin = ({ walks }) => {
             <div>Is Accepted</div>
             <div>no. Of Dogs On Walk</div>
           </div>
-          <AdminListItem selectedAdminWalk={selectedAdminWalk} walks={walks}/>
+          <AdminListItem
+            selectedAdminWalk={selectedAdminWalk}
+            walks={adminWalks}
+            setIsAccepted={setIsAccepted}
+            updateIsAcceptedDogWalks={updateIsAcceptedDogWalks}
+          />
         </div>
       }
     </>

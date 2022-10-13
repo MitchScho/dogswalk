@@ -25,10 +25,7 @@ function App() {
               dogs={state.dogs} />}>
             </Route>
             <Route path="register" element={<Register />}></Route>
-            <Route path="admin" element={<Admin
-              walks={state.walks}
-              dogs={state.dogs}
-            />}></Route>
+            <Route path="admin" element={<Admin walks={state.walks}/>}></Route>
           </Routes>
         </main>
       </div>

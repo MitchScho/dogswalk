@@ -52,9 +52,7 @@ const useApplicationData = () => {
     const walk = { date, selectedDogs };
     
     return axios.post(`http://localhost:8000/api/walks`, walk)
-      .then((response) => {
-
-        console.log("request dog walk response data", response.data);
+      .then(() => {
        
         setState((prev) => ({
           ...prev, reFreshKey: prev.reFreshKey + 1

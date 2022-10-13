@@ -5,11 +5,13 @@ import { useEffect, useState } from "react";
 
 //----------------------------------------------------------------------------------------------------------
 
-const AdminListItem = ({ selectedAdminWalk, walks }) => {
+const AdminListItem = ({
+  selectedAdminWalk,
+  walks,
+  setIsAccepted,
+  updateIsAcceptedDogWalks,
+}) => {
 
-  console.log(selectedAdminWalk);
-
-  const [toggleIsAccepted, setToggleIsAccepted] = useState(selectedAdminWalk.isAccepted);
   //--------------------------------------------------------------------------------------------------------
   //-- Store selected admin walk date as a moment object --------
 
@@ -22,21 +24,10 @@ const AdminListItem = ({ selectedAdminWalk, walks }) => {
 
   //--------------------------------------------------------------------------------------------------
   const handleIsAccepted = () => {
-    setToggleIsAccepted(true);
-  };
-
-  //----------------------------------------------------------------------------------------------
-
-  const updateIsAcceptedDogWalks = () => {
-    const id = selectedAdminWalk.id;
-    return axios
-      .put(`http://localhost:8000/api/admin/walks/${id}`, {isAccepted: {toggleIsAccepted}})
-      .then(() => {});
-  };
-
-  useEffect(() => {
+    console.log("handle is Accepted pressed");
+    setIsAccepted(true);
     updateIsAcceptedDogWalks();
-  }, []);
+  };
 
   //-------------------------------------------------------------------------------------------------------
   //-- Dogs array to be displayed --------
