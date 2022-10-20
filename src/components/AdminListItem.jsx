@@ -9,10 +9,20 @@ const AdminListItem = ({
   selectedAdminWalk,
   walks,
   updateDogWalk,
+  
 }) => {
+  const [isAccepted, setIsAccepted] = useState(selectedAdminWalk.isAccepted);
+  const [payedFor, setPayedFor] = useState(selectedAdminWalk.payedFor);
 
-  console.log("walk is accepted", selectedAdminWalk.isAccepted);
-  console.log("walk is accepted", selectedAdminWalk.payedFor);
+  console.log("selected admin walk", selectedAdminWalk.id);
+  console.log("walk is accepted", isAccepted);
+  console.log("walk is payedFor", payedFor);
+  const isAcceptedClass = isAccepted
+    ? "payedFor-accepted"
+    : "notPayedFor-accepted";
+  const isPayedForClass = payedFor
+    ? "payedFor-accepted"
+    : "notPayedFor-accepted";
 
   //--------------------------------------------------------------------------------------------------------
   //-- Store selected admin walk date as a moment object --------
@@ -26,14 +36,15 @@ const AdminListItem = ({
 
   //--------------------------------------------------------------------------------------------------
   const handleIsAccepted = () => {
-
-    updateDogWalk({ isAccepted: true });
+    
+    setIsAccepted(!isAccepted);
+    updateDogWalk({ isAccepted: isAccepted });
   };
 
   //--------------------------------------------------------------------------------------------------
   const handlePayedFor = () => {
-
-    updateDogWalk({ payedFor: true });
+    setPayedFor(!payedFor);
+    updateDogWalk({ payedFor: payedFor });
   };
 
   //-------------------------------------------------------------------------------------------------------
@@ -43,15 +54,34 @@ const AdminListItem = ({
   });
 
   return (
-    <div style={{ display: "flex", justifyContent: "space-between" }}>
-      <div>{adminWalkDate.format("dddd")}</div>
-      <div>{adminWalkDate.format("MMM D")}</div>
-      <div>User</div>
-      <div>{dogs}</div>
-      <button onClick={handlePayedFor}>Payed For</button>
-      <button style={{ marginRight: "10em" }} onClick={handleIsAccepted}>Is Accepted</button>
-      <div>{numberOfDogsOnWalk}/12</div>
-    </div>
+    <>
+      <div style={{ display: "flex", justifyContent: "space-between" }}>
+          <div>Day</div>
+          <div>Date</div>
+          <div>User</div>
+          <div>Dogs</div>
+          <div>Payed For</div>
+          <div>Is Accepted</div>
+          <div>no. Of Dogs For Acceptance</div>
+      </div>
+      <div style={{ display: "flex", justifyContent: "space-between" }}>
+        <div>{adminWalkDate.format("dddd")}</div>
+        <div>{adminWalkDate.format("MMM D")}</div>
+        <div>User</div>
+        <div>{dogs}</div>
+        <button onClick={handlePayedFor} className={isPayedForClass}>
+          Payed For
+        </button>
+        <button
+          style={{ marginRight: "10em" }}
+          onClick={handleIsAccepted}
+          className={isAcceptedClass}
+        >
+          Is Accepted
+        </button>
+        <div>{numberOfDogsOnWalk}/12</div>
+      </div>
+    </>
   );
 };;
 
