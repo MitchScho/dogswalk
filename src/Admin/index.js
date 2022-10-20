@@ -3,24 +3,35 @@ import axios from "axios";
 import AdminWalkList from '../components/AdminWalkList';
 import AdminListItem from '../components/AdminListItem';
 import './index.scss';
+import { Routes, Route, Link } from "react-router-dom";
+
 
 
 //------------------------------------------------------------------------------------------------------
 const Admin = ({ walks }) => {
 
   const [toggleAdmin, setToggleAdmin] = useState(null);
-  const [selectedAdminWalk, setSelectedAdminWalk] = useState(null);
+  // const [selectedAdminWalk, setSelectedAdminWalk] = useState(null);
   const [adminWalks, setAdminWalks] = useState(walks);
 
   const [state, setState] = useState({
     reFreshKey: 0
   })
 
+//---------------------
+  const getWalk = (id) => {
 
+    return axios.get(`http://localhost:8000/api/admin/walks/${id}`)
+      .then((res) => {
+        // console.log(res.data);
+      
+        return res.data;
+    })
+  }
 
   //----------------------------------------------------------------------------------------------
 
-  const getUnAcceptedDogWalks = () => {
+  const getUnFinalisedDogWalks = () => {
 
     return axios.get("http://localhost:8000/api/admin/walks")
       .then((walks) => {
@@ -30,40 +41,69 @@ const Admin = ({ walks }) => {
   }
 
   useEffect(() => {
-    getUnAcceptedDogWalks()
+    getUnFinalisedDogWalks()
 
   }, [state.reFreshKey]);
   // console.log(state.reFreshKey);
+
   //-----------------------------------------------------------------------------------------------------------
+  // const params = useParams();
 
   const updateDogWalk = (payload) => {
+
     console.log("payload", payload);
-    const id = selectedAdminWalk.id;
+    const id = payload.walkId;
     return axios
       .put(`http://localhost:8000/api/admin/walks/${id}`, payload)
       .then((upDatedWalk) => {
-
-        console.log("Updated walk data", upDatedWalk.data);
-        setSelectedAdminWalk((prev) => ({ ...prev, walk: upDatedWalk.data }));
-        setState((prev) => ({
-          ...prev, reFreshKey: prev.reFreshKey + 1
-        }))
+        setState((prev) => ({ ...prev, reFreshKey: prev.reFreshKey + 1 }));
+        return upDatedWalk;
       });
   };
+
+  // console.log("Updated walk data", upDatedWalk.data);
+  // setSelectedAdminWalk((prev) => ({ ...prev, walk: upDatedWalk.data }));
+  // setState((prev) => ({
+  //   ...prev, reFreshKey: prev.reFreshKey + 1
+  // }))
 
   //---------------------------------------------------------------------------------------------------------  
 
   const walksArray = adminWalks.map((walk) => {
 
     return (
-      <AdminWalkList
-        key={walk.id}
+      <Link to={`/admin/walk/${walk.id}`} key={walk.id}>
+        <AdminWalkList
         walk={walk}
-        setToggleAdmin={setToggleAdmin}
-        setSelectedAdminWalk={setSelectedAdminWalk} />
+        // setToggleAdmin={setToggleAdmin}
+        // setSelectedAdminWalk={setSelectedAdminWalk}
+        />
+      </Link>
+      
     )
   })
+  //---------
+ 
+  // const Component = () => {
 
+    
+  // }
+
+  //----------------------------------------------------------------------------------------------
+  const Home = () => {
+    return (
+      <>
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "1em" }}>
+          <div>Day</div>
+          <div>Date</div>
+          <div>Number of Dogs To Be Accepted</div>
+        </div>
+        <div>
+          {walksArray}
+        </div>
+      </>
+    )
+  }
   //---------------------------------------------------------------------------------------------------
 
   return (
@@ -80,24 +120,22 @@ const Admin = ({ walks }) => {
         >
           Admin Page
         </h3>
-        {toggleAdmin ? <button onClick={() => setToggleAdmin(false)}>Back</button> : <div></div>}
+        {toggleAdmin ? <Link to="/admin"><button onClick={() => setToggleAdmin(false)}>Back</button></Link> : <div></div>}
+        
       </div>
-      {!toggleAdmin && <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "1em" }}>
-        <div>Day</div>
-        <div>Date</div>
-        <div>Number of Dogs To Be Accepted</div>
-      </div>}
-      {!toggleAdmin ?
-        <div>
-          {walksArray}
-        </div>
-        :
-        <AdminListItem
-          selectedAdminWalk={selectedAdminWalk}
-          walks={adminWalks}
+      <Routes>
+      
+        <Route path="/" element={<Home />} />
+        
+        <Route path="/walk/:walkId" element={
+          <AdminListItem
+          getWalk={getWalk}
+          // walks={adminWalks}
           updateDogWalk={updateDogWalk}
+          />}
         />
-      }
+        
+      </Routes>
     </>
 
   )

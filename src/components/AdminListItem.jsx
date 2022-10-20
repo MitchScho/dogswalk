@@ -1,55 +1,75 @@
 import moment from "moment";
 import getAvailibleSpots from "../helpers/getAvailibleSpots";
-import axios from "axios";
 import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom"
 
 //----------------------------------------------------------------------------------------------------------
 
 const AdminListItem = ({
-  selectedAdminWalk,
   walks,
   updateDogWalk,
+  getWalk
   
 }) => {
-  const [isAccepted, setIsAccepted] = useState(selectedAdminWalk.isAccepted);
-  const [payedFor, setPayedFor] = useState(selectedAdminWalk.payedFor);
+  const [walk, setWalk] = useState(null);
+  const [state, setState] = useState({
+    reFreshKey: 0,
+  });
 
-  console.log("selected admin walk", selectedAdminWalk.id);
-  console.log("walk is accepted", isAccepted);
-  console.log("walk is payedFor", payedFor);
-  const isAcceptedClass = isAccepted
-    ? "payedFor-accepted"
-    : "notPayedFor-accepted";
-  const isPayedForClass = payedFor
-    ? "payedFor-accepted"
-    : "notPayedFor-accepted";
-
+  const params = useParams();
+ 
+  //-------------------------------------------------------------------------------------------------------
+  //--- Get walk call -----------
+  useEffect(() => {
+    getWalk(params.walkId).then((data) => {
+      setWalk(data);
+    });
+  }, [state.reFreshKey]);
+  
+  
+  if (!walk) {
+    return <div>Loading...</div>;
+  }
+  
   //--------------------------------------------------------------------------------------------------------
   //-- Store selected admin walk date as a moment object --------
-
-  const adminWalkDate = moment(new Date(selectedAdminWalk.date));
-
-  //-------------------------------------------------------------------------------------------------------------
-  //--- Number of dogs on walk --------
-  const availibleSpotsForDate = getAvailibleSpots(adminWalkDate, walks);
-  const numberOfDogsOnWalk = 12 - availibleSpotsForDate;
-
-  //--------------------------------------------------------------------------------------------------
-  const handleIsAccepted = () => {
+  
+  const adminWalkDate = moment(new Date(walk.date));
+  
+    //------------------------------------------------------------------------------------
+    const isAcceptedClass = walk.isAccepted
+    ? "payedFor-accepted"
+    : "notPayedFor-accepted";
+    const isPayedForClass = walk.payedFor
+    ? "payedFor-accepted"
+    : "notPayedFor-accepted";
     
-    setIsAccepted(!isAccepted);
-    updateDogWalk({ isAccepted: isAccepted });
-  };
-
-  //--------------------------------------------------------------------------------------------------
-  const handlePayedFor = () => {
-    setPayedFor(!payedFor);
-    updateDogWalk({ payedFor: payedFor });
-  };
-
+    //-------------------------------------------------------------------------------------------------------------
+    //--- Number of dogs on walk --------
+    // const availibleSpotsForDate = getAvailibleSpots(adminWalkDate, walks);
+    // const numberOfDogsOnWalk = 12 - availibleSpotsForDate;
+    
+    //--------------------------------------------------------------------------------------------------
+    const handleIsAccepted = (id, value) => {
+    
+      updateDogWalk({ walkId: id, isAccepted: !value })
+        .then(() => {
+          setState((prev) => ({...prev, reFreshKey: prev.reFreshKey +1 }))
+        });
+    };
+    
+    //--------------------------------------------------------------------------------------------------
+    const handlePayedFor = (id, value) => {
+    
+      updateDogWalk({ walkId: id, payedFor: !value })
+        .then(() => {
+        setState((prev) => ({ ...prev, reFreshKey: prev.reFreshKey + 1 }));
+      });
+    };
+    
   //-------------------------------------------------------------------------------------------------------
   //-- Dogs array to be displayed --------
-  const dogs = selectedAdminWalk.dogs.map((dog) => {
+  const dogs = walk.dogs.map((dog) => {
     return <div key={dog.id}>{dog.name}</div>;
   });
 
@@ -69,17 +89,17 @@ const AdminListItem = ({
         <div>{adminWalkDate.format("MMM D")}</div>
         <div>User</div>
         <div>{dogs}</div>
-        <button onClick={handlePayedFor} className={isPayedForClass}>
+        <button onClick={() => handlePayedFor(walk.id, walk.payedFor)} className={isPayedForClass}>
           Payed For
         </button>
         <button
           style={{ marginRight: "10em" }}
-          onClick={handleIsAccepted}
+          onClick={() => handleIsAccepted(walk.id, walk.isAccepted)}
           className={isAcceptedClass}
         >
           Is Accepted
         </button>
-        <div>{numberOfDogsOnWalk}/12</div>
+        {/* <div>{numberOfDogsOnWalk}/12</div> */}
       </div>
     </>
   );

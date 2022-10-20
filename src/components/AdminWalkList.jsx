@@ -7,23 +7,24 @@ const AdminWalkList = ({ walk, setToggleAdmin, setSelectedAdminWalk }) => {
   const adminWalkListDate = moment(new Date(walk.date));
   
 //------------------------------------------------------------------------------------------------------
-//--Click to select Admin walk date ------
-  const handleOnClick = () => {
-    setToggleAdmin(true);
-    setSelectedAdminWalk(walk);
-  };
+// //--Click to select Admin walk date ------
+//   const handleOnClick = () => {
+//     setToggleAdmin(true);
+//     setSelectedAdminWalk(walk);
+//   };
 
 
   return (
-      <div
-      onClick={handleOnClick}
+      <ul
+      // onClick={handleOnClick}
       style={{ display: "flex", justifyContent: "space-between" }}
     >
-      <div>{adminWalkListDate.format("dddd")}</div>
-      <div>{adminWalkListDate.format("MMM D")}</div>
-      <div>{walk.dogs.length}</div>
-    </div>
+      <li>{adminWalkListDate.format("dddd")}</li>
+      <li>{adminWalkListDate.format("MMM D")}</li>
+      <li>{walk.dogs.length}</li>
+    </ul>
   );
 };
 
 export default AdminWalkList;
+ 
