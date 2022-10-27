@@ -7,16 +7,16 @@ const AdminWalkList = ({ walk, setToggleAdmin, setSelectedAdminWalk }) => {
   const adminWalkListDate = moment(new Date(walk.date));
   
 //------------------------------------------------------------------------------------------------------
-// //--Click to select Admin walk date ------
-//   const handleOnClick = () => {
-//     setToggleAdmin(true);
-//     setSelectedAdminWalk(walk);
-//   };
+//--Click to select Admin walk date ------
+  const handleOnClick = () => {
+    setToggleAdmin(true);
+    // setSelectedAdminWalk(walk);
+  };
 
 
   return (
       <ul
-      // onClick={handleOnClick}
+      onClick={handleOnClick}
       style={{ display: "flex", justifyContent: "space-between" }}
     >
       <li>{adminWalkListDate.format("dddd")}</li>
