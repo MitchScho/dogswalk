@@ -1,15 +1,16 @@
 import "./PayedForConfirm.scss";
 
 const PayedForConfirm = ({
-  handlePayedForConfirm,
-  handlePayedForBack,
+  confirm,
+  back,
+  message
 }) => {
   return (
     <div className="confirm">
-      <h4> Confirm Dog is Payed For</h4>
+      <h4>{message}</h4>
       <section>
-        <button onClick={handlePayedForConfirm}>Confirm</button>
-        <button onClick={handlePayedForBack}>Back</button>
+        <button onClick={confirm}>Confirm</button>
+        <button onClick={back}>Back</button>
       </section>
     </div>
   );

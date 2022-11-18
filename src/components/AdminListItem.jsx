@@ -3,15 +3,14 @@ import getAvailibleSpots from "../helpers/getAvailibleSpots";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 //---Import Components ---
-import IsAcceptedConfirm from "./IsAcceptedConfirm";
-import PayedForConfirm from "./PayedForConfirm";
+import ConfirmationModal from "./ConfirmationModal";
+
 
 //----------------------------------------------------------------------------------------------------------
 
-const AdminListItem = ({ updateDogWalk, getWalk }) => {
+const AdminListItem = ({ updateDogWalk, getWalk, walks }) => {
   const [walk, setWalk] = useState(null);
-  const [displayIsAcceptedConfirm, setDisplayIsAcceptedConfirm] = useState(null);
-  const [displayPayedForConfirm, setDisplayPayedForConfirm] = useState(null);
+  const [modalData, setModalData] = useState(null);
   const [state, setState] = useState({
     reFreshKey: 0,
   });
@@ -36,6 +35,8 @@ const AdminListItem = ({ updateDogWalk, getWalk }) => {
   const adminWalkDate = moment(new Date(walk.date));
 
   //------------------------------------------------------------------------------------
+  //--- Button Style rendering ---
+  
   const isAcceptedClass = walk.isAccepted
     ? "payedFor-accepted"
     : "notPayedFor-accepted";
@@ -46,45 +47,42 @@ const AdminListItem = ({ updateDogWalk, getWalk }) => {
   //-------------------------------------------------------------------------------------------------------------
   //--- Number of dogs on walk ---
 
-  // const availibleSpotsForDate = getAvailibleSpots(adminWalkDate, walks);
-  // const numberOfDogsOnWalk = 12 - availibleSpotsForDate;
+  const availibleSpotsForDate = getAvailibleSpots(adminWalkDate, walks);
+  const numberOfDogsOnWalk = 12 - availibleSpotsForDate;
 
   //--------------------------------------------------------------------------------------------------
   //--- Handles confirmation of isAccepted status ---
   const handleIsAccepted = () => {
-    setDisplayIsAcceptedConfirm(true);
+    setModalData({
+      back: closeModal,
+      confirm: () => confirmUpdate({walkId: walk.id, isAccepted: !walk.isAccepted}),
+      message: walk.isAccepted ? "Confirm walk is not accepted" : "Confirm this is accepted",
+    });
   };
 
 
-  const handleIsAcceptedConfirm = (id, value) => {
-    updateDogWalk({ walkId: id, isAccepted: !value })
+  const confirmUpdate = (payload) => {
+    updateDogWalk(payload)
       .then(() => {
       setState((prev) => ({ ...prev, reFreshKey: prev.reFreshKey + 1 }));
     });
-    handleIsAcceptedBack();
+    closeModal();
   };
 
-
-  const handleIsAcceptedBack = () => {
-    setDisplayIsAcceptedConfirm(false);
-  };
 
   //--------------------------------------------------------------------------------------------------
   //--- Handles confirmation of payedFor status ---
   const handlePayedFor = () => {
-    setDisplayPayedForConfirm(true);
-  };
-
-  const handlePayedForConfirm = (id, value) => {
-    updateDogWalk({ walkId: id, payedFor: !value })
-      .then(() => {
-      setState((prev) => ({ ...prev, reFreshKey: prev.reFreshKey + 1 }));
+    setModalData({
+      back: closeModal,
+      confirm: () => confirmUpdate({walkId: walk.id, payedFor: !walk.payedFor}),
+      message: walk.payedFor ? "Confirm walk is not payed for" : "Confirm this is payed for",
     });
-    handlePayedForBack()
   };
 
-  const handlePayedForBack = () => {
-    setDisplayPayedForConfirm(false);
+
+  const closeModal = () => {
+    setModalData(null);
   };
 
   //-------------------------------------------------------------------------------------------------------
@@ -124,20 +122,22 @@ const AdminListItem = ({ updateDogWalk, getWalk }) => {
         >
           Is Accepted
         </button>
-        {/* <div>{numberOfDogsOnWalk}/12</div> */}
+        <div>{numberOfDogsOnWalk}/12</div>
       </div>
-      {displayIsAcceptedConfirm && (
-        <IsAcceptedConfirm
+      {/* {modalData && (
+        <ConfirmationModal
           style={{ display: "flex", flexDirection: "row-reverse" }}
-          handleIsAcceptedConfirm={() => handleIsAcceptedConfirm(walk.id, walk.isAccepted)}
-          handleIsAcceptedBack={handleIsAcceptedBack}
+          confirm={() => handleIsAcceptedConfirm(walk.id, walk.isAccepted)}
+          back={handleIsAcceptedBack}
+          message="Confirm this is accepted"
         />
-      )}
-      {displayPayedForConfirm && (
-        <PayedForConfirm
+      )} */}
+      {modalData && (
+        <ConfirmationModal
           style={{ display: "flex", flexDirection: "row-reverse" }}
-          handlePayedForConfirm={() => handlePayedForConfirm(walk.id, walk.payedFor)}
-          handlePayedForBack={handlePayedForBack}
+          confirm={modalData.confirm}
+          back={modalData.back}
+          message={modalData.message}
         />
       )}
     </>

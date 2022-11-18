@@ -6,7 +6,7 @@ const DateListItem = ({ date, setAddWalkDate, walks }) => {
 
 //--------------------------------------------------------------------------------------------------
 //Update availible spots
- 
+  console.log("DateListItem page rendered");
   const availibleSpotsForDate = getAvailibleSpots(date, walks);
   
 //-----------------------------------------------------------------------------------------------------------
@@ -37,7 +37,7 @@ const DateListItem = ({ date, setAddWalkDate, walks }) => {
     <div tabIndex="1" onBlur={handleBlur} className="dateListItem">
       <div>{date.format("dddd")}</div>
       <div>{availibleSpotsForDate}</div>
-      <button onClick={clickToAddWalk}>Add To Walk</button>
+      {availibleSpotsForDate > 0 ? <button onClick={clickToAddWalk}>Add To Walk</button> : <div>No availible spots on this date</div>}
       <div>{date.format("MMM D")}</div>
     </div>
   );

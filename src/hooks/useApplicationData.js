@@ -53,10 +53,10 @@ const useApplicationData = () => {
     
     return axios.post(`http://localhost:8000/api/walks`, walk)
       .then(() => {
-       
-        setState((prev) => ({
-          ...prev, reFreshKey: prev.reFreshKey + 1
-        }))
+        console.log("Dog walk created!")
+        // setState((prev) => ({
+        //   ...prev, reFreshKey: prev.reFreshKey + 1
+        // }))
       })
 
   };
@@ -67,6 +67,7 @@ const useApplicationData = () => {
 
     return axios.get("http://localhost:8000/api/walks")
       .then((walks) => {
+          console.log("Get dog walks response")
         setState((prev) => ({
         ...prev, walks: walks.data
       }))

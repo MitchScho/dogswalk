@@ -10,12 +10,12 @@ import './index.scss';
 
 
 //------------------------------------------------------------------------------------------------------
-const Admin = ({ walks }) => {
+const Admin = ({ walks, reFreshKey }) => {
 
   const [toggleAdmin, setToggleAdmin] = useState(null);
   const [adminWalks, setAdminWalks] = useState(walks);
   const [state, setState] = useState({
-    reFreshKey: 0
+    adminReFreshKey: 0
   })
 
 //---------------------
@@ -43,7 +43,7 @@ const Admin = ({ walks }) => {
   useEffect(() => {
     getUnFinalisedDogWalks()
 
-  }, [state.reFreshKey]);
+  }, [state.adminReFreshKey]);
   
 //-----------------------------------------------------------------------------------------------------------
 
@@ -54,7 +54,8 @@ const Admin = ({ walks }) => {
     return axios
       .put(`http://localhost:8000/api/admin/walks/${id}`, payload)
       .then((upDatedWalk) => {
-        setState((prev) => ({ ...prev, reFreshKey: prev.reFreshKey + 1 }));
+        setState((prev) => ({ ...prev, adminReFreshKey: prev.adminReFreshKey + 1 }));
+        setState((prev) => ({ ...prev, ReFreshKey: prev.reFreshKey + 1 }));
         return upDatedWalk;
       });
   };
@@ -68,7 +69,6 @@ const Admin = ({ walks }) => {
         <AdminWalkList
         walk={walk}
         setToggleAdmin={setToggleAdmin}
-        // setSelectedAdminWalk={setSelectedAdminWalk}
         />
       </Link>
       
@@ -124,8 +124,9 @@ const Admin = ({ walks }) => {
         
         <Route path="/walk/:walkId" element={
           <AdminListItem
-          getWalk={getWalk}
-          updateDogWalk={updateDogWalk}
+            getWalk={getWalk}
+            updateDogWalk={updateDogWalk}
+            walks={walks}
           />}
         />
         
