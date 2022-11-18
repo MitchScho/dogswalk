@@ -21,6 +21,7 @@ const Register = () => {
           autoComplete="off"
         >
           <input name="firstName" type="text" placeholder="First Name..." />
+          <input name="lastName" type="text" placeholder="Last Name..." />
           <input name="email" type="text" placeholder="Email..." />
           <input name="password" type="text" placeholder="Password..." />
           <button>Submit</button>

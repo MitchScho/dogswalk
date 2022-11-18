@@ -14,6 +14,12 @@ const DateListItem = ({ date, setAddWalkDate, walks }) => {
     setAddWalkDate(date);
   };
 
+  //----------------------------------------------------------------------------------------------------------
+
+  const deleteFromWalk = () => { 
+
+  };
+
 //------------------------------------------------------------------------------------------------------------
   
   const handleBlur = (e) => {
@@ -37,7 +43,10 @@ const DateListItem = ({ date, setAddWalkDate, walks }) => {
     <div tabIndex="1" onBlur={handleBlur} className="dateListItem">
       <div>{date.format("dddd")}</div>
       <div>{availibleSpotsForDate}</div>
-      {availibleSpotsForDate > 0 ? <button onClick={clickToAddWalk}>Add To Walk</button> : <div>No availible spots on this date</div>}
+      <div>
+        {availibleSpotsForDate > 0 ? <button onClick={clickToAddWalk}>Add To Walk</button> : <div>No availible spots on this date</div>}
+        <button onClick={deleteFromWalk}>Delete From Walk</button>
+      </div>
       <div>{date.format("MMM D")}</div>
     </div>
   );
