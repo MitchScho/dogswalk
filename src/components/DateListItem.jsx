@@ -2,22 +2,34 @@ import "./DateListItem.scss";
 import getAvailibleSpots from "../helpers/getAvailibleSpots";
 //----------------------------------------------------------------------------------------------------
 
-const DateListItem = ({ date, setAddWalkDate, walks }) => {
+const DateListItem = ({ date, setAddWalkDate, deleteDogWalk, walks }) => {
 
 //--------------------------------------------------------------------------------------------------
 //Update availible spots
   console.log("DateListItem page rendered");
   const availibleSpotsForDate = getAvailibleSpots(date, walks);
+
+//-----------------------------------------------------------------
+//--- Current walk ---
+  const currentWalk = walks.filter((walk) => {
+    return date.isSame(walk.date, "day");
+  });
   
 //-----------------------------------------------------------------------------------------------------------
   const clickToAddWalk = () => {
-    setAddWalkDate(date);
+    if (!currentWalk[0]) {
+
+      setAddWalkDate(date);
+    }
   };
 
-  //----------------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------------
 
-  const deleteFromWalk = () => { 
+  const deleteWalkRequest = () => { 
+    if (currentWalk[0].id) {
 
+      deleteDogWalk(currentWalk[0].id)
+    }
   };
 
 //------------------------------------------------------------------------------------------------------------
@@ -45,7 +57,7 @@ const DateListItem = ({ date, setAddWalkDate, walks }) => {
       <div>{availibleSpotsForDate}</div>
       <div>
         {availibleSpotsForDate > 0 ? <button onClick={clickToAddWalk}>Add To Walk</button> : <div>No availible spots on this date</div>}
-        <button onClick={deleteFromWalk}>Delete From Walk</button>
+        <button onClick={deleteWalkRequest}>Delete Walk Request</button>
       </div>
       <div>{date.format("MMM D")}</div>
     </div>

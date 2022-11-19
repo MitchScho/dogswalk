@@ -10,7 +10,7 @@ import { Routes, Route } from "react-router-dom";
 function App() {
 
 
-  const { state, createDogWalk } = useApplicationData();
+  const { state, createDogWalk, deleteDogWalk } = useApplicationData();
 
 
   return (
@@ -22,6 +22,7 @@ function App() {
             <Route path="/" element={<DateList
               walks={state.walks}
               createDogWalk={createDogWalk}
+              deleteDogWalk={deleteDogWalk}
               dogs={state.dogs} />}>
             </Route>
             <Route path="register" element={<Register />}></Route>

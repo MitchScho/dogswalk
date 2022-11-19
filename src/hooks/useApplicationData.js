@@ -52,14 +52,33 @@ const useApplicationData = () => {
     const walk = { date, selectedDogs };
     
     return axios.post(`http://localhost:8000/api/walks`, walk)
-      .then(() => {
+      .then((data) => {
         console.log("Dog walk created!")
+       
         // setState((prev) => ({
         //   ...prev, reFreshKey: prev.reFreshKey + 1
         // }))
       })
 
   };
+
+  //------------------------------------------------------------------------------------------------
+
+  const deleteDogWalk = (id) => {
+    if (id) {
+
+      return axios.delete(`http://localhost:8000/api/walks/${id}`)
+        .then(() => {
+          console.log("Dog walk deleted!")
+  
+          // setState((prev) => ({
+          //   ...prev, reFreshKey: prev.reFreshKey + 1
+          // }))
+        })
+    }
+
+  };
+
 
   //---------------------------------------------------------------------------------------------------
 
@@ -81,7 +100,7 @@ const useApplicationData = () => {
 
 //------------------------------------------------------------------------------------------------------------
 
-  return { state, createDogWalk };
+  return { state, createDogWalk, deleteDogWalk };
   
 }
 

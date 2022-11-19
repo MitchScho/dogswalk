@@ -9,6 +9,7 @@ import { useState } from "react";
 const DateList = ({
   walks,
   createDogWalk,
+  deleteDogWalk,
   dogs,
 }) => {
 //-------------------------------------------------------------------------------
@@ -35,6 +36,7 @@ const [addWalkDate, setAddWalkDate] = useState(null);
               <DateListItem
               date={date}
               setAddWalkDate={setAddWalkDate}
+              deleteDogWalk={deleteDogWalk}
               walks={walks}
               />
               )}
