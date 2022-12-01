@@ -1,34 +1,27 @@
-const Register = () => {
+import Login from "./Login";
+import Register from "./Register";
+//--- Style Imports ---
+import './index.scss';
+import {useState} from "react";
+
+const Auth = () => {
+
+  const [currentForm, setCurrentForm] = useState("login")
+
+  const toggleForm = (formName) => {
+    setCurrentForm(formName);
+  };
 
   return (
-    <>
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          flexDirection: " column",
-        }}
-      >
-        Register Page
-        <form
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            flexDirection: " column", width: "30%",
-          }}
-          onSubmit={(e) => e.preventDefault()}
-          autoComplete="off"
-        >
-          <input name="firstName" type="text" placeholder="First Name..." />
-          <input name="lastName" type="text" placeholder="Last Name..." />
-          <input name="email" type="text" placeholder="Email..." />
-          <input name="password" type="text" placeholder="Password..." />
-          <button>Submit</button>
-        </form>
-      </div>
-    </>
+    <div className="Auth">
+      {currentForm === "login" ?
+        <Login onFormSwitch={toggleForm}
+        /> :
+        <Register onFormSwitch={toggleForm}
+        />
+    }
+    </div>
   );
 }
 
-export default Register;
+export default Auth;

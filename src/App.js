@@ -1,5 +1,5 @@
 import Nav from './components/Nav'
-import Register from './Auth';
+import Auth from './Auth';
 import Admin from './Admin';
 import DateList from './components/DateList'
 import './App.scss';
@@ -25,7 +25,7 @@ function App() {
               deleteDogWalk={deleteDogWalk}
               dogs={state.dogs} />}>
             </Route>
-            <Route path="register" element={<Register />}></Route>
+            <Route path="auth/*" element={<Auth />}></Route>
             <Route path="admin/*" element={<Admin walks={state.walks} reFreshkey={state.reFreshKey}/>}></Route>
           </Routes>
         </main>
