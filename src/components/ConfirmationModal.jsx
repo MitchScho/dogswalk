@@ -2,9 +2,6 @@ import "./ConfirmationModal.scss";
 
 const ConfirmationModal = ({confirm, back, message}) => { 
 
-  
-
-  
 
   return (
       <div className="confirm">

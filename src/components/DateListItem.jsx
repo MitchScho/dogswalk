@@ -3,21 +3,21 @@ import getAvailibleSpots from "../helpers/getAvailibleSpots";
 //----------------------------------------------------------------------------------------------------
 
 const DateListItem = ({ date, setAddWalkDate, deleteDogWalk, walks }) => {
-  console.log("walks", walks);
+ 
 //--------------------------------------------------------------------------------------------------
 //Update availible spots
-  console.log("DateListItem page rendered");
+  
   const availibleSpotsForDate = getAvailibleSpots(date, walks);
 
 //-----------------------------------------------------------------
 //--- Current walk ---
-  const currentWalk = walks.filter((walk) => {
+  const currentWalk = walks.find((walk) => {
     return date.isSame(walk.date, "day");
   });
-  console.log("current walk", currentWalk);
+  
 //-----------------------------------------------------------------------------------------------------------
   const clickToAddWalk = () => {
-    if (!currentWalk[0]) {
+    if (!currentWalk) {
 
       setAddWalkDate(date);
     }
@@ -26,9 +26,9 @@ const DateListItem = ({ date, setAddWalkDate, deleteDogWalk, walks }) => {
 //----------------------------------------------------------------------------------------------------------
 
   const deleteWalkRequest = () => { 
-    if (currentWalk[0].id) {
+    if (currentWalk?.id) {
 
-      deleteDogWalk(currentWalk[0].id)
+      deleteDogWalk(currentWalk.id)
     }
   };
 
@@ -47,6 +47,18 @@ const DateListItem = ({ date, setAddWalkDate, deleteDogWalk, walks }) => {
     // }, 0);
     console.log("blur");
   };
+  //---------------------------------------------------------------------------------------------------------
+  const requestButton = (currentWalk, availableSpots) => {
+  if (currentWalk) {
+    return <button onClick={deleteWalkRequest}>Delete Walk Request</button>
+  }
+
+  return availibleSpotsForDate > 0 ? (
+    <button onClick={clickToAddWalk}>Add To Walk</button>
+  ) : (
+    <div>no available spots</div>
+  );
+}
 
 //-----------------------------------------------------------------------------------------------------------
 //---- Component return --------
@@ -55,16 +67,7 @@ const DateListItem = ({ date, setAddWalkDate, deleteDogWalk, walks }) => {
     <div tabIndex="1" onBlur={handleBlur} className="dateListItem">
       <div>{date.format("dddd")}</div>
       <div>{availibleSpotsForDate} spots available</div>
-      <div>
-        <div>
-          {availibleSpotsForDate > 0 ? (
-            <button onClick={clickToAddWalk}>Add To Walk</button>
-          ) : (
-            <div>No availible spots on this date</div>
-          )}
-        </div>
-        <button onClick={deleteWalkRequest}>Delete Walk Request</button>
-      </div>
+      <div>{requestButton(currentWalk, availibleSpotsForDate)}</div>
       <div>{date.format("MMM D")}</div>
     </div>
   );

@@ -10,7 +10,7 @@ const AdminWalkList = ({ walk, setToggleAdmin, setSelectedAdminWalk }) => {
 //--Click to select Admin walk date ------
   const handleOnClick = () => {
     setToggleAdmin(true);
-    // setSelectedAdminWalk(walk);
+    
   };
 
 
