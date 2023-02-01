@@ -1,4 +1,5 @@
-import { useState, useRef, useEffect } from "react";
+import { useState } from "react";
+import axios from 'axios'
 //--- Style Imports ---
 import './index.scss';
 
@@ -7,12 +8,23 @@ const Register = ({ onFormSwitch }) => {
   const [email, setEmail] = useState("");
   const [pass, setPass] = useState("");
 
+  const registerSubmit = (e) => {
+    e.preventDefault();
+    console.log("register submit");
+
+    const data = { name, email, pass };
+
+    axios.post("http://localhost:8000/api/register", data).then((res) => {
+      console.log("register response", res);
+    });
+  };
+
   return (
     <div className="auth-form-container">
       <h2>Register</h2>
       <form
         className="register-form"
-        onSubmit={(e) => e.preventDefault()}
+        onSubmit={registerSubmit}
         autoComplete="off"
       >
         <label>name</label>

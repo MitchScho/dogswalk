@@ -1,4 +1,5 @@
 import { useState } from "react";
+import axios from 'axios';
 //--- Style Imports ---
 import './index.scss';
 
@@ -6,14 +7,20 @@ const Login = ({ onFormSwitch }) => {
   const [email, setEmail] = useState("");
   const [pass, setPass] = useState("");
 
-  const handleSubmit = (e) => {
+  const loginSubmit = (e) => {
     e.preventDefault();
-    console.log(email);
+    console.log('login submit');
+    const data = { email, pass };
+
+    axios.post("http://localhost:8000/api/login", data)
+      .then((res) => {
+        console.log("login response", res);
+      })
   };
   return (
     <div className="auth-form-container">
       <h2>Login</h2>
-      <form className="login-form" onSubmit={handleSubmit}>
+      <form className="login-form" onSubmit={loginSubmit}>
         <label htmlFor="email">email</label>
         <input
           value={email}

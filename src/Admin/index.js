@@ -49,7 +49,7 @@ const Admin = ({ walks, reFreshKey }) => {
 
   const updateDogWalk = (payload) => {
 
-    console.log("payload", payload);
+    // console.log("payload", payload);
     const id = payload.walkId;
     return axios
       .put(`http://localhost:8000/api/admin/walks/${id}`, payload)
