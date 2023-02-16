@@ -4,7 +4,7 @@ import axios from 'axios'
 import './index.scss';
 
 const Register = ({ onFormSwitch }) => {
-  const [name, setName] = useState("");
+  const [userName, setUserName] = useState("");
   const [email, setEmail] = useState("");
   const [pass, setPass] = useState("");
 
@@ -12,7 +12,7 @@ const Register = ({ onFormSwitch }) => {
     e.preventDefault();
     console.log("register submit");
 
-    const data = { name, email, pass };
+    const data = { userName, email, pass };
 
     axios.post("http://localhost:8000/api/register", data).then((res) => {
       console.log("register response", res);
@@ -27,14 +27,14 @@ const Register = ({ onFormSwitch }) => {
         onSubmit={registerSubmit}
         autoComplete="off"
       >
-        <label>name</label>
+        <label>username</label>
         <input
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          name="name"
-          id="name"
+          value={userName}
+          onChange={(e) => setUserName(e.target.value)}
+          name="username"
+          id="username"
           type="text"
-          placeholder="Name..."
+          placeholder="username..."
         />
         <label htmlffor="email">email</label>
         <input

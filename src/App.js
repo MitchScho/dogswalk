@@ -1,10 +1,11 @@
+import { Routes, Route } from "react-router-dom";
 import Nav from './components/Nav'
 import Auth from './Auth';
 import Admin from './Admin';
-import DateList from './components/DateList'
-import './App.scss';
+import Home from './Home';
 import useApplicationData from './hooks/useApplicationData';
-import { Routes, Route } from "react-router-dom";
+//-- Style Imports --
+import './App.scss';
 //------------------------------------------------------------------------------------------------------------
 
 function App() {
@@ -19,11 +20,11 @@ function App() {
         <Nav />
         <main>
           <Routes>
-            <Route path="/" element={<DateList
-              walks={state.walks}
+            <Route path="/*" element={<Home
+              state={state}
               createDogWalk={createDogWalk}
               deleteDogWalk={deleteDogWalk}
-              dogs={state.dogs} />}>
+               />}>
             </Route>
             <Route path="auth/*" element={<Auth />}></Route>
             <Route path="admin/*" element={<Admin walks={state.walks} reFreshkey={state.reFreshKey}/>}></Route>
