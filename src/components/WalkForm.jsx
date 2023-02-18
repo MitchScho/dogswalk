@@ -18,6 +18,7 @@ const WalkForm = ({ date, createDogWalk, dogs, setAddWalkDate }) => {
     setSelectedDogs((prev) => [...prev, dog]);
   };
 
+  //------------------------------------------------------------------------------------------
 
   const confirmWalk = () => {
     if (selectedDogs.length > 0) {
@@ -26,6 +27,7 @@ const WalkForm = ({ date, createDogWalk, dogs, setAddWalkDate }) => {
     }
   };
 
+  //---------------------------------------------------------------------------------------------
 
   const dogList = dogs.map((dog) => {
     
@@ -39,6 +41,7 @@ const WalkForm = ({ date, createDogWalk, dogs, setAddWalkDate }) => {
     );
   });
 
+//-------------------------------------------------------------------------------------------------
 
   return (
     <>

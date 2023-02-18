@@ -7,12 +7,13 @@ import './index.scss';
 
 
 const Login = () => {
+
   const [email, setEmail] = useState("");
   const [pass, setPass] = useState("");
   const [userName, setUserName] = useState("");
   
   const navigate = useNavigate();
-
+//----------------------------------------------------------------------------------------
   const loginSubmit = (e) => {
     e.preventDefault();
     console.log('login submit');
@@ -30,6 +31,8 @@ const Login = () => {
         console.log(err.message);
       })
   };
+
+  //--------------------------------------------------------------------------------------------
 
   return (
     <div className="auth-form-container">

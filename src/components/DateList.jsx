@@ -15,7 +15,7 @@ const DateList = ({
 //-------------------------------------------------------------------------------
 const [addWalkDate, setAddWalkDate] = useState(null);
 //------------------------------------------------------------------------------------------------------
-//Create Date List
+//--- Create Date List ---
 
   const startDate = moment();
   const endDate = moment().add(1, "week");
@@ -45,7 +45,7 @@ const [addWalkDate, setAddWalkDate] = useState(null);
   });
 
 //----------------------------------------------------------------------------------------------------------
-//Component Return
+//--- Component Return ---
 
   return (
     <>

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import axios from 'axios'
 import { NavLink, useNavigate } from 'react-router-dom'
-import Cookies from "js-cookie";
+
 //--- Style Imports ---
 import './index.scss';
 
@@ -12,19 +12,22 @@ const Register = () => {
 
   const navigate = useNavigate();
 
+  //---------------------------------------------------------------------------------------------
+
   const registerSubmit = (e) => {
     e.preventDefault();
-    console.log("register submit");
 
     const data = { userName, email, pass };
 
     axios.post("http://localhost:8000/api/register", data).then((res) => {
-      console.log("register response", res.data);
+
       if (res) {
         navigate('/auth/login');
       }
     });
   };
+
+  //----------------------------------------------------------------------------------------------
 
   return (
     <div className="auth-form-container">

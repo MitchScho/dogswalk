@@ -5,7 +5,7 @@ import getAvailibleSpots from "../helpers/getAvailibleSpots";
 const DateListItem = ({ date, setAddWalkDate, deleteDogWalk, walks }) => {
  
 //--------------------------------------------------------------------------------------------------
-//Update availible spots
+//--- Update availible spots ---
   
   const availibleSpotsForDate = getAvailibleSpots(date, walks);
 

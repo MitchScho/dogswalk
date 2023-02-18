@@ -10,7 +10,7 @@ import './index.scss';
 
 
 //------------------------------------------------------------------------------------------------------
-const Admin = ({ walks, reFreshKey }) => {
+const Admin = ({ walks }) => {
 
   const [toggleAdmin, setToggleAdmin] = useState(null);
   const [adminWalks, setAdminWalks] = useState(walks);
@@ -18,7 +18,7 @@ const Admin = ({ walks, reFreshKey }) => {
     adminReFreshKey: 0
   })
 
-//---------------------
+//----------------------------------------------------------------------------------
   
   const getWalk = (id) => {
 
@@ -49,7 +49,6 @@ const Admin = ({ walks, reFreshKey }) => {
 
   const updateDogWalk = (payload) => {
 
-    // console.log("payload", payload);
     const id = payload.walkId;
     return axios
       .put(`http://localhost:8000/api/admin/walks/${id}`, payload)
@@ -74,13 +73,7 @@ const Admin = ({ walks, reFreshKey }) => {
       
     )
   })
-//-------------------------------------------------------------------------------------------------------------
-//--For testing purposes ----------------
 
-// const Component = () => {
-
-    
-// }
 
 //-------------------------------------------------------------------------------------------------------------
   
@@ -105,8 +98,7 @@ const Admin = ({ walks, reFreshKey }) => {
     <>
       <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
         <div></div>
-        <h3
-          style={{
+        <h3 style={{
             display: "flex",
             justifyContent: "space-between",
             alignItems: "center",
@@ -115,13 +107,13 @@ const Admin = ({ walks, reFreshKey }) => {
         >
           Admin Page
         </h3>
-        {toggleAdmin ? <Link to="/admin"><button onClick={() => setToggleAdmin(false)}>Back</button></Link> : <div></div>}
-        
+        {toggleAdmin ?
+          <Link to="/admin"><button onClick={() => setToggleAdmin(false)}>Back</button></Link>
+          :
+          <div></div>}
       </div>
       <Routes>
-      
         <Route path="/" element={<Home />} />
-        
         <Route path="/walk/:walkId" element={
           <AdminListItem
             getWalk={getWalk}
@@ -129,7 +121,6 @@ const Admin = ({ walks, reFreshKey }) => {
             walks={walks}
           />}
         />
-        
       </Routes>
     </>
   )

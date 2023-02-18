@@ -124,14 +124,6 @@ const AdminListItem = ({ updateDogWalk, getWalk, walks }) => {
         </button>
         <div>{numberOfDogsOnWalk}/12</div>
       </div>
-      {/* {modalData && (
-        <ConfirmationModal
-          style={{ display: "flex", flexDirection: "row-reverse" }}
-          confirm={() => handleIsAcceptedConfirm(walk.id, walk.isAccepted)}
-          back={handleIsAcceptedBack}
-          message="Confirm this is accepted"
-        />
-      )} */}
       {modalData && (
         <ConfirmationModal
           style={{ display: "flex", flexDirection: "row-reverse" }}
