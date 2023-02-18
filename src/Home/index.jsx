@@ -26,7 +26,8 @@ const Home = ({ state, createDogWalk, deleteDogWalk }) => {
     
     getMe()
       .then((res) => {
-        setUser(res.data.user);
+        setUser(res.data);
+        // console.log("user ===>", res.data);
     
     })
   },[])

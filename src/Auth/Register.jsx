@@ -1,12 +1,16 @@
 import { useState } from "react";
 import axios from 'axios'
+import { NavLink, useNavigate } from 'react-router-dom'
+import Cookies from "js-cookie";
 //--- Style Imports ---
 import './index.scss';
 
-const Register = ({ onFormSwitch }) => {
+const Register = () => {
   const [userName, setUserName] = useState("");
   const [email, setEmail] = useState("");
   const [pass, setPass] = useState("");
+
+  const navigate = useNavigate();
 
   const registerSubmit = (e) => {
     e.preventDefault();
@@ -15,7 +19,10 @@ const Register = ({ onFormSwitch }) => {
     const data = { userName, email, pass };
 
     axios.post("http://localhost:8000/api/register", data).then((res) => {
-      console.log("register response", res);
+      console.log("register response", res.data);
+      if (res) {
+        navigate('/auth/login');
+      }
     });
   };
 
@@ -58,9 +65,12 @@ const Register = ({ onFormSwitch }) => {
           Register
         </button>
       </form>
-      <button className="link-btn" onClick={() => onFormSwitch("login")}>
-        Already have an account? Log in here.
-      </button>
+      <p>
+        Already have an account?
+        <NavLink className="link-btn" to="/auth/login">
+        Login here.
+        </NavLink>
+      </p>
     </div>
   );
 };

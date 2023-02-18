@@ -1,15 +1,17 @@
 import { useState } from "react";
 import axios from 'axios';
 import Cookies from 'js-cookie';
+import {NavLink, useNavigate} from "react-router-dom";
 //--- Style Imports ---
 import './index.scss';
 
 
-const Login = ({ onFormSwitch }) => {
+const Login = () => {
   const [email, setEmail] = useState("");
   const [pass, setPass] = useState("");
   const [userName, setUserName] = useState("");
-
+  
+  const navigate = useNavigate();
 
   const loginSubmit = (e) => {
     e.preventDefault();
@@ -18,18 +20,17 @@ const Login = ({ onFormSwitch }) => {
 
     axios.post("http://localhost:8000/api/login", data)
       .then((res) => {
-
         const accessToken = res.data.accessToken;
-       
         Cookies.set("token", accessToken);
-        // // Adds the token to the header
-        // axios.defaults.headers.common.Authorization = `Bearer ${authToken}`;
-        
+        if (accessToken) {
+            navigate('/')
+        }
       })
       .catch((err) => {
         console.log(err.message);
       })
   };
+
   return (
     <div className="auth-form-container">
       <h2>Login</h2>
@@ -61,11 +62,16 @@ const Login = ({ onFormSwitch }) => {
           id="password"
           name="password"
         />
-        <button className="auth-button" type="submit">Log In</button>
+        <button className="auth-button" type="submit">
+          Login
+        </button>
       </form>
-      <button className="link-btn" onClick={() => onFormSwitch("register")}>
-        Don't have an Account?     Register here.
-      </button>
+      <p>
+        Don't have an Account?
+        <NavLink className="link-btn" to="/auth/register">
+        Register here.
+        </NavLink>
+      </p>
     </div>
   );
 };
