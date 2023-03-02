@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import axios from "axios";
 //--- Component Imports ---
-import AdminWalkList from '../components/AdminWalkList';
-import AdminListItem from '../components/AdminListItem';
+import AdminWalkList from './AdminWalkList';
+import AdminListItem from './AdminListItem';
 //--- Router Imports ---
 import { Routes, Route, Link } from "react-router-dom";
 //--- Style Imports ---

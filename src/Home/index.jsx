@@ -1,26 +1,16 @@
 import DateList from "../components/DateList";
-import axios from "axios";
-import Cookies from "js-cookie";
+import { getMe } from "../api";
 
 import { Routes, Route } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 //-----------------------------------------------------------------------------------------------
 
-const getMe = () => {
-  const authToken = Cookies.get("token");
-  console.log("auth token", authToken);
-  const config = {
-    headers: {
-      Authorization: `Bearer ${authToken}`,
-    },
-  };
-  return axios.get("http://localhost:8000/api/me", config);
-};
+
 
 //-------------------------------------------------------------------------------------------
 
-const Home = ({ state, createDogWalk, deleteDogWalk }) => {
+const Home = ({ state, setState }) => {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
@@ -37,10 +27,8 @@ const Home = ({ state, createDogWalk, deleteDogWalk }) => {
           path="/"
           element={
             <DateList
-              walks={state.walks}
-              createDogWalk={createDogWalk}
-              deleteDogWalk={deleteDogWalk}
-              dogs={state.dogs}
+              state={state}
+              setState={setState}
             />
           }
         ></Route>

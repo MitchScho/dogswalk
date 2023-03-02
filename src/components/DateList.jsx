@@ -7,10 +7,8 @@ import { useState } from "react";
 //-------------------------------------------------------------------------------------------------------
 
 const DateList = ({
-  walks,
-  createDogWalk,
-  deleteDogWalk,
-  dogs,
+  state,
+  setState,
 }) => {
 //-------------------------------------------------------------------------------
 const [addWalkDate, setAddWalkDate] = useState(null);
@@ -24,23 +22,23 @@ const [addWalkDate, setAddWalkDate] = useState(null);
   const datesArray = dates.map((date) => {
 
     return (
-        <div key={date} className="dateList">
-          {date.isSame(addWalkDate, "day") ? (
-            <WalkForm
+      <div key={date} className="dateList">
+        {date.isSame(addWalkDate, "day") ? (
+          <WalkForm
             date={date}
-            createDogWalk={createDogWalk}
-            dogs={dogs}
+            setState={setState}
+            state={state}
             setAddWalkDate={setAddWalkDate}
-            />
-            ) : (
-              <DateListItem
-              date={date}
-              setAddWalkDate={setAddWalkDate}
-              deleteDogWalk={deleteDogWalk}
-              walks={walks}
-              />
-              )}
-        </div>
+          />
+        ) : (
+          <DateListItem
+            date={date}
+            setAddWalkDate={setAddWalkDate}
+            state={state}
+            setState={setState}
+          />
+        )}
+      </div>
     );
   });
 

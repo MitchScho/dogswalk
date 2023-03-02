@@ -1,15 +1,65 @@
 import { Routes, Route } from "react-router-dom";
+import { useEffect, useState } from "react";
 import Nav from "./components/Nav";
 import Auth from "./Auth";
 import Admin from "./Admin";
 import Home from "./Home";
-import useApplicationData from "./hooks/useApplicationData";
+import axios from "axios";
+
 //-- Style Imports --
 import "./App.scss";
+//--- API imports ---
+import {getDogs, getDogWalks} from "./api.js"
+
 //------------------------------------------------------------------------------------------------------------
 
 function App() {
-  const { state, createDogWalk, deleteDogWalk } = useApplicationData();
+const [state, setState] = useState({
+  addWalkDate: null,
+  walks: [],
+  dogs: [],
+  users: [],
+  reFreshKey: 0,
+
+});
+  
+  // useEffect(() => {
+  //   getUsers().then((users) => {
+  //     setState((prev) => ({
+  //       ...prev,
+  //       users: users.data
+  //     }))
+  //   })
+
+  // }, []);
+
+  useEffect(() => {
+    getDogs().then((dogs) => {
+      setState((prev) => ({
+        ...prev,
+        dogs: dogs.data
+      }))
+      //   .catch((err) => {
+      //     console.log(err.message);
+      // })
+    })
+
+  }, []);
+
+  useEffect(() => {
+    getDogWalks().then((walks) => {
+
+      setState((prev) => ({
+        ...prev,
+        walks: walks.data
+      }))
+    })
+      .catch((err) => {
+        console.log(err.message);
+    })
+
+  }, [state.reFreshKey]);
+
 
   return (
     <>
@@ -22,8 +72,7 @@ function App() {
               element={
                 <Home
                   state={state}
-                  createDogWalk={createDogWalk}
-                  deleteDogWalk={deleteDogWalk}
+                  setState={setState}
                 />
               }
             ></Route>

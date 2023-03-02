@@ -3,12 +3,14 @@ import getAvailibleSpots from "../helpers/getAvailibleSpots";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 //---Import Components ---
-import ConfirmationModal from "./ConfirmationModal";
+import ConfirmationModal from "../components/ConfirmationModal";
+//--- Import api ---
+import { getWalk } from "../api";
 
 
 //----------------------------------------------------------------------------------------------------------
 
-const AdminListItem = ({ updateDogWalk, getWalk, walks }) => {
+const AdminListItem = ({ updateDogWalk, walks }) => {
   const [walk, setWalk] = useState(null);
   const [modalData, setModalData] = useState(null);
   const [state, setState] = useState({
@@ -20,8 +22,10 @@ const AdminListItem = ({ updateDogWalk, getWalk, walks }) => {
   //-------------------------------------------------------------------------------------------------------
   //--- Get walk call -----------
   useEffect(() => {
-    getWalk(params.walkId).then((data) => {
-      setWalk(data);
+    getWalk(params.walkId)
+      .then((data) => {
+        setWalk(data);
+        console.log("get admin walk",data);
     });
   }, [state.reFreshKey]);
 

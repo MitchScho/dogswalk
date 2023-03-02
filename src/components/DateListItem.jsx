@@ -1,17 +1,18 @@
 import "./DateListItem.scss";
 import getAvailibleSpots from "../helpers/getAvailibleSpots";
+import {deleteDogWalk} from "../api.js";
 //----------------------------------------------------------------------------------------------------
 
-const DateListItem = ({ date, setAddWalkDate, deleteDogWalk, walks }) => {
+const DateListItem = ({ date, setAddWalkDate, state, setState }) => {
  
 //--------------------------------------------------------------------------------------------------
 //--- Update availible spots ---
   
-  const availibleSpotsForDate = getAvailibleSpots(date, walks);
+  const availibleSpotsForDate = getAvailibleSpots(date, state.walks);
 
 //-----------------------------------------------------------------
 //--- Current walk ---
-  const currentWalk = walks.find((walk) => {
+  const currentWalk = state.walks.find((walk) => {
     return date.isSame(walk.date, "day");
   });
   
@@ -28,7 +29,14 @@ const DateListItem = ({ date, setAddWalkDate, deleteDogWalk, walks }) => {
   const deleteWalkRequest = () => { 
     if (currentWalk?.id) {
 
-      deleteDogWalk(currentWalk.id)
+      deleteDogWalk(currentWalk.id).then(() => {
+        console.log("Dog walk deleted!");
+
+        setState((prev) => ({
+          ...prev,
+          reFreshKey: prev.reFreshKey + 1,
+        }));
+      });
     }
   };
 
