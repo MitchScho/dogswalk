@@ -4,7 +4,6 @@ import Nav from "./components/Nav";
 import Auth from "./Auth";
 import Admin from "./Admin";
 import Home from "./Home";
-import axios from "axios";
 
 //-- Style Imports --
 import "./App.scss";
@@ -70,17 +69,14 @@ const [state, setState] = useState({
             <Route
               path="/*"
               element={
-                <Home
-                  state={state}
-                  setState={setState}
-                />
+                <Home state={state} setState={setState} />
               }
             ></Route>
             <Route path="auth/*" element={<Auth />}></Route>
             <Route
               path="admin/*"
               element={
-                <Admin walks={state.walks} reFreshkey={state.reFreshKey} />
+                <Admin walks={state.walks} />
               }
             ></Route>
           </Routes>

@@ -7,7 +7,8 @@ const Nav = () => {
   return (
     <nav>
       <span>DOGSWALK</span>
-      <Link to="/auth/login">Login..</Link>
+      <Link to="/auth/login">Login</Link>
+      <Link to="/admin">Admin</Link>
       <span className="menu"> Menu</span>
     </nav>
   );

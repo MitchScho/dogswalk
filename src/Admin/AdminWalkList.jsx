@@ -1,6 +1,6 @@
 import moment from "moment";
 
-const AdminWalkList = ({ walk, setToggleAdmin, setSelectedAdminWalk }) => {
+const AdminWalkList = ({ walk, setToggleAdmin }) => {
 
 //-----------------------------------------------------------------------------------------------------------
 //-- Create walk date moment ---------

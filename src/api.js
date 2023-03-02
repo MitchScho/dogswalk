@@ -9,7 +9,7 @@ export function getUsers() {
 //---------------------------------------------------------------------------------
 
 export function getMe() {
-  
+
   const authToken = Cookies.get("token");
   
   const config = {
@@ -25,6 +25,14 @@ export function getMe() {
 export function getDogs() {
   return axios.get("http://localhost:8000/api/dogs")
 };
+
+//------------------------------------------------------------------------------
+
+export function getUnFinalisedDogWalks() {
+
+  return axios.get("http://localhost:8000/api/admin/walks")
+
+}
 
 //-------------------------------------------------------------------------------
 
@@ -54,6 +62,16 @@ export function getDogWalks() {
 
 //--------------------------------------------------------------------------------
 
+export function updateDogWalk(payload) {
+  
+  const id = payload.walkId;
+  return axios
+  .put(`http://localhost:8000/api/admin/walks/${id}`, payload)
+  
+};
+
+//-----------------------------------------------------------------------------------------------------------
+
 export function deleteDogWalk(id) {
 
   if (id) {
@@ -61,3 +79,4 @@ export function deleteDogWalk(id) {
   }
 };
 
+//---------------------------------------------------------------------------------

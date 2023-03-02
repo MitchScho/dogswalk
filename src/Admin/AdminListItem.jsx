@@ -6,29 +6,27 @@ import { useParams } from "react-router-dom";
 import ConfirmationModal from "../components/ConfirmationModal";
 //--- Import api ---
 import { getWalk } from "../api";
+import { updateDogWalk } from "../api";
+
 
 
 //----------------------------------------------------------------------------------------------------------
 
-const AdminListItem = ({ updateDogWalk, walks }) => {
+const AdminListItem = ({ walks , state, setState}) => {
+
   const [walk, setWalk] = useState(null);
   const [modalData, setModalData] = useState(null);
-  const [state, setState] = useState({
-    reFreshKey: 0,
-  });
 
   const params = useParams();
 
   //-------------------------------------------------------------------------------------------------------
   //--- Get walk call -----------
   useEffect(() => {
-    getWalk(params.walkId)
-      .then((data) => {
-        setWalk(data);
-        console.log("get admin walk",data);
+    getWalk(params.walkId).then((walk) => {
+      setWalk(walk.data);
     });
-  }, [state.reFreshKey]);
-
+  }, [state.adminReFreshKey, params.walkId]);
+  
   if (!walk) {
     return <div>Loading...</div>;
   }
@@ -64,11 +62,16 @@ const AdminListItem = ({ updateDogWalk, walks }) => {
     });
   };
 
+  //-----------------------------------------------------------------------------
+
 
   const confirmUpdate = (payload) => {
     updateDogWalk(payload)
       .then(() => {
-      setState((prev) => ({ ...prev, reFreshKey: prev.reFreshKey + 1 }));
+      setState((prev) => ({
+        ...prev,
+        adminReFreshKey: prev.adminReFreshKey + 1,
+      }));
     });
     closeModal();
   };
