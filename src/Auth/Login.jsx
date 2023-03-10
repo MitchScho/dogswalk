@@ -16,16 +16,15 @@ const Login = () => {
 //----------------------------------------------------------------------------------------
   const loginSubmit = (e) => {
     e.preventDefault();
-    console.log('login submit');
     const data = { username: userName, password: pass };
 
     axios.post("http://localhost:8000/api/login", data)
       .then((res) => {
         const accessToken = res.data.accessToken;
         Cookies.set("token", accessToken);
-        if (accessToken) {
-            navigate('/')
-        }
+        
+        navigate('/');
+        
       })
       .catch((err) => {
         console.log(err.message);

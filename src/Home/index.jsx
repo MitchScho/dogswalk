@@ -1,39 +1,44 @@
 import DateList from "../components/DateList";
+import LandingPage from "../components/LandingPage";
+
+import { useEffect } from "react";
+
 import { getMe } from "../api";
 
 import { Routes, Route } from "react-router-dom";
-import { useEffect, useState } from "react";
 
-//-----------------------------------------------------------------------------------------------
 
 
 
 //-------------------------------------------------------------------------------------------
 
 const Home = ({ state, setState }) => {
-  const [user, setUser] = useState(null);
-
+  
   useEffect(() => {
     getMe().then((res) => {
-      setUser(res.data);
-  
+      setState((prev) => ({
+        ...prev,
+        user: res.data,
+      }));
     });
   }, []);
+ 
+
+  console.log("user at home page", state.user);
 
   return (
-    <div>
+    <>
       <Routes>
-        <Route
-          path="/"
-          element={
-            <DateList
-              state={state}
-              setState={setState}
-            />
-          }
-        ></Route>
+        {state.user ? (
+          <Route
+            path="/"
+            element={<DateList state={state} setState={setState} />}
+          ></Route>
+        ) : (
+          <Route path="/" element={<LandingPage />}></Route>
+        )}
       </Routes>
-    </div>
+    </>
   );
 };
 
