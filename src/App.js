@@ -1,14 +1,14 @@
 import { Routes, Route, Navigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import Nav from "./components/Nav";
+import LandingPage from "./components/LandingPage";
 import Auth from "./Auth";
 import Admin from "./Admin";
-import Home from "./Home";
+import Calendar from "./Calendar";
 import NotFound from "./components/NotFound";
 //-- Style Imports --
 import "./App.scss";
 //--- API imports ---
-import { getDogs, getDogWalks, getMe } from "./api.js"
+import { getDogs, getDogWalks } from "./api.js";
 
 //------------------------------------------------------------------------------------------------------------
 
@@ -17,14 +17,10 @@ function App() {
     addWalkDate: null,
     walks: [],
     dogs: [],
-    user: {},
+    user: null,
     reFreshKey: 0,
-
   });
-  
-  
- 
-  
+
   // useEffect(() => {
   //   getUsers().then((users) => {
   //     setState((prev) => ({
@@ -36,57 +32,52 @@ function App() {
   // }, []);
 
   useEffect(() => {
-    getDogs().then((dogs) => {
-      setState((prev) => ({
-        ...prev,
-        dogs: dogs.data
-      }))
-      //   .catch((err) => {
-      //     console.log(err.message);
-      // })
-    })
-
+    getDogs()
+      .then((dogs) => {
+        setState((prev) => ({
+          ...prev,
+          dogs: dogs.data,
+        }));
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
   }, []);
 
   useEffect(() => {
-    getDogWalks().then((walks) => {
-
-      setState((prev) => ({
-        ...prev,
-        walks: walks.data
-      }))
-    })
+    getDogWalks()
+      .then((walks) => {
+        setState((prev) => ({
+          ...prev,
+          walks: walks.data,
+        }));
+      })
       .catch((err) => {
         console.log(err.message);
-      })
-
+      });
   }, [state.reFreshKey]);
-  console.log("user role at app ==>", state.user?.role);
 
   return (
     <>
       <div className="App">
-        <Nav state={state} setState={setState} />
         <main>
           <Routes>
+            <Route path="/" element={<LandingPage />}></Route>
             <Route
-              path="/"
-              element={
-                <Home state={state} setState={setState} />
-              }
+              path="/calendar/*"
+              element={<Calendar state={state} setState={setState} />}
             ></Route>
             <Route path="/auth/*" element={<Auth />}></Route>
-            {state.user?.role === "admin" && (
-              <Route
-                path="/admin/*"
-                element={
-                  <Admin walks={state.walks} />
-                }
-              ></Route>
-
-            )}
-            <Route path="/404" element={<NotFound/>}> </Route>
-            <Route path="*" element={<Navigate to="/404" replace />}> </Route>
+            <Route
+              path="/admin/*"
+              element={<Admin walks={state.walks} />}
+            ></Route>
+            <Route path="/404" element={<NotFound />}>
+              {" "}
+            </Route>
+            <Route path="*" element={<Navigate to="/404" replace />}>
+              {" "}
+            </Route>
           </Routes>
         </main>
       </div>
