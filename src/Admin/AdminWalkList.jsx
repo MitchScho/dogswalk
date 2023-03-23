@@ -1,10 +1,10 @@
 import moment from "moment";
 
-const AdminWalkList = ({ walk, setToggleAdmin }) => {
+const AdminWalkList = ({ walkRequest, setToggleAdmin }) => {
 
 //-----------------------------------------------------------------------------------------------------------
 //-- Create walk date moment ---------
-  const adminWalkListDate = moment(new Date(walk.date));
+  const adminWalkListDate = moment(new Date(walkRequest.date));
   
 //------------------------------------------------------------------------------------------------------
 //--Click to select Admin walk date ------
@@ -22,7 +22,7 @@ const AdminWalkList = ({ walk, setToggleAdmin }) => {
     >
       <li>{adminWalkListDate.format("dddd")}</li>
       <li>{adminWalkListDate.format("MMM D")}</li>
-      <li>{walk.dogs.length}</li>
+      {/* <li>{walk.dogs.length}</li> */}
     </ul>
   );
 };

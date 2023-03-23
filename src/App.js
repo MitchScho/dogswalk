@@ -8,13 +8,14 @@ import NotFound from "./components/NotFound";
 //-- Style Imports --
 import "./App.scss";
 //--- API imports ---
-import { getDogs, getDogWalks } from "./api.js";
+import { getDogs, getDogWalkRequests } from "./api.js";
 
 //------------------------------------------------------------------------------------------------------------
 
 function App() {
   const [state, setState] = useState({
     addWalkDate: null,
+    walkRequests: [],
     walks: [],
     dogs: [],
     user: null,
@@ -45,11 +46,11 @@ function App() {
   }, [state.reFreshKey]);
 
   useEffect(() => {
-    getDogWalks()
-      .then((walks) => {
+    getDogWalkRequests()
+      .then((walkRequests) => {
         setState((prev) => ({
           ...prev,
-          walks: walks.data,
+          walkRequests: walkRequests.data,
         }));
       })
       .catch((err) => {
@@ -70,7 +71,7 @@ function App() {
             <Route path="/auth/*" element={<Auth />}></Route>
             <Route
               path="/admin/*"
-              element={<Admin walks={state.walks} />}
+              element={<Admin walkRequests={state.walkRequests} />}
             ></Route>
             <Route path="/404" element={<NotFound />}>
               {" "}

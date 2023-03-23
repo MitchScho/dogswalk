@@ -28,7 +28,7 @@ export function getDogs() {
 
 //------------------------------------------------------------------------------
 
-export function getUnFinalisedDogWalks() {
+export function getUnFinalisedWalkRequests() {
 
 const authToken = Cookies.get("token");
 
@@ -38,7 +38,7 @@ const config = {
   },
 };
 
-  return axios.get("http://localhost:8000/api/admin/walks", config);
+  return axios.get("http://localhost:8000/api/admin/walks-requests", config);
 
 }
 
@@ -57,7 +57,7 @@ export function requestDogWalk(date, selectedDogs, user) {
 
 //--------------------------------------------------------------------------------
 
-export function getWalk(id) {
+export function getWalkRequest(id) {
 
   const authToken = Cookies.get("token");
 
@@ -67,14 +67,14 @@ export function getWalk(id) {
     },
   };
 
-  return axios.get(`http://localhost:8000/api/admin/walks/${id}`, config);
+  return axios.get(`http://localhost:8000/api/admin/walks-requests/${id}`, config);
     
 };
 
 //--------------------------------------------------------------------------------
 
-export function getDogWalks() {
-  return axios.get("http://localhost:8000/api/walks");
+export function getDogWalkRequests() {
+  return axios.get("http://localhost:8000/api/walks-requests");
 };
 
 //--------------------------------------------------------------------------------

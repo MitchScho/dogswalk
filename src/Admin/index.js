@@ -9,30 +9,30 @@ import { Routes, Route, Link } from "react-router-dom";
 //--- Style Imports ---
 import "./index.scss";
 //--- API Imports ---
-import { getUnFinalisedDogWalks } from "../api";
+import { getUnFinalisedWalkRequests } from "../api";
 
 //------------------------------------------------------------------------------------------------------
-const Admin = ({ walks }) => {
+const Admin = ({ walkRequests }) => {
   const [toggleAdmin, setToggleAdmin] = useState(null);
-  const [adminWalks, setAdminWalks] = useState(walks);
+  const [adminWalkRequests, setAdminWalkRequests] = useState(walkRequests);
   const [state, setState] = useState({
     adminReFreshKey: 0,
   });
-
+  console.log("admin walk requests", adminWalkRequests)
   //----------------------------------------------------------------------------------------------
 
   useEffect(() => {
-    getUnFinalisedDogWalks().then((walks) => {
-      setAdminWalks(walks.data);
+    getUnFinalisedWalkRequests().then((walkRequests) => {
+      setAdminWalkRequests(walkRequests.data);
     });
   }, [state.adminReFreshKey]);
 
   //---------------------------------------------------------------------------------------------------------
   //--- Create Admin Walk List Array ----
-  const walksArray = adminWalks.map((walk) => {
+  const walkRequestArray = adminWalkRequests.map((walkRequest) => {
     return (
-      <Link to={`/admin/walk/${walk.id}`} key={walk.id}>
-        <AdminWalkList walk={walk} setToggleAdmin={setToggleAdmin} />
+      <Link to={`/admin/walk/${walkRequest.id}`} key={walkRequest.id}>
+        <AdminWalkList walkRequest={walkRequest} setToggleAdmin={setToggleAdmin} />
       </Link>
     );
   });
@@ -64,7 +64,7 @@ const Admin = ({ walks }) => {
           <div>Date</div>
           <div>Dogs Requested For Walk</div>
         </div>
-        <div>{walksArray}</div>
+        <div>{walkRequestArray}</div>
       </>
     );
   };
@@ -79,7 +79,7 @@ const Admin = ({ walks }) => {
         <Route
           path="/walk/:walkId"
           element={
-            <AdminListItem walks={walks} state={state} setState={setState} />
+            <AdminListItem walkRequests={walkRequests} state={state} setState={setState} />
           }
         />
       </Routes>

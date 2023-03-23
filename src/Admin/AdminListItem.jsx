@@ -5,14 +5,14 @@ import { useParams } from "react-router-dom";
 //---Import Components ---
 import ConfirmationModal from "../components/ConfirmationModal";
 //--- Import api ---
-import { getWalk } from "../api";
+import { getWalkRequest } from "../api";
 import { updateDogWalk } from "../api";
 
 
 
 //----------------------------------------------------------------------------------------------------------
 
-const AdminListItem = ({ walks , state, setState}) => {
+const AdminListItem = ({ walkRequests , state, setState}) => {
 
   const [walk, setWalk] = useState(null);
   const [modalData, setModalData] = useState(null);
@@ -22,7 +22,7 @@ const AdminListItem = ({ walks , state, setState}) => {
   //-------------------------------------------------------------------------------------------------------
   //--- Get walk call -----------
   useEffect(() => {
-    getWalk(params.walkId).then((walk) => {
+    getWalkRequest(params.walkId).then((walk) => {
       setWalk(walk.data);
     });
   }, [state.adminReFreshKey, params.walkId]);
@@ -49,7 +49,7 @@ const AdminListItem = ({ walks , state, setState}) => {
   //-------------------------------------------------------------------------------------------------------------
   //--- Number of dogs on walk ---
 
-  const availibleSpotsForDate = getAvailibleSpots(adminWalkDate, walks);
+  const availibleSpotsForDate = getAvailibleSpots(adminWalkDate, walkRequests);
   const numberOfDogsOnWalk = 12 - availibleSpotsForDate;
 
   //--------------------------------------------------------------------------------------------------
