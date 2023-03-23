@@ -16,10 +16,12 @@ const Calendar = ({ state, setState }) => {
   
   useEffect(() => {
     
-      getMe().then((res) => {
+    getMe().then((res) => {
+      console.log("getMe response", res);
         setState((prev) => ({
           ...prev,
           user: res.data,
+          reFreshKey: prev.reFreshKey + 1,
         }));
       })
         .catch((err) => {
@@ -27,6 +29,9 @@ const Calendar = ({ state, setState }) => {
       })
     
   }, []);
+
+  console.log("user", state.user);
+
  
 
   return (

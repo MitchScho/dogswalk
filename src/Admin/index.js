@@ -42,6 +42,16 @@ const Admin = ({ walks }) => {
   const Home = () => {
     return (
       <>
+        <h3 style={
+          {
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            flexDirection: "column",
+          }
+        } >Admin Walk List
+        </h3>
+     
         <div
           style={{
             display: "flex",
@@ -64,32 +74,6 @@ const Admin = ({ walks }) => {
   return (
     <>
       <Nav state={state} setState={setState} />
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-        }}
-      >
-        <div></div>
-        <h3
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-            flexDirection: "column",
-          }}
-        >
-          Admin Page
-        </h3>
-        {toggleAdmin ? (
-          <Link to="/admin">
-            <button onClick={() => setToggleAdmin(false)}>Back</button>
-          </Link>
-        ) : (
-          <div></div>
-        )}
-      </div>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route

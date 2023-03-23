@@ -29,13 +29,14 @@ const DateListItem = ({ date, setAddWalkDate, state, setState }) => {
   const deleteWalkRequest = () => { 
     if (currentWalk?.id) {
 
-      deleteDogWalk(currentWalk.id).then(() => {
-        console.log("Dog walk deleted!");
+      deleteDogWalk(currentWalk.id)
+        .then(() => {
+          console.log("Dog walk deleted!");
 
-        setState((prev) => ({
-          ...prev,
-          reFreshKey: prev.reFreshKey + 1,
-        }));
+          setState((prev) => ({
+            ...prev,
+            reFreshKey: prev.reFreshKey + 1,
+          }));
       });
     }
   };

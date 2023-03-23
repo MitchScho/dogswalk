@@ -42,7 +42,7 @@ function App() {
       .catch((err) => {
         console.log(err.message);
       });
-  }, []);
+  }, [state.reFreshKey]);
 
   useEffect(() => {
     getDogWalks()

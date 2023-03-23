@@ -1,7 +1,7 @@
 import DogAvatar from "./DogAvatar";
 import "./WalkForm.scss";
 import { useState } from "react";
-import {createDogWalk} from "../api.js"
+import {requestDogWalk} from "../api.js"
 //--------------------------------------------------------------------------------------------------------------
 
 const WalkForm = ({ date, state, setState, setAddWalkDate }) => {
@@ -22,12 +22,15 @@ const WalkForm = ({ date, state, setState, setAddWalkDate }) => {
   //------------------------------------------------------------------------------------------
 
   const confirmWalk = () => {
+    const user = state.user;
+
     if (selectedDogs.length > 0) {
-      createDogWalk(date, selectedDogs).then(() => {
-        setState((prev) => ({
-          ...prev,
-          reFreshKey: prev.reFreshKey + 1,
-        }));
+      requestDogWalk(date, selectedDogs, user)
+        .then(() => {
+          setState((prev) => ({
+            ...prev,
+            reFreshKey: prev.reFreshKey + 1,
+          }));
       });
       setAddWalkDate(null);
     }

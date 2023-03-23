@@ -44,14 +44,15 @@ const config = {
 
 //-------------------------------------------------------------------------------
 
-export function createDogWalk(date, selectedDogs) {
+export function requestDogWalk(date, selectedDogs, user) {
 
   const walk = {
     date,
+    user,
     selectedDogs
   };
 
-  return axios.post(`http://localhost:8000/api/walks`, walk);
+  return axios.post(`http://localhost:8000/api/walks-requests`, walk);
 };
 
 //--------------------------------------------------------------------------------
@@ -90,7 +91,7 @@ export function updateDogWalk(payload) {
   
   const id = payload.walkId;
   return axios
-    .put(`http://localhost:8000/api/admin/walks/${id}`, payload, config);
+    .put(`http://localhost:8000/api/admin/walks-requests/${id}`, payload, config);
   
 };
 

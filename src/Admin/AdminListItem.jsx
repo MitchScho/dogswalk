@@ -16,7 +16,7 @@ const AdminListItem = ({ walks , state, setState}) => {
 
   const [walk, setWalk] = useState(null);
   const [modalData, setModalData] = useState(null);
-
+  console.log("admin walk", walk);
   const params = useParams();
 
   //-------------------------------------------------------------------------------------------------------
@@ -102,6 +102,16 @@ const AdminListItem = ({ walks , state, setState}) => {
 
   return (
     <>
+      <h3
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          flexDirection: "column",
+        }}
+      >
+        Admin Walk Details
+      </h3>
       <div style={{ display: "flex", justifyContent: "space-between" }}>
         <div>Day</div>
         <div>Date</div>
@@ -116,10 +126,7 @@ const AdminListItem = ({ walks , state, setState}) => {
         <div>{adminWalkDate.format("MMM D")}</div>
         <div>User</div>
         <div>{dogs}</div>
-        <button
-          onClick={handlePayedFor}
-          className={isPayedForClass}
-        >
+        <button onClick={handlePayedFor} className={isPayedForClass}>
           Payed For
         </button>
         <button
