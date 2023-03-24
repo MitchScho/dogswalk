@@ -79,7 +79,7 @@ export function getDogWalkRequests() {
 
 //--------------------------------------------------------------------------------
 
-export function updateDogWalk(payload) {
+export function updateWalkRequest(id, payload) {
 
   const authToken = Cookies.get("token");
 
@@ -89,7 +89,7 @@ export function updateDogWalk(payload) {
     },
   };
   
-  const id = payload.walkId;
+  // const id = payload.walkId;
   return axios
     .put(`http://localhost:8000/api/admin/walks-requests/${id}`, payload, config);
   

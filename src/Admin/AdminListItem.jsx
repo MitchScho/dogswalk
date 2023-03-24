@@ -6,7 +6,7 @@ import { useParams } from "react-router-dom";
 import ConfirmationModal from "../components/ConfirmationModal";
 //--- Import api ---
 import { getWalkRequest } from "../api";
-import { updateDogWalk } from "../api";
+import { updateWalkRequest } from "../api";
 
 
 
@@ -14,35 +14,36 @@ import { updateDogWalk } from "../api";
 
 const AdminListItem = ({ walkRequests , state, setState}) => {
 
-  const [walk, setWalk] = useState(null);
+  const [walkRequest, setWalkRequest] = useState(null);
   const [modalData, setModalData] = useState(null);
-  console.log("admin walk", walk);
+  console.log("admin walk", walkRequest);
   const params = useParams();
 
   //-------------------------------------------------------------------------------------------------------
   //--- Get walk call -----------
   useEffect(() => {
-    getWalkRequest(params.walkId).then((walk) => {
-      setWalk(walk.data);
+    getWalkRequest(params.walkId).then((walkRequest) => {
+      setWalkRequest(walkRequest.data);
+     
     });
   }, [state.adminReFreshKey, params.walkId]);
   
-  if (!walk) {
+  if (!walkRequest) {
     return <div>Loading...</div>;
   }
 
   //--------------------------------------------------------------------------------------------------------
   //--- Store selected admin walk date as a moment object ---
 
-  const adminWalkDate = moment(new Date(walk.date));
+  const adminWalkDate = moment(new Date(walkRequest.date));
 
   //------------------------------------------------------------------------------------
   //--- Button Style rendering ---
   
-  const isAcceptedClass = walk.isAccepted
+  const isAcceptedClass = walkRequest.isAccepted
     ? "payedFor-accepted"
     : "notPayedFor-accepted";
-  const isPayedForClass = walk.payedFor
+  const isPayedForClass = walkRequest.payedFor
     ? "payedFor-accepted"
     : "notPayedFor-accepted";
 
@@ -57,17 +58,19 @@ const AdminListItem = ({ walkRequests , state, setState}) => {
   const handleIsAccepted = () => {
     setModalData({
       back: closeModal,
-      confirm: () => confirmUpdate({walkId: walk.id, isAccepted: !walk.isAccepted}),
-      message: walk.isAccepted ? "Confirm walk is not accepted" : "Confirm this is accepted",
+      confirm: () => confirmUpdate(walkRequest.id, { isAccepted: !walkRequest.isAccepted }),
+      message: walkRequest.isAccepted ? "Confirm walk is not accepted" : "Confirm this is accepted",
     });
   };
 
   //-----------------------------------------------------------------------------
 
 
-  const confirmUpdate = (payload) => {
-    updateDogWalk(payload)
-      .then(() => {
+  const confirmUpdate = (id, payload) => {
+    console.log(" Confirm Update")
+    updateWalkRequest(id, payload)
+      .then((res) => {
+        console.log(" update confirm response", res)
       setState((prev) => ({
         ...prev,
         adminReFreshKey: prev.adminReFreshKey + 1,
@@ -82,8 +85,8 @@ const AdminListItem = ({ walkRequests , state, setState}) => {
   const handlePayedFor = () => {
     setModalData({
       back: closeModal,
-      confirm: () => confirmUpdate({walkId: walk.id, payedFor: !walk.payedFor}),
-      message: walk.payedFor ? "Confirm walk is not payed for" : "Confirm this is payed for",
+      confirm: () => confirmUpdate(walkRequest.id,{ payedFor: !walkRequest.payedFor}),
+      message: walkRequest.payedFor ? "Confirm walk is not payed for" : "Confirm this is payed for",
     });
   };
 
@@ -96,7 +99,7 @@ const AdminListItem = ({ walkRequests , state, setState}) => {
 
   //-------------------------------------------------------------------------------------------------------
   //--- Dogs array to be displayed --------
-  const dogs = walk.dogs.map((dog) => {
+  const dogs = walkRequest.dogs.map((dog) => {
     return <div key={dog.id}>{dog.name}</div>;
   });
 
