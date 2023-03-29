@@ -26,7 +26,7 @@ const AdminListItem = ({ walkRequests , state, setState}) => {
       setWalkRequest(walkRequest.data);
      
     });
-  }, [state.adminReFreshKey, params.walkId]);
+  }, [state.adminReFreshKey, params.walkId]);// state.adminRefreshKey
   
   if (!walkRequest) {
     return <div>Loading...</div>;
