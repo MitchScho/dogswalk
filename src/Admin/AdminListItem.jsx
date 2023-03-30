@@ -1,7 +1,7 @@
 import moment from "moment";
 import getAvailibleSpots from "../helpers/getAvailibleSpots";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, NavLink } from "react-router-dom";
 //---Import Components ---
 import ConfirmationModal from "../components/ConfirmationModal";
 //--- Import api ---
@@ -22,7 +22,7 @@ const AdminListItem = ({ walkRequests , state, setState}) => {
   //-------------------------------------------------------------------------------------------------------
   //--- Get walk call -----------
   useEffect(() => {
-    getWalkRequest(params.walkId).then((walkRequest) => {
+    getWalkRequest(params.walkRequestId).then((walkRequest) => {
       setWalkRequest(walkRequest.data);
      
     });
@@ -119,6 +119,9 @@ const AdminListItem = ({ walkRequests , state, setState}) => {
       >
         Walk Request
       </h3>
+      <NavLink  to="/admin">
+        back{" "}
+      </NavLink>
       <div style={{ display: "flex", justifyContent: "space-between" }}>
         <div>Day</div>
         <div>Date</div>
