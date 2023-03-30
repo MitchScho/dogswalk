@@ -18,7 +18,7 @@ const Admin = ({ walkRequests }) => {
   const [state, setState] = useState({
     adminReFreshKey: 0,
   });
-  console.log("admin walk requests", adminWalkRequests)
+ 
   //----------------------------------------------------------------------------------------------
 
   useEffect(() => {
@@ -49,7 +49,7 @@ const Admin = ({ walkRequests }) => {
             alignItems: "center",
             flexDirection: "column",
           }
-        } >Admin Walk List
+        } >Walk Requests
         </h3>
      
         <div

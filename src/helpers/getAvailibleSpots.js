@@ -6,7 +6,7 @@ const getAvailibleSpots = (date, walks) => {
 
   const dogsForDate = walksForDate.filter((walk) => {
     
-    if (walk.isAccepted) {
+    if (walk.dogs) {
       return walk.dogs;
     }
   })

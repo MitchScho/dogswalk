@@ -28,6 +28,12 @@ export function getDogs() {
 
 //------------------------------------------------------------------------------
 
+export function getWalks() {
+  return axios.get("http://localhost:8000/api/walks");
+};
+
+//------------------------------------------------------------------------------
+
 export function getUnFinalisedWalkRequests() {
 
 const authToken = Cookies.get("token");
@@ -97,10 +103,10 @@ export function updateWalkRequest(id, payload) {
 
 //-----------------------------------------------------------------------------------------------------------
 
-export function deleteDogWalk(id) {
+export function deleteDogWalkRequest(id) {
 
   if (id) {
-    return axios.delete(`http://localhost:8000/api/walks/${id}`);
+    return axios.delete(`http://localhost:8000/api/walks-requests/${id}`);
   }
 };
 

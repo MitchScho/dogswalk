@@ -13,11 +13,11 @@ import { Routes, Route } from "react-router-dom";
 //-------------------------------------------------------------------------------------------
 
 const Calendar = ({ state, setState }) => {
+
   
   useEffect(() => {
     
     getMe().then((res) => {
-      console.log("getMe response", res);
         setState((prev) => ({
           ...prev,
           user: res.data,
@@ -30,7 +30,6 @@ const Calendar = ({ state, setState }) => {
     
   }, []);
 
-  console.log("user", state.user);
 
  
 

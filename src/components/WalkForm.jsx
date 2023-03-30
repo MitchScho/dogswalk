@@ -8,7 +8,6 @@ const WalkForm = ({ date, state, setState, setAddWalkDate }) => {
 
   const [selectedDogs, setSelectedDogs] = useState([]);
 
-
   const selectDogs = (dog) => {
     if (selectedDogs.includes(dog)) {
       const newDogList = selectedDogs.filter(
@@ -22,6 +21,7 @@ const WalkForm = ({ date, state, setState, setAddWalkDate }) => {
   //------------------------------------------------------------------------------------------
 
   const confirmWalk = () => {
+
     const user = state.user;
 
     if (selectedDogs.length > 0) {

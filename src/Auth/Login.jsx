@@ -20,7 +20,7 @@ const Login = () => {
 
     axios.post("http://localhost:8000/api/login", data)
       .then((res) => {
-        console.log("login response", res.data.user.role);
+        
         const accessToken = res.data.accessToken;
         Cookies.set("token", accessToken);
 

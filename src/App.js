@@ -8,7 +8,7 @@ import NotFound from "./components/NotFound";
 //-- Style Imports --
 import "./App.scss";
 //--- API imports ---
-import { getDogs, getDogWalkRequests } from "./api.js";
+import { getDogs, getWalks, getDogWalkRequests } from "./api.js";
 
 //------------------------------------------------------------------------------------------------------------
 
@@ -22,6 +22,7 @@ function App() {
     reFreshKey: 0,
   });
 
+
   // useEffect(() => {
   //   getUsers().then((users) => {
   //     setState((prev) => ({
@@ -31,6 +32,19 @@ function App() {
   //   })
 
   // }, []);
+
+  useEffect(() => {
+    getWalks()
+      .then((walks) => {
+        setState((prev) => ({
+          ...prev,
+          walks: walks.data,
+        }));
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+  }, [state.reFreshKey]);
 
   useEffect(() => {
     getDogs()
@@ -46,6 +60,7 @@ function App() {
   }, [state.reFreshKey]);
 
   useEffect(() => {
+    
     getDogWalkRequests()
       .then((walkRequests) => {
         setState((prev) => ({

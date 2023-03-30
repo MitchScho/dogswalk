@@ -16,7 +16,7 @@ const AdminListItem = ({ walkRequests , state, setState}) => {
 
   const [walkRequest, setWalkRequest] = useState(null);
   const [modalData, setModalData] = useState(null);
-  console.log("admin walk", walkRequest);
+  
   const params = useParams();
 
   //-------------------------------------------------------------------------------------------------------
@@ -67,13 +67,17 @@ const AdminListItem = ({ walkRequests , state, setState}) => {
 
 
   const confirmUpdate = (id, payload) => {
-    console.log(" Confirm Update")
+    
     updateWalkRequest(id, payload)
-      .then((res) => {
-        console.log(" update confirm response", res)
+      .then(() => {
+        
       setState((prev) => ({
         ...prev,
         adminReFreshKey: prev.adminReFreshKey + 1,
+      }));
+      setState((prev) => ({
+        ...prev,
+        reFreshKey: prev.reFreshKey + 1,
       }));
     });
     closeModal();
@@ -113,7 +117,7 @@ const AdminListItem = ({ walkRequests , state, setState}) => {
           flexDirection: "column",
         }}
       >
-        Admin Walk Details
+        Walk Request
       </h3>
       <div style={{ display: "flex", justifyContent: "space-between" }}>
         <div>Day</div>
@@ -122,7 +126,7 @@ const AdminListItem = ({ walkRequests , state, setState}) => {
         <div>Dogs</div>
         <div>Payed For</div>
         <div>Is Accepted</div>
-        <div>no. Of Dogs For Acceptance</div>
+        <div>No. of dogs already on this date</div>
       </div>
       <div style={{ display: "flex", justifyContent: "space-between" }}>
         <div>{adminWalkDate.format("dddd")}</div>

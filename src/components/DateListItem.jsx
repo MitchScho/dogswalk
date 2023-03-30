@@ -1,48 +1,58 @@
 import "./DateListItem.scss";
 import getAvailibleSpots from "../helpers/getAvailibleSpots";
-import {deleteDogWalk} from "../api.js";
+import { deleteDogWalkRequest } from "../api.js";
 //----------------------------------------------------------------------------------------------------
 
 const DateListItem = ({ date, setAddWalkDate, state, setState }) => {
- 
-//--------------------------------------------------------------------------------------------------
-//--- Update availible spots ---
-  
+  //--------------------------------------------------------------------------------------------------
+  //--- Update availible spots ---
+
   const availibleSpotsForDate = getAvailibleSpots(date, state.walks);
 
-//-----------------------------------------------------------------
-//--- Current walk ---
-  const currentWalk = state.walks.find((walk) => {
-    return date.isSame(walk.date, "day");
-  });
-  
-//-----------------------------------------------------------------------------------------------------------
-  const clickToAddWalk = () => {
-    if (!currentWalk) {
+  //--------------------------------------------------------------------------------------------------
 
+  const findUsersCurrentWalkRequest = () => {
+    if (state.user && state.walkRequests) {
+
+      const usersWalkRequest = state.walkRequests.find((walkRequest) => {
+
+        return (
+          date.isSame(walkRequest.date, "day") &&
+          walkRequest.userId === state.user.id
+        );
+      });
+
+      return usersWalkRequest;
+    }
+  };
+
+  const usersCurrentWalkRequest = findUsersCurrentWalkRequest();
+
+  //-----------------------------------------------------------------------------------------------------------
+  const clickToAddWalk = () => {
+
+    if (!usersCurrentWalkRequest) {
       setAddWalkDate(date);
     }
   };
 
-//----------------------------------------------------------------------------------------------------------
+  //----------------------------------------------------------------------------------------------------------
 
-  const deleteWalkRequest = () => { 
-    if (currentWalk?.id) {
+  const deleteWalkRequest = () => {
 
-      deleteDogWalk(currentWalk.id)
-        .then(() => {
-          console.log("Dog walk deleted!");
-
-          setState((prev) => ({
-            ...prev,
-            reFreshKey: prev.reFreshKey + 1,
-          }));
+    if (usersCurrentWalkRequest?.id) {
+      deleteDogWalkRequest(usersCurrentWalkRequest.id).then(() => {
+        
+        setState((prev) => ({
+          ...prev,
+          reFreshKey: prev.reFreshKey + 1,
+        }));
       });
     }
   };
 
-//------------------------------------------------------------------------------------------------------------
-  
+  //------------------------------------------------------------------------------------------------------------
+
   const handleBlur = (e) => {
     // const currentTarget = e.currentTarget;
 
@@ -57,30 +67,30 @@ const DateListItem = ({ date, setAddWalkDate, state, setState }) => {
     console.log("blur");
   };
   //---------------------------------------------------------------------------------------------------------
-  const requestButton = (currentWalk, availableSpots) => {
-  if (currentWalk) {
-    return <button onClick={deleteWalkRequest}>Delete Walk Request</button>
-  }
+  const requestButton = (usersCurrentWalkRequest, availableSpots) => {
+    
+    if (usersCurrentWalkRequest) {
+      return <button onClick={deleteWalkRequest}>Delete Walk Request</button>;
+    }
 
-  return availibleSpotsForDate > 0 ? (
-    <button onClick={clickToAddWalk}>Add To Walk</button>
-  ) : (
-    <div>no available spots</div>
-  );
-}
+    return availableSpots > 0 ? (
+      <button onClick={clickToAddWalk}>Add To Walk</button>
+    ) : (
+      <div>no available spots</div>
+    );
+  };
 
-//-----------------------------------------------------------------------------------------------------------
-//---- Component return --------
+  //-----------------------------------------------------------------------------------------------------------
+  //---- Component return --------
 
   return (
     <div tabIndex="1" onBlur={handleBlur} className="dateListItem">
       <div>{date.format("dddd")}</div>
       <div>{availibleSpotsForDate} spots available</div>
-      <div>{requestButton(currentWalk, availibleSpotsForDate)}</div>
+      <div>{requestButton(usersCurrentWalkRequest, availibleSpotsForDate)}</div>
       <div>{date.format("MMM D")}</div>
     </div>
   );
-
 };
 
 export default DateListItem;
