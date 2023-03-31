@@ -5,8 +5,12 @@ import { useParams, NavLink } from "react-router-dom";
 //---Import Components ---
 import ConfirmationModal from "../components/ConfirmationModal";
 //--- Import api ---
-import { getWalkRequest } from "../api";
-import { updateWalkRequest } from "../api";
+import {
+  getWalkRequest,
+  getUserForWalkRequest,
+  updateWalkRequest,
+} from "../api";
+import {  } from "../api";
 
 
 
@@ -15,6 +19,7 @@ import { updateWalkRequest } from "../api";
 const AdminListItem = ({ walkRequests , state, setState}) => {
 
   const [walkRequest, setWalkRequest] = useState(null);
+  const [walkRequestUser, setWalkRequestUser] = useState(null);
   const [modalData, setModalData] = useState(null);
   
   const params = useParams();
@@ -22,15 +27,31 @@ const AdminListItem = ({ walkRequests , state, setState}) => {
   //-------------------------------------------------------------------------------------------------------
   //--- Get walk call -----------
   useEffect(() => {
-    getWalkRequest(params.walkRequestId).then((walkRequest) => {
+    getWalkRequest(params.walkRequestId)
+      .then((walkRequest) => {
       setWalkRequest(walkRequest.data);
      
     });
-  }, [state.adminReFreshKey, params.walkId]);// state.adminRefreshKey
+  }, [state.adminReFreshKey, params.walkRequestId]);// state.adminRefreshKey
   
+  //------------------------------------------------------------------------------------------------------
+
+  useEffect(() => {
+    getUserForWalkRequest(params.walkRequestId)
+      .then((res) => {
+        setWalkRequestUser(res.data);
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+  }, [params.walkRequestId]);
+
+  //---------------------------------------------------------------------
+
   if (!walkRequest) {
     return <div>Loading...</div>;
   }
+
 
   //--------------------------------------------------------------------------------------------------------
   //--- Store selected admin walk date as a moment object ---
@@ -126,7 +147,7 @@ const AdminListItem = ({ walkRequests , state, setState}) => {
       <div style={{ display: "flex", justifyContent: "space-between" }}>
         <div>{adminWalkDate.format("dddd")}</div>
         <div>{adminWalkDate.format("MMM D")}</div>
-        <div>User</div>
+        <div>{walkRequestUser && walkRequestUser.username}</div>
         <div>{dogs}</div>
         <button onClick={handlePayedFor} className={isPayedForClass}>
           Payed For

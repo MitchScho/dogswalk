@@ -2,8 +2,8 @@ import axios from "axios";
 import Cookies from "js-cookie";
 //-------------------------------------------------------------------------------------
 
-export function getUsers() {
-  return axios.get("http://localhost:8000/api/users");
+export function getUserForWalkRequest(id) {
+  return axios.get(`http://localhost:8000/api/users/${id}`);
 };
 
 //---------------------------------------------------------------------------------
