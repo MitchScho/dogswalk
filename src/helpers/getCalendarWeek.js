@@ -1,3 +1,4 @@
+/* eslint-disable no-plusplus */
 import moment from 'moment';
 
 // /**
@@ -6,15 +7,15 @@ import moment from 'moment';
 //  * @param {string} type The range type. eg: 'days', 'hours' etc
 //  */
 const getCalendarWeek = (startDate, endDate) => {
-  let fromDate = moment(startDate);
-  let toDate = moment(endDate);
-  let diff = toDate.diff(fromDate, "days");
-  let range = [];
+  const fromDate = moment(startDate);
+  const toDate = moment(endDate);
+  const diff = toDate.diff(fromDate, 'days');
+  const range = [];
 
   for (let i = 0; i < diff; i++) {
-    range.push(moment(startDate).add(i, "day"));
+    range.push(moment(startDate).add(i, 'day'));
   }
   return range;
-}
+};
 
 export default getCalendarWeek;

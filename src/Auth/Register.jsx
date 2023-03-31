@@ -1,14 +1,16 @@
-import { useState } from "react";
-import axios from 'axios'
-import { NavLink, useNavigate } from 'react-router-dom'
+/* eslint-disable jsx-a11y/label-has-associated-control */
+/* eslint-disable react/react-in-jsx-scope */
+import { useState } from 'react';
+import axios from 'axios';
+import { NavLink, useNavigate } from 'react-router-dom';
 
-//--- Style Imports ---
+// --- Style Imports ---
 import './index.scss';
 
-const Register = () => {
-  const [userName, setUserName] = useState("");
-  const [email, setEmail] = useState("");
-  const [pass, setPass] = useState("");
+function Register() {
+  const [userName, setUserName] = useState('');
+  const [email, setEmail] = useState('');
+  const [pass, setPass] = useState('');
 
   const navigate = useNavigate();
 
@@ -19,12 +21,7 @@ const Register = () => {
 
     const data = { userName, email, pass };
 
-    axios.post("http://localhost:8000/api/register", data).then((res) => {
-
-      if (res) {
-        navigate('/auth/login');
-      }
-    });
+    axios.post('http://localhost:8000/api/register', data).then(() => navigate('/auth/login'));
   };
 
   //----------------------------------------------------------------------------------------------
@@ -46,7 +43,7 @@ const Register = () => {
           type="text"
           placeholder="username..."
         />
-        <label htmlffor="email">email</label>
+        <label htmlFor="email">email</label>
         <input
           value={email}
           onChange={(e) => setEmail(e.target.value)}
@@ -55,7 +52,7 @@ const Register = () => {
           id="email"
           name="email"
         />
-        <label htmlffor="password">password</label>
+        <label htmlFor="password">password</label>
         <input
           value={pass}
           onChange={(e) => setPass(e.target.value)}
@@ -71,11 +68,11 @@ const Register = () => {
       <p>
         Already have an account?
         <NavLink className="link-btn" to="/auth/login">
-        Login here.
+          Login here.
         </NavLink>
       </p>
     </div>
   );
-};
+}
 
 export default Register;

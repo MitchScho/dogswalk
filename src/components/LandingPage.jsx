@@ -1,8 +1,7 @@
+/* eslint-disable react/react-in-jsx-scope */
+import { Link } from 'react-router-dom';
 
-import { Link } from "react-router-dom";
-
-
-const LandingPage = () => {
+function LandingPage() {
   return (
     <>
       <Link to="/auth/login">Login</Link>

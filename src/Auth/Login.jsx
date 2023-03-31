@@ -1,39 +1,38 @@
-import { useState } from "react";
+/* eslint-disable react/no-unescaped-entities */
+/* eslint-disable jsx-a11y/label-has-associated-control */
+/* eslint-disable react/react-in-jsx-scope */
+import { useState } from 'react';
 import axios from 'axios';
 import Cookies from 'js-cookie';
-import {NavLink, useNavigate} from "react-router-dom";
-//--- Style Imports ---
+import { NavLink, useNavigate } from 'react-router-dom';
+// --- Style Imports ---
 import './index.scss';
 
+function Login() {
+  const [pass, setPass] = useState('');
+  const [userName, setUserName] = useState('');
 
-const Login = () => {
-
-  const [email, setEmail] = useState("");
-  const [pass, setPass] = useState("");
-  const [userName, setUserName] = useState("");
-  
   const navigate = useNavigate();
-//----------------------------------------------------------------------------------------
+  //----------------------------------------------------------------------------------------
   const loginSubmit = (e) => {
     e.preventDefault();
     const data = { username: userName, password: pass };
 
-    axios.post("http://localhost:8000/api/login", data)
-      .then((res) => {
-        
-        const accessToken = res.data.accessToken;
-        Cookies.set("token", accessToken);
+    axios.post('http://localhost:8000/api/login', data)
 
-        if (res.data.user.role === "admin") {
+      .then((res) => {
+        const { accessToken } = res.data;
+        Cookies.set('token', accessToken);
+
+        if (res.data.user.role === 'admin') {
           return navigate('/admin');
         }
 
-        navigate('/calendar');
-        
+        return navigate('/calendar');
       })
       .catch((err) => {
         console.log(err.message);
-      })
+      });
   };
 
   //--------------------------------------------------------------------------------------------
@@ -51,15 +50,6 @@ const Login = () => {
           id="username"
           name="username"
         />
-        {/* <label htmlFor="email">email</label>
-        <input
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          type="email"
-          placeholder="youremail....."
-          id="email"
-          name="email"
-        /> */}
         <label htmlFor="password">password</label>
         <input
           value={pass}
@@ -76,11 +66,11 @@ const Login = () => {
       <p>
         Don't have an Account?
         <NavLink className="link-btn" to="/auth/register">
-        Register here.
+          Register here.
         </NavLink>
       </p>
     </div>
   );
-};
+}
 
 export default Login;

@@ -1,37 +1,27 @@
-import DateList from "../components/DateList";
-import Nav from "../components/Nav";
+/* eslint-disable react/react-in-jsx-scope */
+/* eslint-disable react/prop-types */
+import { useEffect } from 'react';
+import { Routes, Route } from 'react-router-dom';
+import DateList from '../components/DateList';
+import Nav from '../components/Nav';
 
-import { useEffect } from "react";
-
-import { getMe } from "../api";
-
-import { Routes, Route } from "react-router-dom";
-
-
-
+import { getMe } from '../api';
 
 //-------------------------------------------------------------------------------------------
 
-const Calendar = ({ state, setState }) => {
-
-  
+function Calendar({ state, setState }) {
   useEffect(() => {
-    
     getMe().then((res) => {
-        setState((prev) => ({
-          ...prev,
-          user: res.data,
-          reFreshKey: prev.reFreshKey + 1,
-        }));
-      })
-        .catch((err) => {
-          console.log(err.message);
-      })
-    
+      setState((prev) => ({
+        ...prev,
+        user: res.data,
+        reFreshKey: prev.reFreshKey + 1,
+      }));
+    })
+      .catch((err) => {
+        console.log(err.message);
+      });
   }, []);
-
-
- 
 
   return (
     <>
@@ -40,10 +30,10 @@ const Calendar = ({ state, setState }) => {
         <Route
           path="/"
           element={<DateList state={state} setState={setState} />}
-        ></Route>
+        />
       </Routes>
     </>
   );
-};
+}
 
 export default Calendar;

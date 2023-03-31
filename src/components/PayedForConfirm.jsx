@@ -1,10 +1,13 @@
-import "./PayedForConfirm.scss";
+/* eslint-disable react/button-has-type */
+/* eslint-disable react/react-in-jsx-scope */
+/* eslint-disable react/prop-types */
+import './PayedForConfirm.scss';
 
-const PayedForConfirm = ({
+function PayedForConfirm({
   confirm,
   back,
-  message
-}) => {
+  message,
+}) {
   return (
     <div className="confirm">
       <h4>{message}</h4>
@@ -14,6 +17,6 @@ const PayedForConfirm = ({
       </section>
     </div>
   );
-};
+}
 
 export default PayedForConfirm;

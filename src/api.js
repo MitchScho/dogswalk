@@ -1,71 +1,66 @@
-import axios from "axios";
-import Cookies from "js-cookie";
+import axios from 'axios';
+import Cookies from 'js-cookie';
 //-------------------------------------------------------------------------------------
 
-export function getUserForWalkRequest(id) {
+export function getWalkRequestUser(id) {
   return axios.get(`http://localhost:8000/api/users/${id}`);
-};
+}
 
 //---------------------------------------------------------------------------------
 
 export function getMe() {
+  const authToken = Cookies.get('token');
 
-  const authToken = Cookies.get("token");
-  
   const config = {
     headers: {
       Authorization: `Bearer ${authToken}`,
     },
   };
-  return axios.get("http://localhost:8000/api/me", config);
-};
+  return axios.get('http://localhost:8000/api/me', config);
+}
 
 //---------------------------------------------------------------------------------
 
 export function getDogs() {
-  return axios.get("http://localhost:8000/api/dogs");
-};
+  return axios.get('http://localhost:8000/api/dogs');
+}
 
 //------------------------------------------------------------------------------
 
 export function getWalks() {
-  return axios.get("http://localhost:8000/api/walks");
-};
+  return axios.get('http://localhost:8000/api/walks');
+}
 
 //------------------------------------------------------------------------------
 
 export function getUnFinalisedWalkRequests() {
+  const authToken = Cookies.get('token');
 
-const authToken = Cookies.get("token");
+  const config = {
+    headers: {
+      Authorization: `Bearer ${authToken}`,
+    },
+  };
 
-const config = {
-  headers: {
-    Authorization: `Bearer ${authToken}`,
-  },
-};
-
-  return axios.get("http://localhost:8000/api/admin/walks-requests", config);
-
+  return axios.get('http://localhost:8000/api/admin/walks-requests', config);
 }
 
 //-------------------------------------------------------------------------------
 
 export function requestDogWalk(date, selectedDogs, user) {
-
   const walk = {
     date,
     user,
-    selectedDogs
+    selectedDogs,
   };
 
-  return axios.post(`http://localhost:8000/api/walks-requests`, walk);
-};
+  return axios.post('http://localhost:8000/api/walks-requests', walk);
+}
 
 //--------------------------------------------------------------------------------
 
 export function getWalkRequest(id) {
-
-  const authToken = Cookies.get("token");
+  const authToken = Cookies.get('token');
 
   const config = {
     headers: {
@@ -74,40 +69,34 @@ export function getWalkRequest(id) {
   };
 
   return axios.get(`http://localhost:8000/api/admin/walks-requests/${id}`, config);
-    
-};
+}
 
 //--------------------------------------------------------------------------------
 
 export function getDogWalkRequests() {
-  return axios.get("http://localhost:8000/api/walks-requests");
-};
+  return axios.get('http://localhost:8000/api/walks-requests');
+}
 
 //--------------------------------------------------------------------------------
 
 export function updateWalkRequest(id, payload) {
-
-  const authToken = Cookies.get("token");
+  const authToken = Cookies.get('token');
 
   const config = {
     headers: {
       Authorization: `Bearer ${authToken}`,
     },
   };
-  
+
   // const id = payload.walkId;
   return axios
     .put(`http://localhost:8000/api/admin/walks-requests/${id}`, payload, config);
-  
-};
+}
 
-//-----------------------------------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------------------------
 
 export function deleteDogWalkRequest(id) {
-
-  if (id) {
-    return axios.delete(`http://localhost:8000/api/walks-requests/${id}`);
-  }
-};
+  return axios.delete(`http://localhost:8000/api/walks-requests/${id}`);
+}
 
 //---------------------------------------------------------------------------------
