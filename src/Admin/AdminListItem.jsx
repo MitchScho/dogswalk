@@ -109,19 +109,11 @@ const AdminListItem = ({ walkRequests , state, setState}) => {
 
   return (
     <>
-      <h3
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          flexDirection: "column",
-        }}
-      >
-        Walk Request
-      </h3>
-      <NavLink  to="/admin">
-        back{" "}
-      </NavLink>
+      <div style={{display: "flex", justifyContent: "space-between",}}>
+        <div></div>
+        <h3>Walk Request</h3>
+        <NavLink to="/admin">back </NavLink>
+      </div>
       <div style={{ display: "flex", justifyContent: "space-between" }}>
         <div>Day</div>
         <div>Date</div>
