@@ -12,15 +12,18 @@ import {
   getWalkRequest,
   getWalkRequestUser,
   updateWalkRequest,
-} from '../api';
+  getWalkDateDogs,
 
+} from '../api';
 // -----------------------------------------------------------------------------------------------
 
-function AdminListItem({ walkRequests, state, setState }) {
+function AdminListItem({
+  state, setState, adminState, setAdminState,
+}) {
+  console.log(state.walks);
   const [walkRequest, setWalkRequest] = useState(null);
   const [walkRequestUser, setWalkRequestUser] = useState(null);
   const [modalData, setModalData] = useState(null);
-
   const params = useParams();
 
   // ---------------------------------------------------------------------------------------------
@@ -30,7 +33,7 @@ function AdminListItem({ walkRequests, state, setState }) {
       .then((res) => {
         setWalkRequest(res.data);
       });
-  }, [state.adminReFreshKey, params.walkRequestId]);// state.adminRefreshKey
+  }, [adminState.adminReFreshKey, params.walkRequestId]);// state.adminRefreshKey
 
   // -----------------------------------------------------------------------------------------------
 
@@ -44,7 +47,20 @@ function AdminListItem({ walkRequests, state, setState }) {
       });
   }, [params.walkRequestId]);
 
-  // ---------------------------------------------------------------------
+  // -------------------------------------------------------------------------------------------
+  // console.log(walkRequest);
+  useEffect(() => {
+    // eslint-disable-next-line prefer-destructuring
+
+    // const date = walkRequest;
+    // console.log('date', date);
+
+    getWalkDateDogs(params.walkRequestId)
+      .then((res) => {
+        console.log('Walk Date Dogs Response', res);
+      });
+  }, [params.walkRequestId]);
+  // -------------------------------------------------------------------------------------------
 
   if (!walkRequest) {
     return <div>Loading...</div>;
@@ -53,8 +69,8 @@ function AdminListItem({ walkRequests, state, setState }) {
   //-----------------------------------------------------------------------------------------------
   // --- Store selected admin walk date as a moment object ---
 
-  const adminWalkDate = moment(new Date(walkRequest.date));
-
+  const adminWalkRequestDate = moment(new Date(walkRequest.date));
+  console.log(adminWalkRequestDate);
   //------------------------------------------------------------------------------------
   // --- Button Style rendering ---
 
@@ -68,7 +84,7 @@ function AdminListItem({ walkRequests, state, setState }) {
   // -----------------------------------------------------------------------------------------------
   // --- Number of dogs on walk ---
 
-  const availibleSpotsForDate = getAvailibleSpots(adminWalkDate, walkRequests);
+  const availibleSpotsForDate = getAvailibleSpots(adminWalkRequestDate, state.walkRequests);
   const numberOfDogsOnWalk = 12 - availibleSpotsForDate;
 
   //---------------------------------------------------------------------------------------------
@@ -81,7 +97,7 @@ function AdminListItem({ walkRequests, state, setState }) {
   const confirmUpdate = (id, payload) => {
     updateWalkRequest(id, payload)
       .then(() => {
-        setState((prev) => ({
+        setAdminState((prev) => ({
           ...prev,
           adminReFreshKey: prev.adminReFreshKey + 1,
         }));
@@ -134,8 +150,8 @@ function AdminListItem({ walkRequests, state, setState }) {
         <div>No. of dogs already on this date</div>
       </div>
       <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-        <div>{adminWalkDate.format('dddd')}</div>
-        <div>{adminWalkDate.format('MMM D')}</div>
+        <div>{adminWalkRequestDate.format('dddd')}</div>
+        <div>{adminWalkRequestDate.format('MMM D')}</div>
         <div>{walkRequestUser && walkRequestUser.username}</div>
         <div>{dogs}</div>
         <button onClick={handlePayedFor} className={isPayedForClass}>

@@ -84,7 +84,7 @@ function App() {
           <Route path="/auth/*" element={<Auth />} />
           <Route
             path="/admin/*"
-            element={<Admin walkRequests={state.walkRequests} />}
+            element={<Admin state={state} setState={setState} />}
           />
           <Route path="/404" element={<NotFound />}>
             {' '}

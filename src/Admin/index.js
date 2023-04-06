@@ -18,10 +18,9 @@ import './index.scss';
 import { getUnFinalisedWalkRequests } from '../api';
 
 //-------------------------------------------------------------------------------------------------
-function Admin({ walkRequests }) {
-  // const [toggleAdmin, setToggleAdmin] = useState(null);
-  const [adminWalkRequests, setAdminWalkRequests] = useState(walkRequests);
-  const [state, setState] = useState({
+function Admin({ state, setState }) {
+  const [adminWalkRequests, setAdminWalkRequests] = useState(state.walkRequests);
+  const [adminState, setAdminState] = useState({
     adminReFreshKey: 0,
   });
 
@@ -31,7 +30,7 @@ function Admin({ walkRequests }) {
     getUnFinalisedWalkRequests().then((res) => {
       setAdminWalkRequests(res.data);
     });
-  }, [state.adminReFreshKey]);
+  }, [adminState.adminReFreshKey]);
 
   //-----------------------------------------------------------------------------------------------
 
@@ -42,9 +41,14 @@ function Admin({ walkRequests }) {
         <Route path="/" element={<AdminHome adminWalkRequests={adminWalkRequests} />} />
         <Route
           path="/walk-request/:walkRequestId"
-          element={
-            <AdminListItem walkRequests={walkRequests} state={state} setState={setState} />
-          }
+          element={(
+            <AdminListItem
+              state={state}
+              setState={setState}
+              adminState={adminState}
+              setAdminState={setAdminState}
+            />
+          )}
         />
       </Routes>
     </>

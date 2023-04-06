@@ -24,10 +24,18 @@ export function getMe() {
 export function getDogs() {
   return axios.get('http://localhost:8000/api/dogs');
 }
+//---------------------------------------------------------------------------------
+
+export function getWalkDateDogs(id) {
+  return axios.get(`http://localhost:8000/api/walks-dogs/${id}`);
+}
 
 //------------------------------------------------------------------------------
 
 export function getWalks() {
+  // if (date) {
+  //   return axios.get('http://localhost:8000/api/walks', date);
+  // }
   return axios.get('http://localhost:8000/api/walks');
 }
 
