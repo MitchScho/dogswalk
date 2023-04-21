@@ -8,18 +8,21 @@ import {
   Routes, Route,
 } from 'react-router-dom';
 
-import AdminListItem from './AdminListItem';
+import AdminWalkRequest from './AdminWalkRequest';
+import WalkRequests from './WalkRequests';
+import UnpaidRequests from './UnpaidRequests';
 import AdminHome from './AdminHome';
 import Nav from '../components/Nav';
 // --- Router Imports ---
 // --- Style Imports ---
 import './index.scss';
 // --- API Imports ---
-import { getUnFinalisedWalkRequests } from '../api';
+import { getUnFinalisedWalkRequests, getUnpaidRequests } from '../api';
 
 //-------------------------------------------------------------------------------------------------
 function Admin({ state, setState }) {
   const [adminWalkRequests, setAdminWalkRequests] = useState(state.walkRequests);
+  const [adminUnpaidRequests, setAdminUnpaidRequests] = useState(state.walkRequests);
   const [adminState, setAdminState] = useState({
     adminReFreshKey: 0,
   });
@@ -27,10 +30,20 @@ function Admin({ state, setState }) {
   //------------------------------------------------------------------------------------------------
 
   useEffect(() => {
-    getUnFinalisedWalkRequests().then((res) => {
-      setAdminWalkRequests(res.data);
-    });
+    getUnFinalisedWalkRequests()
+      .then((res) => {
+        setAdminWalkRequests(res.data);
+      });
   }, [adminState.adminReFreshKey]);
+
+  //------------------------------------------------------------------------------------------------
+
+  useEffect(() => {
+    getUnpaidRequests()
+      .then((res) => {
+        setAdminUnpaidRequests(res.data);
+      });
+  }, []);
 
   //-----------------------------------------------------------------------------------------------
 
@@ -38,11 +51,13 @@ function Admin({ state, setState }) {
     <>
       <Nav state={state} setState={setState} />
       <Routes>
-        <Route path="/" element={<AdminHome adminWalkRequests={adminWalkRequests} />} />
+        <Route path="/" element={<AdminHome />} />
+        <Route path="/walk-requests" element={<WalkRequests adminWalkRequests={adminWalkRequests} />} />
+        <Route path="/unpaid-requests" element={<UnpaidRequests adminUnpaidRequests={adminUnpaidRequests} />} />
         <Route
           path="/walk-request/:walkRequestId"
           element={(
-            <AdminListItem
+            <AdminWalkRequest
               state={state}
               setState={setState}
               adminState={adminState}

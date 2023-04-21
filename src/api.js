@@ -52,6 +52,19 @@ export function getUnFinalisedWalkRequests() {
 
   return axios.get('http://localhost:8000/api/admin/walks-requests', config);
 }
+//------------------------------------------------------------------------------
+
+export function getUnpaidRequests() {
+  const authToken = Cookies.get('token');
+
+  const config = {
+    headers: {
+      Authorization: `Bearer ${authToken}`,
+    },
+  };
+
+  return axios.get('http://localhost:8000/api/admin/unpaid-requests', config);
+}
 
 //-------------------------------------------------------------------------------
 

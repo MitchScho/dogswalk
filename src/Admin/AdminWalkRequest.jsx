@@ -17,13 +17,14 @@ import {
 } from '../api';
 // -----------------------------------------------------------------------------------------------
 
-function AdminListItem({
+function AdminWalkRequest({
   state, setState, adminState, setAdminState,
 }) {
   console.log(state.walks);
   const [walkRequest, setWalkRequest] = useState(null);
   const [walkRequestUser, setWalkRequestUser] = useState(null);
   const [modalData, setModalData] = useState(null);
+  // const [walksForDate, setWalksForDate] = useState(null);
   const params = useParams();
 
   // ---------------------------------------------------------------------------------------------
@@ -181,4 +182,4 @@ function AdminListItem({
   );
 }
 
-export default AdminListItem;
+export default AdminWalkRequest;
