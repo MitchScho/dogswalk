@@ -3,92 +3,89 @@
 /* eslint-disable react/react-in-jsx-scope */
 import moment from 'moment';
 import { useEffect, useState } from 'react';
+import { useParams, NavLink } from 'react-router-dom';
 import getAvailibleSpots from '../helpers/getAvailibleSpots';
 // ---Import Components ---
 import ConfirmationModal from '../components/ConfirmationModal';
 // --- Import api ---
 import {
+  getUnpaidRequest,
   getWalkRequestUser,
   updateWalkRequest,
   getWalkDateDogs,
-
 } from '../api';
 // -----------------------------------------------------------------------------------------------
 
-function AdminWalkRequest({
-  state, setState, setAdminState, walkRequest,
+function UnpaidRequest({
+  state, setState, adminState, setAdminState,
 }) {
-  console.log(' state. walks', state.walks);
-  console.log(' walkRequest', walkRequest);
-  // const [walkRequest, setCurrentWalkRequest] = useState(null);
+  console.log(state.walks);
+  const [unpaidRequest, setUnpaidRequest] = useState(null);
   const [walkRequestUser, setWalkRequestUser] = useState(null);
   const [modalData, setModalData] = useState(null);
-  const [walkForDate, setWalkForDate] = useState(null);
-  // const params = useParams();
-  console.log('walk for date', walkForDate);
+  // const [walksForDate, setWalksForDate] = useState(null);
+  const params = useParams();
+
   // ---------------------------------------------------------------------------------------------
   // --- Get walk call -----------
-  // useEffect(() => {
-  //   console.log('get walk request');
-  //   getWalkRequest(walkRequest.id)
-  //     .then((res) => {
-  //       setCurrentWalkRequest(res.data);
-  //     });
-  // }, [adminState.adminReFreshKey, walkRequest.id]);// state.adminRefreshKey
+  useEffect(() => {
+    getUnpaidRequest(params.walkRequestId).then((res) => {
+      setUnpaidRequest(res.data);
+    });
+  }, [adminState.adminReFreshKey, params.walkRequestId]); // state.adminRefreshKey
 
   // -----------------------------------------------------------------------------------------------
 
   useEffect(() => {
-    getWalkRequestUser(walkRequest.id)
+    getWalkRequestUser(params.walkRequestId)
       .then((res) => {
         setWalkRequestUser(res.data);
       })
       .catch((err) => {
         console.log(err.message);
       });
-  }, [walkRequest.id]);
+  }, [params.walkRequestId]);
 
   // -------------------------------------------------------------------------------------------
-  // console.log(walkRequest);
+  // console.log(unpaidRequest);
   useEffect(() => {
     // eslint-disable-next-line prefer-destructuring
 
-    // const date = walkRequest;
+    // const date = unpaidRequest;
     // console.log('date', date);
 
-    getWalkDateDogs(walkRequest.id)
-      .then((res) => {
-        // console.log('Walk Date Dogs Response', res);
-        setWalkForDate(res.data);
-      });
-  }, [modalData]);
-
-  // console.log('walk for Date', walkForDate);
+    getWalkDateDogs(params.walkRequestId).then((res) => {
+      console.log('Walk Date Dogs Response', res);
+    });
+  }, [params.walkRequestId]);
   // -------------------------------------------------------------------------------------------
 
-  if (!walkRequest) {
-    return <div>Loading no walk request...</div>;
+  if (!unpaidRequest) {
+    return <div>Loading...</div>;
   }
 
   //-----------------------------------------------------------------------------------------------
   // --- Store selected admin walk date as a moment object ---
 
-  const adminWalkRequestDate = moment(new Date(walkRequest.date));
+  const adminWalkRequestDate = moment(new Date(unpaidRequest.date));
   console.log(adminWalkRequestDate);
   //------------------------------------------------------------------------------------
   // --- Button Style rendering ---
 
-  const isAcceptedClass = walkRequest.isAccepted
+  const isAcceptedClass = unpaidRequest.isAccepted
     ? 'payedFor-accepted'
     : 'notPayedFor-accepted';
-  const isPayedForClass = walkRequest.payedFor
+  const isPayedForClass = unpaidRequest.payedFor
     ? 'payedFor-accepted'
     : 'notPayedFor-accepted';
 
   // -----------------------------------------------------------------------------------------------
   // --- Number of dogs on walk ---
 
-  const availibleSpotsForDate = getAvailibleSpots(adminWalkRequestDate, state.walkRequests);
+  const availibleSpotsForDate = getAvailibleSpots(
+    adminWalkRequestDate,
+    state.walkRequests,
+  );
   const numberOfDogsOnWalk = 12 - availibleSpotsForDate;
 
   //---------------------------------------------------------------------------------------------
@@ -97,32 +94,30 @@ function AdminWalkRequest({
     setModalData(null);
   };
   //-----------------------------------------------------------------------------
+
   const confirmUpdate = (id, payload) => {
-    updateWalkRequest(id, payload)
-      .then((res) => {
-        console.log('confirm update response', res.data);
-        setAdminState((prev) => ({
-          ...prev,
-          adminReFreshKey: prev.adminReFreshKey + 1,
-        }));
-        setState((prev) => ({
-          ...prev,
-          reFreshKey: prev.reFreshKey + 1,
-        }));
-      });
+    updateWalkRequest(id, payload).then(() => {
+      setAdminState((prev) => ({
+        ...prev,
+        adminReFreshKey: prev.adminReFreshKey + 1,
+      }));
+      setState((prev) => ({
+        ...prev,
+        reFreshKey: prev.reFreshKey + 1,
+      }));
+    });
     closeModal();
   };
 
-  console.log('walk request paid for', walkRequest.payedFor);
-  console.log('walk request is Accepted', walkRequest.isAccepted);
   //-----------------------------------------------------------------------------------------------
   // --- Handles confirmation of isAccepted status ---
   const handleIsAccepted = () => {
     setModalData({
       back: closeModal,
-      // eslint-disable-next-line max-len
-      confirm: () => confirmUpdate(walkRequest.id, { isAccepted: !walkRequest.isAccepted }),
-      message: walkRequest.isAccepted ? 'Confirm walk is not accepted' : 'Confirm this is accepted',
+      confirm: () => confirmUpdate(unpaidRequest.id, { isAccepted: !unpaidRequest.isAccepted }),
+      message: unpaidRequest.isAccepted
+        ? 'Confirm walk is not accepted'
+        : 'Confirm this is accepted',
     });
   };
 
@@ -131,18 +126,41 @@ function AdminWalkRequest({
   const handlePayedFor = () => {
     setModalData({
       back: closeModal,
-      // eslint-disable-next-line max-len
-      confirm: () => confirmUpdate(walkRequest.id, { payedFor: !walkRequest.payedFor }),
-      message: walkRequest.payedFor ? 'Confirm walk is not payed for' : 'Confirm this is payed for',
+      confirm: () => confirmUpdate(unpaidRequest.id, { payedFor: !unpaidRequest.payedFor }),
+      message: unpaidRequest.payedFor
+        ? 'Confirm walk is not payed for'
+        : 'Confirm this is payed for',
     });
   };
 
   //-----------------------------------------------------------------------------------------------
   // --- Dogs array to be displayed --------
-  const dogs = walkRequest.dogs.map((dog) => <div key={dog.id}>{dog.name}</div>);
+  const dogs = unpaidRequest.dogs.map((dog) => (
+    <div key={dog.id}>{dog.name}</div>
+  ));
 
   return (
     <>
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+        }}
+      >
+        <div />
+        <h3>Walk Request</h3>
+        <NavLink to="/admin">back </NavLink>
+      </div>
+      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+        <div>Day</div>
+        <div>Date</div>
+        <div>User</div>
+        <div>Dogs</div>
+        <div>Payed For</div>
+        <div>Is Accepted</div>
+        <div>No. of dogs already on this date</div>
+      </div>
       <div style={{ display: 'flex', justifyContent: 'space-between' }}>
         <div>{adminWalkRequestDate.format('dddd')}</div>
         <div>{adminWalkRequestDate.format('MMM D')}</div>
@@ -160,7 +178,7 @@ function AdminWalkRequest({
         </button>
         <div>
           {numberOfDogsOnWalk}
-          dogs already on this date
+          /12
         </div>
       </div>
       {modalData && (
@@ -175,4 +193,4 @@ function AdminWalkRequest({
   );
 }
 
-export default AdminWalkRequest;
+export default UnpaidRequest;

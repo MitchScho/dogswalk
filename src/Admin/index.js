@@ -47,12 +47,25 @@ function Admin({ state, setState }) {
 
   //-----------------------------------------------------------------------------------------------
 
+  console.log('admin Walk Requests', adminWalkRequests);
+
   return (
     <>
       <Nav state={state} setState={setState} />
       <Routes>
         <Route path="/" element={<AdminHome />} />
-        <Route path="/walk-requests" element={<WalkRequests adminWalkRequests={adminWalkRequests} />} />
+        <Route
+          path="/walk-requests"
+          element={(
+            <WalkRequests
+              adminWalkRequests={adminWalkRequests}
+              state={state}
+              setState={setState}
+              adminState={adminState}
+              setAdminState={setAdminState}
+            />
+          )}
+        />
         <Route path="/unpaid-requests" element={<UnpaidRequests adminUnpaidRequests={adminUnpaidRequests} />} />
         <Route
           path="/walk-request/:walkRequestId"

@@ -81,6 +81,7 @@ export function requestDogWalk(date, selectedDogs, user) {
 //--------------------------------------------------------------------------------
 
 export function getWalkRequest(id) {
+  console.log('walk request id', id);
   const authToken = Cookies.get('token');
 
   const config = {

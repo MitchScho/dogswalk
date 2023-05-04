@@ -5,10 +5,13 @@ import { Link } from 'react-router-dom';
 
 function AdminHome() {
   return (
-    <>
+    <div style={{
+      display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
+    }}
+    >
       <Link to="/admin/walk-requests"> Walk Requests </Link>
       <Link to="/admin/unpaid-requests"> Unpaid Requests </Link>
-    </>
+    </div>
   );
 }
 

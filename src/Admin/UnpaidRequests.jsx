@@ -1,6 +1,6 @@
 /* eslint-disable react/react-in-jsx-scope */
 /* eslint-disable react/prop-types */
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import UnpaidRequestList from './UnpaidRequestList';
 
 function UnpaidRequests({ adminUnpaidRequests }) {
@@ -14,17 +14,11 @@ function UnpaidRequests({ adminUnpaidRequests }) {
 
   return (
     <>
-      <h3
-        style={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          flexDirection: 'column',
-        }}
-      >
-        Unpaid Requests
-      </h3>
-
+      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+        <div />
+        <h3>Unpaid Requests</h3>
+        <NavLink to="/admin">back </NavLink>
+      </div>
       <div
         style={{
           display: 'flex',

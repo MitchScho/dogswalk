@@ -1,41 +1,36 @@
 /* eslint-disable react/react-in-jsx-scope */
 /* eslint-disable react/prop-types */
-import { Link } from 'react-router-dom';
-import WalkRequestList from './WalkRequestList';
+import { NavLink } from 'react-router-dom';
+// import WalkRequestList from './WalkRequestList';
+import AdminWalkRequest from './AdminWalkRequest';
 
-function WalkRequests({ adminWalkRequests }) {
+function WalkRequests({
+  adminWalkRequests, state, setState, adminState, setAdminState,
+}) {
   //------------------------------------------------------------------------------------------------
+  console.log('walk requets in list', adminWalkRequests);
+  if (!adminWalkRequests) {
+    return <div>Loading...</div>;
+  }
+
   // --- Create Admin Walk List Array ----
   const walkRequestArray = adminWalkRequests.map((walkRequest) => (
-    <Link to={`/admin/walk-request/${walkRequest.id}`} key={walkRequest.id}>
-      <WalkRequestList walkRequest={walkRequest} />
-    </Link>
+    <AdminWalkRequest
+      key={walkRequest.id}
+      walkRequest={walkRequest}
+      state={state}
+      setState={setState}
+      adminState={adminState}
+      setAdminState={setAdminState}
+    />
   ));
 
   return (
     <>
-      <h3
-        style={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          flexDirection: 'column',
-        }}
-      >
-        Walk Requests
-      </h3>
-
-      <div
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          marginBottom: '1em',
-        }}
-      >
-        <div>Day</div>
-        <div>Date</div>
-        <div>Dogs Requested For Walk</div>
+      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+        <div />
+        <h3>Walk Requests</h3>
+        <NavLink to="/admin">back </NavLink>
       </div>
       <div>{walkRequestArray}</div>
     </>
