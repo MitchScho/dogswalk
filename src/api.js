@@ -24,11 +24,6 @@ export function getMe() {
 export function getDogs() {
   return axios.get('http://localhost:8000/api/dogs');
 }
-//---------------------------------------------------------------------------------
-
-export function getWalkDateDogs(id) {
-  return axios.get(`http://localhost:8000/api/walks-dogs/${id}`);
-}
 
 //------------------------------------------------------------------------------
 
@@ -41,7 +36,7 @@ export function getWalks() {
 
 //------------------------------------------------------------------------------
 
-export function getUnFinalisedWalkRequests() {
+export function getAdminWalkRequests() {
   const authToken = Cookies.get('token');
 
   const config = {
@@ -81,7 +76,7 @@ export function requestDogWalk(date, selectedDogs, user) {
 //--------------------------------------------------------------------------------
 
 export function getWalkRequest(id) {
-  console.log('walk request id', id);
+  // console.log('walk request id', id);
   const authToken = Cookies.get('token');
 
   const config = {
@@ -119,6 +114,19 @@ export function updateWalkRequest(id, payload) {
 
 export function deleteDogWalkRequest(id) {
   return axios.delete(`http://localhost:8000/api/walks-requests/${id}`);
+}
+
+//---------------------------------------------------------------------------------
+export function deletePaidWalkRequests() {
+  const authToken = Cookies.get('token');
+
+  const config = {
+    headers: {
+      Authorization: `Bearer ${authToken}`,
+    },
+  };
+
+  return axios.delete('http://localhost:8000/api/admin/walks-requests', config);
 }
 
 //---------------------------------------------------------------------------------

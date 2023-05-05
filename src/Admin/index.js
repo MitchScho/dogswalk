@@ -8,7 +8,7 @@ import {
   Routes, Route,
 } from 'react-router-dom';
 
-import AdminWalkRequest from './AdminWalkRequest';
+// import AdminWalkRequest from './AdminWalkRequest';
 import WalkRequests from './WalkRequests';
 import UnpaidRequests from './UnpaidRequests';
 import AdminHome from './AdminHome';
@@ -17,7 +17,7 @@ import Nav from '../components/Nav';
 // --- Style Imports ---
 import './index.scss';
 // --- API Imports ---
-import { getUnFinalisedWalkRequests, getUnpaidRequests } from '../api';
+import { getAdminWalkRequests, getUnpaidRequests } from '../api';
 
 //-------------------------------------------------------------------------------------------------
 function Admin({ state, setState }) {
@@ -30,7 +30,7 @@ function Admin({ state, setState }) {
   //------------------------------------------------------------------------------------------------
 
   useEffect(() => {
-    getUnFinalisedWalkRequests()
+    getAdminWalkRequests()
       .then((res) => {
         setAdminWalkRequests(res.data);
       });
@@ -46,8 +46,6 @@ function Admin({ state, setState }) {
   }, []);
 
   //-----------------------------------------------------------------------------------------------
-
-  console.log('admin Walk Requests', adminWalkRequests);
 
   return (
     <>
@@ -67,17 +65,6 @@ function Admin({ state, setState }) {
           )}
         />
         <Route path="/unpaid-requests" element={<UnpaidRequests adminUnpaidRequests={adminUnpaidRequests} />} />
-        <Route
-          path="/walk-request/:walkRequestId"
-          element={(
-            <AdminWalkRequest
-              state={state}
-              setState={setState}
-              adminState={adminState}
-              setAdminState={setAdminState}
-            />
-          )}
-        />
       </Routes>
     </>
   );
