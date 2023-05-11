@@ -4,7 +4,7 @@
 import { NavLink } from 'react-router-dom';
 import { deletePaidWalkRequests } from '../api';
 // import WalkRequestList from './WalkRequestList';
-import AdminWalkRequest from './AdminWalkRequest';
+import WalkRequest from './WalkRequest';
 
 function WalkRequests({
   adminWalkRequests, state, setState, adminState, setAdminState,
@@ -28,7 +28,7 @@ function WalkRequests({
 
   // --- Create Admin Walk List Array ----
   const walkRequestArray = adminWalkRequests.map((walkRequest) => (
-    <AdminWalkRequest
+    <WalkRequest
       key={walkRequest.id}
       walkRequest={walkRequest}
       state={state}

@@ -14,7 +14,7 @@ import {
 } from '../api';
 // -----------------------------------------------------------------------------------------------
 
-function AdminWalkRequest({
+function WalkRequest({
   setAdminState, walkRequest, state, setState,
 }) {
   const [walkRequestUser, setWalkRequestUser] = useState(null);
@@ -141,4 +141,4 @@ function AdminWalkRequest({
   );
 }
 
-export default AdminWalkRequest;
+export default WalkRequest;
