@@ -11,6 +11,7 @@ import {
 // import AdminWalkRequest from './AdminWalkRequest';
 import WalkRequests from './WalkRequests';
 import UnpaidRequests from './UnpaidRequests';
+import UnpaidDogRequests from './UnpaidDogRequests';
 import AdminHome from './AdminHome';
 import Nav from '../components/Nav';
 // --- Router Imports ---
@@ -26,6 +27,7 @@ function Admin({ state, setState }) {
   const [adminState, setAdminState] = useState({
     adminReFreshKey: 0,
   });
+  const [unpaidDog, setUnpaidDog] = useState([]);
 
   //------------------------------------------------------------------------------------------------
 
@@ -64,7 +66,21 @@ function Admin({ state, setState }) {
             />
           )}
         />
-        <Route path="/unpaid-requests" element={<UnpaidRequests adminUnpaidRequests={adminUnpaidRequests} />} />
+        <Route
+          path="/unpaid-requests"
+          element={(
+            <UnpaidRequests
+              adminUnpaidRequests={adminUnpaidRequests}
+              setUnpaidDog={setUnpaidDog}
+            />
+          )}
+        />
+        <Route
+          path="/unpaid-dog-requests"
+          element={(
+            <UnpaidDogRequests unpaidDog={unpaidDog} />
+        )}
+        />
       </Routes>
     </>
   );
