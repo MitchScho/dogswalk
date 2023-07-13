@@ -68,7 +68,7 @@ function WalkRequest({
   const confirmUpdate = (id, payload) => {
     updateWalkRequest(id, payload)
       .then((res) => {
-        console.log('confirm update response', res.data.message);
+        console.log('confirm update response', res);
         setAdminState((prev) => ({
           ...prev,
           adminReFreshKey: prev.adminReFreshKey + 1,
@@ -77,6 +77,9 @@ function WalkRequest({
           ...prev,
           reFreshKey: prev.reFreshKey + 1,
         }));
+      })
+      .catch((err) => {
+        console.log(err.message);
       });
     closeModal();
   };

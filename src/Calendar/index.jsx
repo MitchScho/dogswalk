@@ -3,6 +3,7 @@
 import { useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import DateList from '../components/DateList';
+import Profile from '../components/Profile';
 import Nav from '../components/Nav';
 
 import { getMe } from '../api';
@@ -30,6 +31,10 @@ function Calendar({ state, setState }) {
         <Route
           path="/"
           element={<DateList state={state} setState={setState} />}
+        />
+        <Route
+          path="/profile"
+          element={<Profile />}
         />
       </Routes>
     </>
