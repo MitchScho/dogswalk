@@ -24,6 +24,19 @@ export function getMe() {
 export function getDogs() {
   return axios.get('http://localhost:8000/api/dogs');
 }
+//---------------------------------------------------------------------------------
+
+export function getUsersDogs(id) {
+  const authToken = Cookies.get('token');
+
+  const config = {
+    headers: {
+      Authorization: `Bearer ${authToken}`,
+    },
+  };
+
+  return axios.get(`http://localhost:8000/api/users/${id}/dogs`, config);
+}
 
 //------------------------------------------------------------------------------
 

@@ -32,10 +32,7 @@ function Calendar({ state, setState }) {
           path="/"
           element={<DateList state={state} setState={setState} />}
         />
-        <Route
-          path="/profile"
-          element={<Profile />}
-        />
+        <Route path="/profile" element={<Profile state={state} />} />
       </Routes>
     </>
   );
