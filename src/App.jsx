@@ -9,7 +9,7 @@ import NotFound from './components/NotFound';
 // -- Style Imports --
 import './App.scss';
 // --- API imports ---
-import { getDogs, getWalks, getDogWalkRequests } from './api';
+import { getWalks, getDogWalkRequests } from './api';
 
 //--------------------------------------------------------------------------------------------------
 
@@ -39,19 +39,6 @@ function App() {
         setState((prev) => ({
           ...prev,
           walks: walks.data,
-        }));
-      })
-      .catch((err) => {
-        console.log(err.message);
-      });
-  }, [state.reFreshKey]);
-
-  useEffect(() => {
-    getDogs()
-      .then((dogs) => {
-        setState((prev) => ({
-          ...prev,
-          dogs: dogs.data,
         }));
       })
       .catch((err) => {

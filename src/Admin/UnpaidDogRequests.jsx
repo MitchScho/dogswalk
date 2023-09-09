@@ -1,6 +1,7 @@
 /* eslint-disable array-callback-return */
 /* eslint-disable react/react-in-jsx-scope */
 /* eslint-disable react/prop-types */
+import { NavLink } from 'react-router-dom';
 import UnpaidDogRequest from './UnpaidDogRequest';
 // -----------------------------------------------------------------------------------------------
 
@@ -15,7 +16,10 @@ function UnpaidDogRequests({ unpaidDog }) {
 
   return (
     <>
-      <div>UnpaidDogRequests</div>
+      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+        <div>UnpaidDogRequests</div>
+        <NavLink to="/admin/unpaid-requests">back </NavLink>
+      </div>
       <div>{requestList}</div>
     </>
   );

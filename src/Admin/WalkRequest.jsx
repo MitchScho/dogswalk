@@ -49,7 +49,7 @@ function WalkRequest({
   const isAcceptedClass = walkRequest.isAccepted
     ? 'payedFor-accepted'
     : 'notPayedFor-accepted';
-  const isPayedForClass = walkRequest.payedFor
+  const isPaidForClass = walkRequest.payedFor
     ? 'payedFor-accepted'
     : 'notPayedFor-accepted';
 
@@ -97,7 +97,7 @@ function WalkRequest({
 
   //------------------------------------------------------------------------------------------------
   // --- Handles confirmation of payedFor status ---
-  const handlePayedFor = () => {
+  const handlePaidFor = () => {
     setModalData({
       back: closeModal,
       // eslint-disable-next-line max-len
@@ -117,7 +117,7 @@ function WalkRequest({
         <div>{adminWalkRequestDate.format('MMM D')}</div>
         <div>{walkRequestUser && walkRequestUser.username}</div>
         <div>{dogs}</div>
-        <button onClick={handlePayedFor} className={isPayedForClass}>
+        <button onClick={handlePaidFor} className={isPaidForClass}>
           Payed For
         </button>
         <button

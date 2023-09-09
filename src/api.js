@@ -125,6 +125,20 @@ export function updateWalkRequest(id, payload) {
 
 //-------------------------------------------------------------------------------------------------
 
+export function addDogForUser(id, dogName) {
+  const authToken = Cookies.get('token');
+  const dog = {
+    name: dogName,
+  };
+  const config = {
+    headers: {
+      Authorization: `Bearer ${authToken}`,
+    },
+  };
+  return axios.post(`http://localhost:8000/api/users/${id}/dogs`, dog, config);
+}
+//-------------------------------------------------------------------------------------------------
+
 export function deleteDogWalkRequest(id) {
   return axios.delete(`http://localhost:8000/api/walks-requests/${id}`);
 }
