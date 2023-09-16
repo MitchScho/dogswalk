@@ -23,16 +23,6 @@ function App() {
     reFreshKey: 0,
   });
 
-  // useEffect(() => {
-  //   getUsers().then((users) => {
-  //     setState((prev) => ({
-  //       ...prev,
-  //       users: users.data
-  //     }))
-  //   })
-
-  // }, []);
-
   useEffect(() => {
     getWalks()
       .then((walks) => {

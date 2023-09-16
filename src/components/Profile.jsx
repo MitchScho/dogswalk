@@ -1,44 +1,27 @@
 /* eslint-disable react/prop-types */
-import React, { useEffect, useState } from 'react';
-import { getUsersDogs, addDogForUser } from '../api';
+import React, { useState } from 'react';
+import { addDogForUser } from '../api';
 // import DogAvatar from './DogAvatar';
 
 function Profile({ state }) {
-  console.log('userId in profile component', state.user.id);
+  const [inputDog, setInputDog] = useState('');
 
-  const [inputDog, setInputDog] = useState(null);
-
-  const [usersDogs, setUsersDogs] = useState('');
-  useEffect(() => {
-    console.log('user in useEffect', state.user.id);
-    // const { id } = state.user.id;
-    getUsersDogs(state.user.id)
-      .then((res) => {
-        console.log('res', res);
-        setUsersDogs(res.data);
-      });
-  }, []);
-
-  if (!usersDogs) {
+  if (!state.dogs) {
     return <div>Loading no Dogs yet...</div>;
   }
 
-  console.log('users Dogs', usersDogs);
-  const usersDogList = usersDogs.map((dog) => (
+  const usersDogList = state.dogs.map((dog) => (
     <div key={dog.name}>{dog.name}</div>
   ));
 
   const submitDog = ((e) => {
     e.preventDefault();
-    console.log('input dog', inputDog);
-    addDogForUser(state.user.id, inputDog)
-      .then((res) => {
-        console.log('add dog for user response', res);
-      });
+
+    addDogForUser(state.user.id, inputDog);
   });
 
   return (
-    <div className="flex items-center justify-center flex-col">
+    <div className="border-solid flex items-center justify-center flex-col">
       <div>{state.user?.username}</div>
       <div>{usersDogList}</div>
       <form className="w-full max-w-sm">

@@ -1,10 +1,12 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react/react-in-jsx-scope */
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import moment from 'moment';
 // --- Component Import ---
 import DateListItem from './DateListItem';
 import WalkForm from './WalkForm';
+// --- API ---
+import { getUsersDogs } from '../api';
 // --- Helpers ---
 import getCalendarWeek from '../helpers/getCalendarWeek';
 // --- Style Imports ---
@@ -15,9 +17,19 @@ function DateList({
   state,
   setState,
 }) {
-//-------------------------------------------------------------------------------
+  //-------------------------------------------------------------------------------
   const [addWalkDate, setAddWalkDate] = useState(null);
   //-----------------------------------------------------------------------------------------------
+
+  useEffect(() => {
+    getUsersDogs(state.user.id).then((dogs) => {
+      setState((prev) => ({
+        ...prev,
+        dogs: dogs.data,
+      }));
+    });
+  }, [state.reFreshKey]);
+
   // --- Create Date List ---
 
   const startDate = moment();
@@ -47,9 +59,7 @@ function DateList({
   //-----------------------------------------------------------------------------------------------
   // --- Component Return ---
 
-  return (
-    <div>{datesArray}</div>
-  );
+  return <div>{datesArray}</div>;
 }
 
 export default DateList;

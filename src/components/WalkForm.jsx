@@ -2,9 +2,9 @@
 /* eslint-disable react/button-has-type */
 /* eslint-disable react/react-in-jsx-scope */
 /* eslint-disable react/prop-types */
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import DogAvatar from './DogAvatar';
-import { requestDogWalk, getUsersDogs } from '../api';
+import { requestDogWalk } from '../api';
 // --- Style Imports ---
 import './WalkForm.scss';
 //--------------------------------------------------------------------------------------------------
@@ -12,21 +12,6 @@ import './WalkForm.scss';
 function WalkForm({
   date, state, setState, setAddWalkDate,
 }) {
-  //----------------------------------------------
-
-  useEffect(() => {
-    getUsersDogs(state.user.id)
-      .then((dogs) => {
-        setState((prev) => ({
-          ...prev,
-          dogs: dogs.data,
-        }));
-      })
-      .catch((err) => {
-        console.log(err.message);
-      });
-  }, [state.reFreshKey]);
-
   //-------------------------------------------------------------------------------
   const [selectedDogs, setSelectedDogs] = useState([]);
 
