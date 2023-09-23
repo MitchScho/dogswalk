@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { addDogForUser } from '../api';
 // import DogAvatar from './DogAvatar';
 
-function Profile({ state }) {
+function Profile({ state, setState }) {
   const [inputDog, setInputDog] = useState('');
 
   if (!state.dogs) {
@@ -17,7 +17,13 @@ function Profile({ state }) {
   const submitDog = ((e) => {
     e.preventDefault();
 
-    addDogForUser(state.user.id, inputDog);
+    addDogForUser(state.user.id, inputDog)
+      .then(() => {
+        setState((prev) => ({
+          ...prev,
+          reFreshKey: prev.reFreshKey + 1,
+        }));
+      });
   });
 
   return (

@@ -41,7 +41,7 @@ function Calendar({ state, setState }) {
         />
         <Route
           path="/profile"
-          element={<Profile state={state} />}
+          element={<Profile state={state} setState={setState} />}
         />
       </Routes>
     </>
