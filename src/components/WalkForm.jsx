@@ -62,11 +62,24 @@ function WalkForm({
         <div>{date.format('MMM D')}</div>
       </div>
       <div className="dog-form-controls">
-        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            paddingBottom: '2em',
+          }}
+        >
           {dogList}
         </div>
         <div className="walk-request-buttons">
-          <button onClick={(() => { setAddWalkDate(null); })}>Cancel</button>
+          <button
+            style={{ padding: '1em' }}
+            onClick={() => {
+              setAddWalkDate(null);
+            }}
+          >
+            Cancel
+          </button>
           <button onClick={confirmWalk}>Request Walk</button>
         </div>
       </div>

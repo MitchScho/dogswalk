@@ -1,30 +1,58 @@
 /* eslint-disable react/prop-types */
-import React, { useState } from 'react';
-import { addDogForUser } from '../api';
-// import DogAvatar from './DogAvatar';
+import React, { useState, useEffect } from 'react';
+import { getUsersDogs, addDogForUser, deleteDog } from '../api';
+// import ProfileDogAvatar from './DogAvatar';
 
 function Profile({ state, setState }) {
   const [inputDog, setInputDog] = useState('');
+
+  useEffect(() => {
+    getUsersDogs(state.user.id).then((dogs) => {
+      setState((prev) => ({
+        ...prev,
+        dogs: dogs.data,
+      }));
+    });
+  }, [state.reFreshKey]);
 
   if (!state.dogs) {
     return <div>Loading no Dogs yet...</div>;
   }
 
+  const handleDeleteDog = (dogId) => {
+    deleteDog(dogId);
+    setState((prev) => ({
+      ...prev,
+      reFreshKey: prev.reFreshKey + 1,
+    }));
+  };
+
   const usersDogList = state.dogs.map((dog) => (
-    <div key={dog.name}>{dog.name}</div>
+    <div key={dog.id} className="flex flex-row justify-between">
+      {dog.name}
+      <button
+        className="flex-shrink-0 border-transparent border-4 text-teal-500 hover:text-teal-800 text-sm py-1 px-2 rounded"
+        type="button"
+        onClick={() => handleDeleteDog(dog.id)}
+      >
+        Delete
+      </button>
+    </div>
   ));
 
-  const submitDog = ((e) => {
+  console.log(usersDogList);
+
+  const submitDog = (e) => {
     e.preventDefault();
 
-    addDogForUser(state.user.id, inputDog)
-      .then(() => {
-        setState((prev) => ({
-          ...prev,
-          reFreshKey: prev.reFreshKey + 1,
-        }));
-      });
-  });
+    addDogForUser(state.user.id, inputDog).then(() => {
+      setInputDog('');
+      setState((prev) => ({
+        ...prev,
+        reFreshKey: prev.reFreshKey + 1,
+      }));
+    });
+  };
 
   return (
     <div className="border-solid flex items-center justify-center flex-col">
@@ -46,12 +74,6 @@ function Profile({ state, setState }) {
             onClick={submitDog}
           >
             Add Dog
-          </button>
-          <button
-            className="flex-shrink-0 border-transparent border-4 text-teal-500 hover:text-teal-800 text-sm py-1 px-2 rounded"
-            type="button"
-          >
-            Cancel
           </button>
         </div>
       </form>

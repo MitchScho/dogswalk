@@ -55,6 +55,7 @@ function WalkRequest({
 
   // -----------------------------------------------------------------------------------------------
   // --- Number of dogs on walk ---
+  console.log('walks state', state.walks);
 
   const availibleSpotsForDate = getAvailibleSpots(adminWalkRequestDate, state.walks);
   const numberOfDogsOnWalk = 12 - availibleSpotsForDate;

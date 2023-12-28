@@ -143,6 +143,19 @@ export function deleteDogWalkRequest(id) {
   return axios.delete(`http://localhost:8000/api/walks-requests/${id}`);
 }
 
+//------------------------------------------------------------------------------------------------
+
+export function deleteDog(id) {
+  const authToken = Cookies.get('token');
+
+  const config = {
+    headers: {
+      Authorization: `Bearer ${authToken}`,
+    },
+  };
+  return axios.delete(`http://localhost:8000/api/dogs/${id}`, config);
+}
+
 //---------------------------------------------------------------------------------
 export function deletePaidWalkRequests() {
   const authToken = Cookies.get('token');

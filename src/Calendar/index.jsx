@@ -11,6 +11,7 @@ import { getMe } from '../api';
 //-------------------------------------------------------------------------------------------
 
 function Calendar({ state, setState }) {
+  //-------------------------------------------------------------------------------
   useEffect(() => {
     getMe()
       .then((res) => {
@@ -25,8 +26,9 @@ function Calendar({ state, setState }) {
       });
   }, []);
 
+  //----------------------------------------
   if (!state.user) {
-    return <div>Loading... No User...</div>;
+    return <div>Loading User Application...</div>;
   }
 
   //-------------------------------------------
