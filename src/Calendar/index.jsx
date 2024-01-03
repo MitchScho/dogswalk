@@ -6,7 +6,7 @@ import DateList from '../components/DateList';
 import Profile from '../components/Profile';
 import Nav from '../components/Nav';
 
-import { getMe } from '../api';
+import { getMe, deleteDog } from '../api';
 
 //-------------------------------------------------------------------------------------------
 
@@ -27,9 +27,21 @@ function Calendar({ state, setState }) {
   }, []);
 
   //----------------------------------------
+
   if (!state.user) {
     return <div>Loading User Application...</div>;
   }
+
+  //-----------------------------------------
+
+  const handleDeleteDog = (dogId) => {
+    deleteDog(dogId).then(() => {
+      setState((prev) => ({
+        ...prev,
+        reFreshKey: prev.reFreshKey + 1,
+      }));
+    });
+  };
 
   //-------------------------------------------
 
@@ -43,7 +55,7 @@ function Calendar({ state, setState }) {
         />
         <Route
           path="/profile"
-          element={<Profile state={state} setState={setState} />}
+          element={<Profile handleDeleteDog={handleDeleteDog} state={state} setState={setState} />}
         />
       </Routes>
     </>

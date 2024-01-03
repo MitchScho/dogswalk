@@ -36,19 +36,6 @@ function App() {
       });
   }, [state.reFreshKey]);
 
-  // useEffect(() => {
-  //   getDogs()
-  //     .then((dogs) => {
-  //       setState((prev) => ({
-  //         ...prev,
-  //         dogs: dogs.data,
-  //       }));
-  //     })
-  //     .catch((err) => {
-  //       console.log(err.message);
-  //     });
-  // }, [state.reFreshKey]);
-
   useEffect(() => {
     getDogWalkRequests()
       .then((walkRequests) => {

@@ -1,11 +1,28 @@
 /* eslint-disable react/prop-types */
 import React, { useState, useEffect } from 'react';
-import { getUsersDogs, addDogForUser, deleteDog } from '../api';
+import { getUsersDogs, addDogForUser } from '../api';
+import DogAvatar from './DogAvatar';
 // import ProfileDogAvatar from './DogAvatar';
 
-function Profile({ state, setState }) {
+function Profile({ handleDeleteDog, state, setState }) {
   const [inputDog, setInputDog] = useState('');
 
+  //-------------------------------------------------------------------------------
+  // --- Duplicated code review -------------------------
+  const [selectedDogs, setSelectedDogs] = useState([]);
+
+  const selectDogs = (dog) => {
+    if (selectedDogs.includes(dog)) {
+      const newDogList = selectedDogs.filter(
+        (selectedDog) => selectedDog !== dog,
+      );
+      return setSelectedDogs(newDogList);
+    }
+    return setSelectedDogs((prev) => [...prev, dog]);
+  };
+
+  //----------------------------------------------------------------
+  console.log('State Re Fresh', state.reFreshKey);
   useEffect(() => {
     getUsersDogs(state.user.id).then((dogs) => {
       setState((prev) => ({
@@ -19,19 +36,28 @@ function Profile({ state, setState }) {
     return <div>Loading no Dogs yet...</div>;
   }
 
-  const handleDeleteDog = (dogId) => {
-    deleteDog(dogId);
-    setState((prev) => ({
-      ...prev,
-      reFreshKey: prev.reFreshKey + 1,
-    }));
-  };
+  //---------------------------------------------------------------
+
+  // const handleDeleteDog = (dogId) => {
+  //   deleteDog(dogId);
+  //   setState((prev) => ({
+  //     ...prev,
+  //     reFreshKey: prev.reFreshKey + 1,
+  //   }));
+  // };
+
+  //-----------------------------------------------------------------------
 
   const usersDogList = state.dogs.map((dog) => (
     <div key={dog.id} className="flex flex-row justify-between">
-      {dog.name}
+      <DogAvatar
+        key={dog.id}
+        dog={dog}
+        selectDogs={selectDogs}
+        selectedDogs={selectedDogs}
+      />
       <button
-        className="flex-shrink-0 border-transparent border-4 text-teal-500 hover:text-teal-800 text-sm py-1 px-2 rounded"
+        className="flex-shrink-0 bg-grey-500 mt-5 mb-5 hover:bg-grey-700 border-grey-500 hover:border-grey-700 text-sm border-4 text-white py-1 px-2 rounded"
         type="button"
         onClick={() => handleDeleteDog(dog.id)}
       >
@@ -42,36 +68,39 @@ function Profile({ state, setState }) {
 
   console.log(usersDogList);
 
-  const submitDog = (e) => {
+  //-----------------------------------------------------------------
+
+  const addDog = (e) => {
     e.preventDefault();
 
-    addDogForUser(state.user.id, inputDog).then(() => {
-      setInputDog('');
-      setState((prev) => ({
-        ...prev,
-        reFreshKey: prev.reFreshKey + 1,
-      }));
-    });
+    addDogForUser(state.user.id, inputDog)
+      .then(() => {
+        setState((prev) => ({
+          ...prev,
+          reFreshKey: prev.reFreshKey + 1,
+        }));
+        setInputDog('');
+      });
   };
 
   return (
     <div className="border-solid flex items-center justify-center flex-col">
       <div>{state.user?.username}</div>
       <div>{usersDogList}</div>
-      <form className="w-full max-w-sm">
-        <div className="flex items-center border-b border-teal-500 py-2">
+      <form className="w-half max-w-sm">
+        <div className="flex items-center border-b border-grey-500 py-2">
           <input
             value={inputDog}
             onChange={(e) => setInputDog(e.target.value)}
-            className="appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none"
+            className="appearance-none bg-transparent border-none w-half text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none"
             type="text"
             placeholder="Register Dog"
             aria-label="Full name"
           />
           <button
-            className="flex-shrink-0 bg-teal-500 hover:bg-teal-700 border-teal-500 hover:border-teal-700 text-sm border-4 text-white py-1 px-2 rounded"
+            className="flex-shrink-0 bg-grey-500 hover:bg-grey-700 border-grey-500 hover:border-grey-700 text-sm border-4 text-white py-1 px-2 rounded"
             type="button"
-            onClick={submitDog}
+            onClick={addDog}
           >
             Add Dog
           </button>
