@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
 import React, { useState, useEffect } from 'react';
+import { NavLink } from 'react-router-dom';
 import { getUsersDogs, addDogForUser } from '../api';
 import DogAvatar from './DogAvatar';
 // import ProfileDogAvatar from './DogAvatar';
@@ -85,7 +86,9 @@ function Profile({ handleDeleteDog, state, setState }) {
 
   return (
     <div className="border-solid flex items-center justify-center flex-col">
-      <div>{state.user?.username}</div>
+      <div className="flex flex-end">
+        <NavLink to="/calendar">back </NavLink>
+      </div>
       <div>{usersDogList}</div>
       <form className="w-half max-w-sm">
         <div className="flex items-center border-b border-grey-500 py-2">

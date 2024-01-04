@@ -22,10 +22,10 @@ function Nav({ state, setState }) {
     <nav>
       <span>DOGSWALK</span>
       {state.user?.username && (
-        <h1>
-          Hi
-          {state.user.username}
-        </h1>
+        <>
+          <h1>Hi</h1>
+          <div>{state.user.username}</div>
+        </>
       )}
       <NavLink to="/calendar/profile">Profile</NavLink>
       <button onClick={handleLogout}>Logout</button>
