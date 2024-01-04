@@ -12,6 +12,8 @@ import {
   updateWalkRequest,
 
 } from '../api';
+//---------------------------------------------------------------------
+import './WalkRequest.scss';
 // -----------------------------------------------------------------------------------------------
 
 function WalkRequest({
@@ -113,8 +115,10 @@ function WalkRequest({
 
   return (
     <>
-      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-        <div>{adminWalkRequestDate.format('dddd')}</div>
+      <div
+        className="walkRequest-container"
+      >
+        <div>{adminWalkRequestDate.format('ddd')}</div>
         <div>{adminWalkRequestDate.format('MMM D')}</div>
         <div>{walkRequestUser && walkRequestUser.username}</div>
         <div>{dogs}</div>
