@@ -47,15 +47,15 @@ function WalkRequest({
   // --- Button Style rendering ---
 
   const isAcceptedClass = walkRequest.isAccepted
-    ? 'payedFor-accepted'
-    : 'notPayedFor-accepted';
-  const isPaidForClass = walkRequest.payedFor
-    ? 'payedFor-accepted'
-    : 'notPayedFor-accepted';
+    ? 'paidFor-accepted'
+    : 'notPaidFor-notAccepted';
+  const isPaidForClass = walkRequest.paidFor
+    ? 'paidFor-accepted'
+    : 'notPaidFor-notAccepted';
 
   // -----------------------------------------------------------------------------------------------
   // --- Number of dogs on walk ---
-  console.log('walks state', state.walks);
+  // console.log('walks state', state.walks);
 
   const availibleSpotsForDate = getAvailibleSpots(adminWalkRequestDate, state.walks);
   const numberOfDogsOnWalk = 12 - availibleSpotsForDate;
@@ -97,13 +97,13 @@ function WalkRequest({
   };
 
   //------------------------------------------------------------------------------------------------
-  // --- Handles confirmation of payedFor status ---
+  // --- Handles confirmation of paidFor status ---
   const handlePaidFor = () => {
     setModalData({
       back: closeModal,
       // eslint-disable-next-line max-len
-      confirm: () => confirmUpdate(walkRequest.id, { payedFor: !walkRequest.payedFor }),
-      message: walkRequest.payedFor ? 'Confirm walk is not payed for' : 'Confirm this is payed for',
+      confirm: () => confirmUpdate(walkRequest.id, { paidFor: !walkRequest.paidFor }),
+      message: walkRequest.paidFor ? 'Confirm walk is not paid for' : 'Confirm this is paid for',
     });
   };
 
@@ -119,7 +119,7 @@ function WalkRequest({
         <div>{walkRequestUser && walkRequestUser.username}</div>
         <div>{dogs}</div>
         <button onClick={handlePaidFor} className={isPaidForClass}>
-          Payed For
+          Paid For
         </button>
         <button
           style={{ marginRight: '1em' }}

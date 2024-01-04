@@ -9,7 +9,7 @@ function Profile({ handleDeleteDog, state, setState }) {
   const [inputDog, setInputDog] = useState('');
 
   //-------------------------------------------------------------------------------
-  // --- Duplicated code review -------------------------
+  // --- Duplicated code.......Review this..... -------------------------
   const [selectedDogs, setSelectedDogs] = useState([]);
 
   const selectDogs = (dog) => {
