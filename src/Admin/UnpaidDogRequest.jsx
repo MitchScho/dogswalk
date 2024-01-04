@@ -5,7 +5,7 @@
 import moment from 'moment';
 
 function UnpaidDogRequest({ request }) {
-  console.log('unpaid dog request', request);
+  // console.log('unpaid dog request', request);
   // console.log('unpaid dog request date', request.date.format('dddd'));
 
   const date = moment(request.date);

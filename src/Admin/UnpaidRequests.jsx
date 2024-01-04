@@ -37,7 +37,12 @@ function UnpaidRequests({ adminUnpaidRequests, setUnpaidDog }) {
         <h3>Unpaid Requests</h3>
         <NavLink to="/admin">back </NavLink>
       </div>
-      <div>{unpaidRequestsDogList}</div>
+      <div style={{
+        display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexDirection: 'column',
+      }}
+      >
+        {unpaidRequestsDogList}
+      </div>
     </>
   );
 }

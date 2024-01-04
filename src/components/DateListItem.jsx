@@ -84,7 +84,7 @@ function DateListItem({
 
   return (
     <div className="dateListItem">
-      <div>{date.format('dddd')}</div>
+      <div>{date.format('ddd')}</div>
       <div>
         {availibleSpotsForDate}
         {' '}

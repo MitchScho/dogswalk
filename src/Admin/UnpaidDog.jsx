@@ -5,7 +5,7 @@
 import { useNavigate } from 'react-router-dom';
 
 function UnpaidDog({ dog, setUnpaidDog }) {
-  console.log('dog', dog);
+  // console.log('dog', dog);
   const navigate = useNavigate();
   //----------------------------------------------------------------------------------------------
 

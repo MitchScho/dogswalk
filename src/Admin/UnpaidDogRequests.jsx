@@ -6,21 +6,29 @@ import UnpaidDogRequest from './UnpaidDogRequest';
 // -----------------------------------------------------------------------------------------------
 
 function UnpaidDogRequests({ unpaidDog }) {
-  console.log('unpaidDog', unpaidDog[1]);
+  // console.log('unpaidDog', unpaidDog[1]);
 
   const requestList = unpaidDog[1].map((request) => (
     <UnpaidDogRequest key={request.id} request={request} />
   ));
 
-  console.log('request list', requestList);
-
   return (
     <>
       <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+        <div />
         <div>UnpaidDogRequests</div>
         <NavLink to="/admin/unpaid-requests">back </NavLink>
       </div>
-      <div>{requestList}</div>
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          flexDirection: 'column',
+        }}
+      >
+        {requestList}
+      </div>
     </>
   );
 }
