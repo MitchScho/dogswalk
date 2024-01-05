@@ -3,18 +3,21 @@
 /* eslint-disable react/react-in-jsx-scope */
 import moment from 'moment';
 import { useEffect, useState } from 'react';
-import getAvailibleSpots from '../helpers/getAvailibleSpots';
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faDollarSign, faCheck } from '@fortawesome/free-solid-svg-icons';
 // ---Import Components ---
 import ConfirmationModal from '../components/ConfirmationModal';
 // --- Import api ---
 import {
   getWalkRequestUser,
   updateWalkRequest,
-
 } from '../api';
 //---------------------------------------------------------------------
 import './WalkRequest.scss';
 // -----------------------------------------------------------------------------------------------
+import getAvailibleSpots from '../helpers/getAvailibleSpots';
+//-------------------------------------------------------------------
 
 function WalkRequest({
   setAdminState, walkRequest, state, setState,
@@ -115,22 +118,21 @@ function WalkRequest({
 
   return (
     <>
-      <div
-        className="walkRequest-container"
-      >
+      <div className="walkRequest-container">
+        {/* <FontAwesomeIcon icon={faEnvelope} /> */}
         <div>{adminWalkRequestDate.format('ddd')}</div>
         <div>{adminWalkRequestDate.format('MMM D')}</div>
         <div>{walkRequestUser && walkRequestUser.username}</div>
         <div>{dogs}</div>
         <button onClick={handlePaidFor} className={isPaidForClass}>
-          Paid For
+          <FontAwesomeIcon icon={faDollarSign} />
         </button>
         <button
           style={{ marginRight: '1em' }}
           onClick={handleIsAccepted}
           className={isAcceptedClass}
         >
-          Is Accepted
+          <FontAwesomeIcon icon={faCheck} />
         </button>
         <div>
           {numberOfDogsOnWalk}

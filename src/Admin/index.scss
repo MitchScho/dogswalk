@@ -3,9 +3,17 @@
 }
 
 .paidFor-accepted{
-  background-color: green;
+  background-color: rgba(4, 132, 4, 0.522);
+  padding:0.5em;
+  border-color: grey;
+  border: solid;
+  border-radius: 45%;
 }
 
 .notPaidFor-notAccepted {
-background-color: red;
+background-color: rgba(246, 39, 39, 0.48);
+padding:0.5em;
+border-color: grey;
+border: solid;
+border-radius: 45%;
 }
