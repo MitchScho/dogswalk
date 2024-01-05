@@ -1,6 +1,8 @@
 /* eslint-disable react/react-in-jsx-scope */
 /* eslint-disable react/prop-types */
 import { NavLink } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCircleLeft } from '@fortawesome/free-solid-svg-icons';
 import UnpaidDog from './UnpaidDog';
 import sortRequestsByDog from '../helpers/sortRequestsByDog';
 
@@ -35,11 +37,18 @@ function UnpaidRequests({ adminUnpaidRequests, setUnpaidDog }) {
       <div style={{ display: 'flex', justifyContent: 'space-between' }}>
         <div />
         <h3>Unpaid Requests</h3>
-        <NavLink to="/admin">back </NavLink>
+        <NavLink to="/admin">
+          <FontAwesomeIcon className="back-icon" icon={faCircleLeft} />
+          {' '}
+        </NavLink>
       </div>
-      <div style={{
-        display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexDirection: 'column',
-      }}
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          flexDirection: 'column',
+        }}
       >
         {unpaidRequestsDogList}
       </div>

@@ -6,7 +6,7 @@
   background-color: rgba(4, 132, 4, 0.522);
   padding:0.5em;
   border-color: grey;
-  border: solid;
+  border-width: thin;
   border-radius: 45%;
 }
 
@@ -14,6 +14,27 @@
 background-color: rgba(246, 39, 39, 0.48);
 padding:0.5em;
 border-color: grey;
-border: solid;
+border-width: thin;
 border-radius: 45%;
+}
+
+.walkRequest-container {
+  background-color: rgb(61, 24, 125);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  // align-content: center;
+  padding-left: 1em;
+  padding-right: 1em;
+
+  height: 45%;
+  margin: 0.5em;
+  border-radius: 5px;
+}
+
+.back-icon {
+  margin-right: 1em;
+}
+.purple-button:hover {
+  background: rgb(61, 24, 125);
 }

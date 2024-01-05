@@ -2,6 +2,8 @@
 /* eslint-disable react/react-in-jsx-scope */
 /* eslint-disable react/prop-types */
 import { NavLink } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCircleLeft } from '@fortawesome/free-solid-svg-icons';
 import UnpaidDogRequest from './UnpaidDogRequest';
 // -----------------------------------------------------------------------------------------------
 
@@ -17,7 +19,9 @@ function UnpaidDogRequests({ unpaidDog }) {
       <div style={{ display: 'flex', justifyContent: 'space-between' }}>
         <div />
         <div>UnpaidDogRequests</div>
-        <NavLink to="/admin/unpaid-requests">back </NavLink>
+        <NavLink to="/admin/unpaid-requests">
+          <FontAwesomeIcon className="back-icon" icon={faCircleLeft} />
+        </NavLink>
       </div>
       <div
         style={{

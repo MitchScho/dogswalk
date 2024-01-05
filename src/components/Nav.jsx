@@ -28,8 +28,12 @@ function Nav({ state, setState }) {
           {state.user.username}
         </h1>
       )}
-      <NavLink to="/calendar/profile">Profile</NavLink>
-      <button onClick={handleLogout}>Logout</button>
+      <NavLink className="purple-button" to="/calendar/profile">
+        Profile
+      </NavLink>
+      <button className="purple-button" onClick={handleLogout}>
+        Logout
+      </button>
     </nav>
   );
 }

@@ -3,7 +3,8 @@
 /* eslint-disable react/react-in-jsx-scope */
 import moment from 'moment';
 import { useEffect, useState } from 'react';
-
+// --- Style Imports ---
+import './index.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faDollarSign, faCheck } from '@fortawesome/free-solid-svg-icons';
 // ---Import Components ---
@@ -14,7 +15,7 @@ import {
   updateWalkRequest,
 } from '../api';
 //---------------------------------------------------------------------
-import './WalkRequest.scss';
+
 // -----------------------------------------------------------------------------------------------
 import getAvailibleSpots from '../helpers/getAvailibleSpots';
 //-------------------------------------------------------------------
