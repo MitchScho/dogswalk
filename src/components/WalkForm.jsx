@@ -66,7 +66,6 @@ function WalkForm({
           style={{
             display: 'flex',
             justifyContent: 'space-between',
-            paddingBottom: '2em',
           }}
         >
           {dogList}
