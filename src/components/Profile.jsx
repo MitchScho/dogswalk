@@ -1,9 +1,13 @@
+/* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable react/prop-types */
 import React, { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
-import { getUsersDogs, addDogForUser } from '../api';
-import DogAvatar from './DogAvatar';
 // import ProfileDogAvatar from './DogAvatar';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCircleLeft } from '@fortawesome/free-solid-svg-icons';
+import './Profile.scss';
+import DogAvatar from './DogAvatar';
+import { getUsersDogs, addDogForUser } from '../api';
 
 function Profile({ handleDeleteDog, state, setState }) {
   const [inputDog, setInputDog] = useState('');
@@ -50,7 +54,10 @@ function Profile({ handleDeleteDog, state, setState }) {
   //-----------------------------------------------------------------------
 
   const usersDogList = state.dogs.map((dog) => (
-    <div key={dog.id} className="flex flex-row justify-between">
+    <div
+      key={dog.id}
+      className="flex flex-row justify-between items-center"
+    >
       <DogAvatar
         key={dog.id}
         dog={dog}
@@ -58,7 +65,7 @@ function Profile({ handleDeleteDog, state, setState }) {
         selectedDogs={selectedDogs}
       />
       <button
-        className="flex-shrink-0 bg-grey-500 mt-5 mb-5 hover:bg-grey-700 border-grey-500 hover:border-grey-700 text-sm border-4 text-white py-1 px-2 rounded"
+        className="delete-button"
         type="button"
         onClick={() => handleDeleteDog(dog.id)}
       >
@@ -67,7 +74,7 @@ function Profile({ handleDeleteDog, state, setState }) {
     </div>
   ));
 
-  console.log(usersDogList);
+  // console.log(usersDogList);
 
   //-----------------------------------------------------------------
 
@@ -86,8 +93,12 @@ function Profile({ handleDeleteDog, state, setState }) {
 
   return (
     <div className="border-solid flex items-center justify-center flex-col">
-      <div className="flex flex-end">
-        <NavLink to="/calendar">back </NavLink>
+      <div className="back-icon-container">
+        <div />
+        <h4>Profile</h4>
+        <NavLink to="/calendar">
+          <FontAwesomeIcon className="back-icon" icon={faCircleLeft} />
+        </NavLink>
       </div>
       <div>{usersDogList}</div>
       <form className="w-half max-w-sm">
@@ -100,11 +111,7 @@ function Profile({ handleDeleteDog, state, setState }) {
             placeholder="Register Dog"
             aria-label="Full name"
           />
-          <button
-            className="flex-shrink-0 bg-grey-500 hover:bg-grey-700 border-grey-500 hover:border-grey-700 text-sm border-4 text-white py-1 px-2 rounded"
-            type="button"
-            onClick={addDog}
-          >
+          <button className="add-button" type="button" onClick={addDog}>
             Add Dog
           </button>
         </div>

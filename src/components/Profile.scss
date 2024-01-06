@@ -1,0 +1,55 @@
+.back-icon-container {
+  display: flex;
+  padding:0.5em;
+  justify-content: space-between;
+  // align-items: center;
+  justify-content: flex-end;
+  margin: 0.5em;
+}
+
+// .back-icon {
+//   margin-left: 16em;
+// }
+h4 {
+  margin-right:7em;
+  margin-left:7em;
+}
+
+.back-icon:hover {
+  background:rgb(79, 33, 158);
+  border-radius: 10px
+}
+
+.delete-button {
+   border: none;
+   background: rgb(61, 24, 125);
+   border-radius: 10px;
+   cursor: pointer;
+   color: grey;
+  
+   border-radius: 10px;
+   padding: 0.5em;
+}
+
+.delete-button:hover {
+  background:rgb(79, 33, 158);
+}
+
+.add-button {
+   border: none;
+   background: rgb(61, 24, 125);
+   border-radius: 10px;
+   cursor: pointer;
+   color: grey;
+   margin:0.5em;
+   border-radius: 10px;
+   padding: 0.5em;
+}
+
+.add-button:hover {
+  background:rgb(79, 33, 158);
+}
+
+input:focus::placeholder {
+  color: transparent;
+}

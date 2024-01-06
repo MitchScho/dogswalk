@@ -12,7 +12,7 @@ function UnpaidRequests({ adminUnpaidRequests, setUnpaidDog }) {
   const dogsWithUnpaidRequests = sortRequestsByDog(adminUnpaidRequests);
 
   //------------------------------------------------------------------------------------------------
-  console.log('dogsWithUnpaidRequests', dogsWithUnpaidRequests);
+  console.log('dogs With Unpaid Requests', dogsWithUnpaidRequests);
 
   // --- Create Unpaid Dog List Array ----
   const unpaidRequestsDogList = Object.entries(dogsWithUnpaidRequests).map(

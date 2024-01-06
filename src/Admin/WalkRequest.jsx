@@ -2,7 +2,7 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react/react-in-jsx-scope */
 import moment from 'moment';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 // --- Style Imports ---
 import './index.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -11,7 +11,6 @@ import { faDollarSign, faCheck } from '@fortawesome/free-solid-svg-icons';
 import ConfirmationModal from '../components/ConfirmationModal';
 // --- Import api ---
 import {
-  getWalkRequestUser,
   updateWalkRequest,
 } from '../api';
 //---------------------------------------------------------------------
@@ -21,22 +20,11 @@ import getAvailibleSpots from '../helpers/getAvailibleSpots';
 //-------------------------------------------------------------------
 
 function WalkRequest({
-  setAdminState, walkRequest, state, setState,
+  setAdminState, walkRequest, state, setState, walkRequestUser,
 }) {
-  const [walkRequestUser, setWalkRequestUser] = useState(null);
   const [modalData, setModalData] = useState(null);
 
   // -----------------------------------------------------------------------------------------------
-
-  useEffect(() => {
-    getWalkRequestUser(walkRequest.id)
-      .then((res) => {
-        setWalkRequestUser(res.data);
-      })
-      .catch((err) => {
-        console.log(err.message);
-      });
-  }, [walkRequest.id]);
 
   // -------------------------------------------------------------------------------------------
 

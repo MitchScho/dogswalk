@@ -14,7 +14,8 @@ import { deletePaidWalkRequests } from '../api';
 import WalkRequest from './WalkRequest';
 
 function WalkRequests({
-  adminWalkRequests, state, setState, adminState, setAdminState,
+  adminWalkRequests, state, setState, adminState,
+  setAdminState, walkRequestUser,
 }) {
   //------------------------------------------------------------------------------------------------
 
@@ -23,16 +24,14 @@ function WalkRequests({
   }
 
   const clearPaidRequests = () => {
-    console.log('clear paid requests');
-    deletePaidWalkRequests()
-      .then(() => {
-        setAdminState((prev) => ({
-          ...prev,
-          adminReFreshKey: prev.adminReFreshKey + 1,
-        }));
-      });
+    // console.log("clear paid requests");
+    deletePaidWalkRequests().then(() => {
+      setAdminState((prev) => ({
+        ...prev,
+        adminReFreshKey: prev.adminReFreshKey + 1,
+      }));
+    });
   };
-
   // --- Create Admin Walk List Array ----
   const walkRequestArray = adminWalkRequests.map((walkRequest) => (
     <WalkRequest
@@ -42,13 +41,16 @@ function WalkRequests({
       setState={setState}
       adminState={adminState}
       setAdminState={setAdminState}
+      walkRequestUser={walkRequestUser}
     />
   ));
 
   return (
     <>
       <div className="header-container">
-        <button className="purple-button" onClick={clearPaidRequests}>Clear Paid Requests</button>
+        <button className="purple-button" onClick={clearPaidRequests}>
+          Clear Paid Requests
+        </button>
         <h3>Walk Requests</h3>
         <NavLink to="/admin">
           <FontAwesomeIcon className="back-icon" icon={faCircleLeft} />

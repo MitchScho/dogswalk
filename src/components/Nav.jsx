@@ -3,7 +3,6 @@
 /* eslint-disable react/prop-types */
 import './Nav.scss';
 import { useNavigate, NavLink } from 'react-router-dom';
-// import { NavLink } from 'react-router-dom';
 import Cookies from 'js-cookie';
 
 function Nav({ state, setState }) {

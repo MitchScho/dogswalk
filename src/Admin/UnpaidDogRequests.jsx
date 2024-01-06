@@ -11,7 +11,7 @@ function UnpaidDogRequests({ unpaidDog }) {
   // console.log('unpaidDog', unpaidDog[1]);
 
   const requestList = unpaidDog[1].map((request) => (
-    <div className="light-button">
+    <div key={request.id} className="light-button">
       <UnpaidDogRequest key={request.id} request={request} />
     </div>
   ));
