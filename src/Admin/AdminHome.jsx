@@ -9,8 +9,8 @@ function AdminHome() {
       display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
     }}
     >
-      <Link to="/admin/walk-requests"> Walk Requests </Link>
-      <Link to="/admin/unpaid-requests"> Unpaid Requests </Link>
+      <Link className="light-button" to="/admin/walk-requests"> Walk Requests </Link>
+      <Link className="light-button" to="/admin/unpaid-requests"> Unpaid Requests </Link>
     </div>
   );
 }

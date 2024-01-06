@@ -17,11 +17,13 @@ function UnpaidRequests({ adminUnpaidRequests, setUnpaidDog }) {
   // --- Create Unpaid Dog List Array ----
   const unpaidRequestsDogList = Object.entries(dogsWithUnpaidRequests).map(
     (dog) => (
-      <UnpaidDog
-        key={dog[1][0].dogId}
-        dog={dog}
-        setUnpaidDog={setUnpaidDog}
-      />
+      <div className="light-button">
+        <UnpaidDog
+          key={dog[1][0].dogId}
+          dog={dog}
+          setUnpaidDog={setUnpaidDog}
+        />
+      </div>
       // <NavLink
       //   to={`/admin/unpaid-dog-requests/${dog[1][0].dogName}`}
       //   key={dog[1][0].dogId}
@@ -30,11 +32,11 @@ function UnpaidRequests({ adminUnpaidRequests, setUnpaidDog }) {
       // </NavLink>
     ),
   );
-  console.log('unpaidRequestsDogList', unpaidRequestsDogList);
+  // console.log('unpaidRequestsDogList', unpaidRequestsDogList);
 
   return (
     <>
-      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+      <div className="header-container">
         <div />
         <h3>Unpaid Requests</h3>
         <NavLink to="/admin">
@@ -42,14 +44,7 @@ function UnpaidRequests({ adminUnpaidRequests, setUnpaidDog }) {
           {' '}
         </NavLink>
       </div>
-      <div
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          flexDirection: 'column',
-        }}
-      >
+      <div className="button-list-container">
         {unpaidRequestsDogList}
       </div>
     </>

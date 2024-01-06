@@ -1,0 +1,20 @@
+
+  .landing-page-container {
+  background-color: #1e1b4b;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  }
+
+.login-button {
+  background: rgb(61, 24, 125);
+  padding: 5rem;
+  border: transparent;
+  border-radius: 10px;
+  margin: 1rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+

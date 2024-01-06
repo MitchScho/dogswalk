@@ -3,10 +3,8 @@ nav {
   display:flex;
   justify-content: space-between;
   align-items:center;
-  padding-top: 1em;
-  padding-left:1em;
-  padding-right:1em;
-  
+  padding: 1em;
+  background: rgb(61, 24, 125);
 }
 
 .menu {
@@ -15,5 +13,6 @@ nav {
 }
 
 .purple-button:hover {
-  background: rgb(61, 24, 125);
+  background:rgb(79, 33, 158);
+  border-radius: 10px;
 }

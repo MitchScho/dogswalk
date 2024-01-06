@@ -47,13 +47,7 @@ function WalkRequests({
 
   return (
     <>
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-        }}
-      >
+      <div className="header-container">
         <button className="purple-button" onClick={clearPaidRequests}>Clear Paid Requests</button>
         <h3>Walk Requests</h3>
         <NavLink to="/admin">

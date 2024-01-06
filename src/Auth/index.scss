@@ -1,6 +1,6 @@
 .Auth {
-   text-align: center;
    display: flex;
+   text-align: center;
    min-height: 100vh;
    align-items: center;
    justify-content: center;
@@ -18,7 +18,7 @@
 @media screen and (min-width: 600px) {
   .auth-form-container {
     padding: 5rem;
-    border: 1px solid white;
+    border: 1px solid grey;
     border-radius: 10px;
     margin: 0.5rem;
   }
@@ -38,18 +38,22 @@ input {
 
 .auth-button {
   border: none;
-  background-color: white;
+  background: rgb(61, 24, 125);
   padding: 20px;
   border-radius: 10px;
   cursor: pointer;
-  color: rgb(63, 142, 169)
+  color: grey;
 
+}
+
+.auth-button:hover {
+  background:rgb(79, 33, 158);
 }
 
 .link-btn {
   background: none;
   border: none;
-  color: white;
+  color: slategray;
   text-decoration: underline;
   padding: 20px;
 }

@@ -11,26 +11,21 @@ function UnpaidDogRequests({ unpaidDog }) {
   // console.log('unpaidDog', unpaidDog[1]);
 
   const requestList = unpaidDog[1].map((request) => (
-    <UnpaidDogRequest key={request.id} request={request} />
+    <div className="light-button">
+      <UnpaidDogRequest key={request.id} request={request} />
+    </div>
   ));
 
   return (
     <>
-      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+      <div className="header-container">
         <div />
         <div>UnpaidDogRequests</div>
         <NavLink to="/admin/unpaid-requests">
           <FontAwesomeIcon className="back-icon" icon={faCircleLeft} />
         </NavLink>
       </div>
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          flexDirection: 'column',
-        }}
-      >
+      <div className="button-list-container">
         {requestList}
       </div>
     </>
