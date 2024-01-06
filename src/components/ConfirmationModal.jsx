@@ -11,8 +11,12 @@ function ConfirmationModal({ confirm, back, message }) {
         {message}
       </h4>
       <section>
-        <button onClick={confirm}>Confirm</button>
-        <button onClick={back}>Back</button>
+        <button className="modal-button" onClick={confirm}>
+          Confirm
+        </button>
+        <button className="modal-button" onClick={back}>
+          Back
+        </button>
       </section>
     </div>
   );

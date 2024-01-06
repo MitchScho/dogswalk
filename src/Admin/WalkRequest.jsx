@@ -118,37 +118,38 @@ function WalkRequest({
   const dogs = walkRequest.dogs.map((dog) => <div key={dog.id}>{dog.name}</div>);
 
   return (
-    <>
-      <div className="walkRequest-container">
-        {/* <FontAwesomeIcon icon={faEnvelope} /> */}
-        <div>{adminWalkRequestDate.format('ddd')}</div>
-        <div>{adminWalkRequestDate.format('MMM D')}</div>
-        <div>{walkRequestUser && walkRequestUser.username}</div>
-        <div>{dogs}</div>
-        <button onClick={handlePaidFor} className={isPaidForClass}>
-          <FontAwesomeIcon icon={faDollarSign} />
-        </button>
-        <button
-          style={{ marginRight: '1em' }}
-          onClick={handleIsAccepted}
-          className={isAcceptedClass}
-        >
-          <FontAwesomeIcon icon={faCheck} />
-        </button>
-        <div>
-          {numberOfDogsOnWalk}
-          dogs already on this date
-        </div>
-      </div>
-      {modalData && (
+    <div>
+      {modalData ? (
         <ConfirmationModal
           style={{ display: 'flex', flexDirection: 'row-reverse' }}
           confirm={modalData.confirm}
           back={modalData.back}
           message={modalData.message}
         />
+      ) : (
+        <div className="walkRequest-container">
+          {/* <FontAwesomeIcon icon={faEnvelope} /> */}
+          <div>{adminWalkRequestDate.format('ddd')}</div>
+          <div>{adminWalkRequestDate.format('MMM D')}</div>
+          <div>{walkRequestUser && walkRequestUser.username}</div>
+          <div>{dogs}</div>
+          <button onClick={handlePaidFor} className={isPaidForClass}>
+            <FontAwesomeIcon icon={faDollarSign} />
+          </button>
+          <button
+            style={{ marginRight: '1em' }}
+            onClick={handleIsAccepted}
+            className={isAcceptedClass}
+          >
+            <FontAwesomeIcon icon={faCheck} />
+          </button>
+          <div>
+            {numberOfDogsOnWalk}
+            dogs already on this date
+          </div>
+        </div>
       )}
-    </>
+    </div>
   );
 }
 

@@ -1,5 +1,30 @@
 .confirm {
+  background-color: rgb(61, 24, 125);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-left: 0.5em;
+  padding-right: 0.5em;
+  height: 45%;
+  margin: 0.5em;
+  border-radius: 5px;
   border: solid 1px;
+}
+
+section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0.5em;
   
-  width: 15vw
+}
+
+.modal-button {
+  padding-left: 0.5em;
+  padding-right: 0.5em;
+}
+
+.modal-button:hover {
+  background: rgb(79, 33, 158);
+  border-radius: 10px
 }
