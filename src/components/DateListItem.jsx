@@ -69,11 +69,11 @@ function DateListItem({
   //------------------------------------------------------------------------------------------------
   const requestButton = (usersCurrentRequest, availableSpots) => {
     if (usersCurrentRequest) {
-      return <button className="dark-hover" onClick={deleteWalkRequest}>Delete Walk Request</button>;
+      return <button className="light-button" onClick={deleteWalkRequest}>Delete Walk Request</button>;
     }
 
     return availableSpots > 0 ? (
-      <button className="dark-hover" onClick={clickToAddWalk}>
+      <button className="light-button" onClick={clickToAddWalk}>
         Add To Walk
       </button>
     ) : (

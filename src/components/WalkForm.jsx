@@ -73,15 +73,14 @@ function WalkForm({
         </div>
         <div className="walk-request-buttons">
           <button
-            style={{ padding: '1em' }}
-            className="dark-hover"
+            className="light-button"
             onClick={() => {
               setAddWalkDate(null);
             }}
           >
             Cancel
           </button>
-          <button className="dark-hover" onClick={confirmWalk}>Request Walk</button>
+          <button className="light-button" onClick={confirmWalk}>Request Walk</button>
         </div>
       </div>
     </>
