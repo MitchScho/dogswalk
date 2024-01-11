@@ -1,3 +1,4 @@
+/* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable array-callback-return */
 /* eslint-disable react/react-in-jsx-scope */
 /* eslint-disable react/prop-types */
@@ -7,12 +8,17 @@ import { faCircleLeft } from '@fortawesome/free-solid-svg-icons';
 import UnpaidDogRequest from './UnpaidDogRequest';
 // -----------------------------------------------------------------------------------------------
 
-function UnpaidDogRequests({ unpaidDog }) {
-  // console.log('unpaidDog', unpaidDog[1]);
+function UnpaidDogRequests({ unpaidDog, setState, setAdminState }) {
+  console.log('unpaidDog', unpaidDog[1][0].dogName);
 
-  const requestList = unpaidDog[1].map((request) => (
-    <div key={request.id} className="light-button">
-      <UnpaidDogRequest key={request.id} request={request} />
+  const requestList = unpaidDog[1].map((walkRequest) => (
+    <div key={walkRequest.id} className="light-button">
+      <UnpaidDogRequest
+        key={walkRequest.id}
+        walkRequest={walkRequest}
+        setState={setState}
+        setAdminState={setAdminState}
+      />
     </div>
   ));
 
@@ -20,14 +26,17 @@ function UnpaidDogRequests({ unpaidDog }) {
     <>
       <div className="header-container">
         <div />
-        <div>UnpaidDogRequests</div>
+        <div>
+          {unpaidDog[1][0].dogName}
+          s
+          {' '}
+          Un Paid Requests
+        </div>
         <NavLink to="/admin/unpaid-requests">
           <FontAwesomeIcon className="back-icon" icon={faCircleLeft} />
         </NavLink>
       </div>
-      <div className="button-list-container">
-        {requestList}
-      </div>
+      <div className="button-list-container">{requestList}</div>
     </>
   );
 }

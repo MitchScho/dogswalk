@@ -1,8 +1,9 @@
+/* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable react/button-has-type */
 /* eslint-disable react/prop-types */
 /* eslint-disable react/react-in-jsx-scope */
 import moment from 'moment';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 // --- Style Imports ---
 import './index.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -12,6 +13,7 @@ import ConfirmationModal from '../components/ConfirmationModal';
 // --- Import api ---
 import {
   updateWalkRequest,
+  getWalkRequestUser,
 } from '../api';
 //---------------------------------------------------------------------
 
@@ -20,12 +22,21 @@ import getAvailibleSpots from '../helpers/getAvailibleSpots';
 //-------------------------------------------------------------------
 
 function WalkRequest({
-  setAdminState, walkRequest, state, setState, walkRequestUser,
+  setAdminState, walkRequest, state, setState,
 }) {
   const [modalData, setModalData] = useState(null);
-
+  const [walkRequestUser, setWalkRequestUser] = useState(null);
+  //-------------------------------------------------------------------
   // -----------------------------------------------------------------------------------------------
-
+  useEffect(() => {
+    getWalkRequestUser(walkRequest.id)
+      .then((res) => {
+        setWalkRequestUser(res.data);
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+  }, [walkRequest.id]);
   // -------------------------------------------------------------------------------------------
 
   if (!walkRequest) {
@@ -51,11 +62,13 @@ function WalkRequest({
   // --- Number of dogs on walk ---
   // console.log('walks state', state.walks);
 
-  const availibleSpotsForDate = getAvailibleSpots(adminWalkRequestDate, state.walks);
+  const availibleSpotsForDate = getAvailibleSpots(
+    adminWalkRequestDate,
+    state.walks,
+  );
   const numberOfDogsOnWalk = 12 - availibleSpotsForDate;
 
   //---------------------------------------------------------------------------------------------
-
   const closeModal = () => {
     setModalData(null);
   };
@@ -85,8 +98,12 @@ function WalkRequest({
     setModalData({
       back: closeModal,
       // eslint-disable-next-line max-len
-      confirm: () => confirmUpdate(walkRequest.id, { isAccepted: !walkRequest.isAccepted }),
-      message: walkRequest.isAccepted ? 'Confirm walk is not accepted' : 'Confirm this is accepted',
+      confirm: () => confirmUpdate(walkRequest.id, {
+        isAccepted: !walkRequest.isAccepted,
+      }),
+      message: walkRequest.isAccepted
+        ? 'Confirm walk is not accepted'
+        : 'Confirm this is accepted',
     });
   };
 
@@ -96,14 +113,19 @@ function WalkRequest({
     setModalData({
       back: closeModal,
       // eslint-disable-next-line max-len
-      confirm: () => confirmUpdate(walkRequest.id, { paidFor: !walkRequest.paidFor }),
-      message: walkRequest.paidFor ? 'Confirm walk is not paid for' : 'Confirm this is paid for',
+      confirm: () => confirmUpdate(walkRequest.id, {
+        paidFor: !walkRequest.paidFor,
+      }),
+      message: walkRequest.paidFor
+        ? 'Confirm walk is not paid for'
+        : 'Confirm this is paid for',
     });
   };
-
   //-----------------------------------------------------------------------------------------------
   // --- Dogs array to be displayed --------
-  const dogs = walkRequest.dogs.map((dog) => <div key={dog.id}>{dog.name}</div>);
+  const dogs = walkRequest.dogs.map((dog) => (
+    <div key={dog.id}>{dog.name}</div>
+  ));
 
   return (
     <div>

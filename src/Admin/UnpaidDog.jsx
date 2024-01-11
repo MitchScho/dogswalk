@@ -14,7 +14,9 @@ function UnpaidDog({ dog, setUnpaidDog }) {
     navigate('/admin/unpaid-dog-requests');
   };
 
-  return <div onClick={handleClick}>{dog[0]}</div>;
+  return (
+    <div onClick={handleClick}>{dog[0]}</div>
+  );
 }
 
 export default UnpaidDog;

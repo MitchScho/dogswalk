@@ -19,7 +19,7 @@ import Nav from '../components/Nav';
 // --- Style Imports ---
 import './index.scss';
 // --- API Imports ---
-import { getAdminWalkRequests, getUnpaidRequests, getWalkRequestUser } from '../api';
+import { getAdminWalkRequests, getUnpaidRequests } from '../api';
 
 //-------------------------------------------------------------------------------------------------
 function Admin({ state, setState }) {
@@ -30,20 +30,6 @@ function Admin({ state, setState }) {
   });
   const [unpaidDog, setUnpaidDog] = useState([]);
 
-  const [walkRequestUser, setWalkRequestUser] = useState(null);
-  //-------------------------------------------------------------------
-
-  //--------------------------------------------------------------------------------------
-
-  useEffect(() => {
-    getWalkRequestUser(walkRequest.id)
-      .then((res) => {
-        setWalkRequestUser(res.data);
-      })
-      .catch((err) => {
-        console.log(err.message);
-      });
-  }, [walkRequest.id]);
   //------------------------------------------------------------------------------------------------
 
   useEffect(() => {
@@ -60,7 +46,7 @@ function Admin({ state, setState }) {
       .then((res) => {
         setAdminUnpaidRequests(res.data);
       });
-  }, []);
+  }, [adminState.adminReFreshKey]);
   //-------------------------------------------------------------------------------------------
 
   //-----------------------------------------------------------------------------------------------
@@ -74,7 +60,6 @@ function Admin({ state, setState }) {
           path="/walk-requests"
           element={(
             <WalkRequests
-              walkRequestUser={walkRequestUser}
               adminWalkRequests={adminWalkRequests}
               state={state}
               setState={setState}
@@ -95,7 +80,11 @@ function Admin({ state, setState }) {
         <Route
           path="/unpaid-dog-requests"
           element={(
-            <UnpaidDogRequests unpaidDog={unpaidDog} />
+            <UnpaidDogRequests
+              unpaidDog={unpaidDog}
+              setState={setState}
+              setAdminState={setAdminState}
+            />
         )}
         />
       </Routes>

@@ -1,16 +1,17 @@
 /* eslint-disable react/react-in-jsx-scope */
 /* eslint-disable react/prop-types */
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import DateList from '../components/DateList';
 import Profile from '../components/Profile';
 import Nav from '../components/Nav';
 
-import { getMe, deleteDog } from '../api';
+import { getMe, deleteDog, addDogForUser } from '../api';
 
 //-------------------------------------------------------------------------------------------
 
 function Calendar({ state, setState }) {
+  const [inputDog, setInputDog] = useState('');
   //-------------------------------------------------------------------------------
   useEffect(() => {
     getMe()
@@ -31,6 +32,19 @@ function Calendar({ state, setState }) {
   if (!state.user) {
     return <div>Loading User Application...</div>;
   }
+  //----------------------------------------------
+  const addDog = (userId) => {
+    // e.preventDefault();
+
+    addDogForUser(userId, inputDog)
+      .then(() => {
+        setState((prev) => ({
+          ...prev,
+          reFreshKey: prev.reFreshKey + 1,
+        }));
+        setInputDog('');
+      });
+  };
 
   //-----------------------------------------
 
@@ -55,7 +69,16 @@ function Calendar({ state, setState }) {
         />
         <Route
           path="/profile"
-          element={<Profile handleDeleteDog={handleDeleteDog} state={state} setState={setState} />}
+          element={(
+            <Profile
+              handleDeleteDog={handleDeleteDog}
+              addDog={addDog}
+              state={state}
+              setState={setState}
+              setInputDog={setInputDog}
+              inputDog={inputDog}
+            />
+)}
         />
       </Routes>
     </>

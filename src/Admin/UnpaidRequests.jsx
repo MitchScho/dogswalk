@@ -17,7 +17,7 @@ function UnpaidRequests({ adminUnpaidRequests, setUnpaidDog }) {
   // --- Create Unpaid Dog List Array ----
   const unpaidRequestsDogList = Object.entries(dogsWithUnpaidRequests).map(
     (dog) => (
-      <div className="light-button">
+      <div key={dog[1][0].dogId} className="light-button">
         <UnpaidDog
           key={dog[1][0].dogId}
           dog={dog}

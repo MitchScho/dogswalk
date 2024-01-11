@@ -7,11 +7,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleLeft } from '@fortawesome/free-solid-svg-icons';
 import './Profile.scss';
 import DogAvatar from './DogAvatar';
-import { getUsersDogs, addDogForUser } from '../api';
+import { getUsersDogs } from '../api';
 
-function Profile({ handleDeleteDog, state, setState }) {
-  const [inputDog, setInputDog] = useState('');
-
+function Profile({
+  handleDeleteDog, state, setState, addDog, setInputDog, inputDog,
+}) {
   //-------------------------------------------------------------------------------
   // --- Duplicated code.......Review this..... -------------------------
   const [selectedDogs, setSelectedDogs] = useState([]);
@@ -78,19 +78,6 @@ function Profile({ handleDeleteDog, state, setState }) {
 
   //-----------------------------------------------------------------
 
-  const addDog = (e) => {
-    e.preventDefault();
-
-    addDogForUser(state.user.id, inputDog)
-      .then(() => {
-        setState((prev) => ({
-          ...prev,
-          reFreshKey: prev.reFreshKey + 1,
-        }));
-        setInputDog('');
-      });
-  };
-
   return (
     <div className="border-solid flex items-center justify-center flex-col">
       <div className="back-icon-container">
@@ -106,12 +93,12 @@ function Profile({ handleDeleteDog, state, setState }) {
           <input
             value={inputDog}
             onChange={(e) => setInputDog(e.target.value)}
-            className="appearance-none bg-transparent border-none w-half text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none"
+            className="appearance-none bg-transparent border-none w-half text-white-700 mr-3 py-1 px-2 leading-tight focus:outline-none"
             type="text"
             placeholder="Register Dog"
             aria-label="Full name"
           />
-          <button className="add-button" type="button" onClick={addDog}>
+          <button className="add-button" type="button" onClick={() => addDog(state.user.id, inputDog)}>
             Add Dog
           </button>
         </div>

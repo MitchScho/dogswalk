@@ -1,3 +1,4 @@
+/* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable react/button-has-type */
 /* eslint-disable react/react-in-jsx-scope */
 /* eslint-disable react/prop-types */
@@ -15,7 +16,7 @@ import WalkRequest from './WalkRequest';
 
 function WalkRequests({
   adminWalkRequests, state, setState, adminState,
-  setAdminState, walkRequestUser,
+  setAdminState,
 }) {
   //------------------------------------------------------------------------------------------------
 
@@ -32,7 +33,7 @@ function WalkRequests({
       }));
     });
   };
-  // --- Create Admin Walk List Array ----
+    // --- Create Admin Walk List Array ----
   const walkRequestArray = adminWalkRequests.map((walkRequest) => (
     <WalkRequest
       key={walkRequest.id}
@@ -41,9 +42,10 @@ function WalkRequests({
       setState={setState}
       adminState={adminState}
       setAdminState={setAdminState}
-      walkRequestUser={walkRequestUser}
     />
   ));
+
+  //--------------------------------------------------------------------------------------
 
   return (
     <>
