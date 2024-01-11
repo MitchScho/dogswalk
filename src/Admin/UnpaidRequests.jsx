@@ -1,3 +1,4 @@
+/* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable react/react-in-jsx-scope */
 /* eslint-disable react/prop-types */
 import { NavLink } from 'react-router-dom';
@@ -16,11 +17,11 @@ function UnpaidRequests({ adminUnpaidRequests, setUnpaidDog }) {
 
   // --- Create Unpaid Dog List Array ----
   const unpaidRequestsDogList = Object.entries(dogsWithUnpaidRequests).map(
-    (dog) => (
-      <div key={dog[1][0].dogId} className="light-button">
+    (unPaidDog) => (
+      <div key={unPaidDog[1][0].dogId} className="light-button">
         <UnpaidDog
-          key={dog[1][0].dogId}
-          dog={dog}
+          key={unPaidDog[1][0].dogId}
+          unPaidDog={unPaidDog}
           setUnpaidDog={setUnpaidDog}
         />
       </div>
