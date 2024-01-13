@@ -9,7 +9,7 @@ import UnpaidDogRequest from './UnpaidDogRequest';
 //-----------------------------------------------------------------------------------------------
 
 function UnpaidDogRequests({ unpaidDog, setState, setAdminState }) {
-// console.log('unpaidDog', unpaidDog[1][0].dogName);
+  console.log('unpaidDogRequests component ');
 
   const requestList = unpaidDog[1].map((walkRequest) => (
     <div key={walkRequest.id} className="light-button">

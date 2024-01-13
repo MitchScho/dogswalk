@@ -28,6 +28,7 @@ function Admin({ state, setState }) {
   const [adminState, setAdminState] = useState({
     adminReFreshKey: 0,
   });
+  console.log('admin state', adminState);
 
   const [unpaidDog, setUnpaidDog] = useState([]);
 
