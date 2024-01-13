@@ -7,7 +7,8 @@ import Cookies from 'js-cookie';
 
 function Nav({ state, setState }) {
   const navigate = useNavigate();
-
+  // console.log('user state', state.user);
+  const admin = state.user.role === 'admin';
   const handleLogout = () => {
     Cookies.remove('token');
     setState((prev) => ({
@@ -27,9 +28,12 @@ function Nav({ state, setState }) {
           {state.user.username}
         </h1>
       )}
+      {!admin
+      && (
       <NavLink className="purple-button" to="/calendar/profile">
         Profile
       </NavLink>
+      )}
       <button className="purple-button" onClick={handleLogout}>
         Logout
       </button>

@@ -19,7 +19,7 @@ import Nav from '../components/Nav';
 // --- Style Imports ---
 import './index.scss';
 // --- API Imports ---
-import { getAdminWalkRequests, getUnpaidRequests } from '../api';
+import { getMe, getAdminWalkRequests, getUnpaidRequests } from '../api';
 
 //-------------------------------------------------------------------------------------------------
 function Admin({ state, setState }) {
@@ -28,9 +28,23 @@ function Admin({ state, setState }) {
   const [adminState, setAdminState] = useState({
     adminReFreshKey: 0,
   });
-  console.log('admin state', adminState);
+  // console.log('admin state', adminState);
 
   const [unpaidDog, setUnpaidDog] = useState([]);
+
+  useEffect(() => {
+    getMe()
+      .then((res) => {
+        setState((prev) => ({
+          ...prev,
+          user: res.data,
+          reFreshKey: prev.reFreshKey + 1,
+        }));
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+  }, []);
 
   //------------------------------------------------------------------------------------------------
 
@@ -50,7 +64,9 @@ function Admin({ state, setState }) {
       });
   }, [adminState.adminReFreshKey]);
   //-------------------------------------------------------------------------------------------
-
+  if (!state.user) {
+    return <div> Loading User... </div>;
+  }
   //-----------------------------------------------------------------------------------------------
 
   return (

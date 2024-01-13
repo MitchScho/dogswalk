@@ -26,7 +26,6 @@ function Calendar({ state, setState }) {
         console.log(err.message);
       });
   }, []);
-
   //----------------------------------------
 
   if (!state.user) {
