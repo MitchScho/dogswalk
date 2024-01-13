@@ -143,9 +143,6 @@ function WalkRequest({
           <div>{adminWalkRequestDate.format('MMM D')}</div>
           <div>{walkRequestUser && walkRequestUser.username}</div>
           <div>{dogs}</div>
-          <button onClick={handlePaidFor} className={isPaidForClass}>
-            <FontAwesomeIcon icon={faDollarSign} />
-          </button>
           <button
             style={{ marginRight: '1em' }}
             onClick={handleIsAccepted}
@@ -153,6 +150,13 @@ function WalkRequest({
           >
             <FontAwesomeIcon icon={faCheck} />
           </button>
+          {walkRequest.isAccepted ? (
+            <button onClick={handlePaidFor} className={isPaidForClass}>
+              <FontAwesomeIcon icon={faDollarSign} />
+            </button>
+          ) : (
+            <div />
+          )}
           <div>
             {numberOfDogsOnWalk}
             dogs already on this date

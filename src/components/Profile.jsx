@@ -1,6 +1,6 @@
 /* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable react/prop-types */
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 // import ProfileDogAvatar from './DogAvatar';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -14,17 +14,25 @@ function Profile({
 }) {
   //-------------------------------------------------------------------------------
   // --- Duplicated code.......Review this..... -------------------------
-  const [selectedDogs, setSelectedDogs] = useState([]);
+  // const [selectedDogs, setSelectedDogs] = useState([]);
 
-  const selectDogs = (dog) => {
-    if (selectedDogs.includes(dog)) {
-      const newDogList = selectedDogs.filter(
-        (selectedDog) => selectedDog !== dog,
-      );
-      return setSelectedDogs(newDogList);
-    }
-    return setSelectedDogs((prev) => [...prev, dog]);
-  };
+  // const selectDogs = (dog) => {
+  //   if (selectedDogs.includes(dog)) {
+  //     const newDogList = selectedDogs.filter(
+  //       (selectedDog) => selectedDog !== dog,
+  //     );
+  //     return setSelectedDogs(newDogList);
+  //   }
+  //   return setSelectedDogs((prev) => [...prev, dog]);
+  // };
+  // const selectDogs = (dog) => {
+  //   setSelectedDogs((prevSelectedDogs) => {
+  //     if (prevSelectedDogs.includes(dog)) {
+  //       return prevSelectedDogs.filter((selectedDog) => selectedDog !== dog);
+  //     }
+  //     return [...prevSelectedDogs, dog];
+  //   });
+  // };
 
   //----------------------------------------------------------------
   console.log('State Re Fresh', state.reFreshKey);
@@ -43,14 +51,6 @@ function Profile({
 
   //---------------------------------------------------------------
 
-  // const handleDeleteDog = (dogId) => {
-  //   deleteDog(dogId);
-  //   setState((prev) => ({
-  //     ...prev,
-  //     reFreshKey: prev.reFreshKey + 1,
-  //   }));
-  // };
-
   //-----------------------------------------------------------------------
 
   const usersDogList = state.dogs.map((dog) => (
@@ -61,8 +61,6 @@ function Profile({
       <DogAvatar
         key={dog.id}
         dog={dog}
-        selectDogs={selectDogs}
-        selectedDogs={selectedDogs}
       />
       <button
         className="delete-button"

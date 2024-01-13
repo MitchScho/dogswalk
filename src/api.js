@@ -120,7 +120,13 @@ export function updateWalkRequest(id, payload) {
 
   // const id = payload.walkId;
   return axios
-    .put(`http://localhost:8000/api/admin/walks-requests/${id}`, payload, config);
+    .put(`http://localhost:8000/api/admin/walks-requests/${id}`, payload, config).then((response) => {
+      // Handle the success rate
+      console.log('Response: ', response);
+    }).catch((error) => {
+      // Handle the error case
+      console.error('Error: ', error);
+    });
 }
 
 //-------------------------------------------------------------------------------------------------

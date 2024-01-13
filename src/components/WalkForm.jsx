@@ -15,15 +15,24 @@ function WalkForm({
   //-------------------------------------------------------------------------------
   const [selectedDogs, setSelectedDogs] = useState([]);
 
+  // const selectDogs = (dog) => {
+  //   if (selectedDogs.includes(dog)) {
+  //     const newDogList = selectedDogs.filter(
+  //       (selectedDog) => selectedDog !== dog,
+  //     );
+  //     return setSelectedDogs(newDogList);
+  //   }
+  //   setSelectedDogs((prev) => [...prev, dog]);
+  // };
   const selectDogs = (dog) => {
-    if (selectedDogs.includes(dog)) {
-      const newDogList = selectedDogs.filter(
-        (selectedDog) => selectedDog !== dog,
-      );
-      return setSelectedDogs(newDogList);
-    }
-    setSelectedDogs((prev) => [...prev, dog]);
+    setSelectedDogs((prevSelectedDogs) => {
+      if (prevSelectedDogs.includes(dog)) {
+        return prevSelectedDogs.filter((selectedDog) => selectedDog !== dog);
+      }
+      return [...prevSelectedDogs, dog];
+    });
   };
+  //-------------------------------------------------------------------------------------
 
   //------------------------------------------------------------------------------------------
 
@@ -49,6 +58,7 @@ function WalkForm({
       key={dog.id}
       dog={dog}
       selectDogs={selectDogs}
+      // selectedClass={selectedClass}
       selectedDogs={selectedDogs}
     />
   ));
