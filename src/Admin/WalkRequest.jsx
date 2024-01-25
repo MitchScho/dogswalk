@@ -3,7 +3,7 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react/react-in-jsx-scope */
 import moment from 'moment';
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 // --- Style Imports ---
 import './index.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -12,8 +12,7 @@ import { faDollarSign, faCheck } from '@fortawesome/free-solid-svg-icons';
 import ConfirmationModal from '../components/ConfirmationModal';
 // --- Import api ---
 import {
-  updateWalkRequest,
-  getWalkRequestUser,
+  updateWalkRequest, getWalkRequestUser,
 } from '../api';
 //---------------------------------------------------------------------
 
@@ -26,17 +25,20 @@ function WalkRequest({
 }) {
   const [modalData, setModalData] = useState(null);
   const [walkRequestUser, setWalkRequestUser] = useState(null);
-  //-------------------------------------------------------------------
-  // -----------------------------------------------------------------------------------------------
+  // console.log('admin state', adminState);
+  console.log('walk request', walkRequest);
+  // const params = useParams();
+
   useEffect(() => {
-    getWalkRequestUser(walkRequest.id)
+    getWalkRequestUser(walkRequest.userId)
       .then((res) => {
         setWalkRequestUser(res.data);
       })
       .catch((err) => {
         console.log(err.message);
       });
-  }, [walkRequest.id]);
+  }, [walkRequest.userId]);
+
   // -------------------------------------------------------------------------------------------
 
   if (!walkRequest) {
@@ -60,7 +62,6 @@ function WalkRequest({
 
   // -----------------------------------------------------------------------------------------------
   // --- Number of dogs on walk ---
-  // console.log('walks state', state.walks);
 
   const availibleSpotsForDate = getAvailibleSpots(
     adminWalkRequestDate,
@@ -126,6 +127,8 @@ function WalkRequest({
   const dogs = walkRequest.dogs.map((dog) => (
     <div key={dog.id}>{dog.name}</div>
   ));
+
+  //------------------------------------------------------------------------------------------------
 
   return (
     <div>

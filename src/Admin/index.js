@@ -19,7 +19,9 @@ import Nav from '../components/Nav';
 // --- Style Imports ---
 import './index.scss';
 // --- API Imports ---
-import { getMe, getAdminWalkRequests, getUnpaidRequests } from '../api';
+import {
+  getMe, getAdminWalkRequests, getUnpaidRequests,
+} from '../api';
 
 //-------------------------------------------------------------------------------------------------
 function Admin({ state, setState }) {
@@ -28,7 +30,6 @@ function Admin({ state, setState }) {
   const [adminState, setAdminState] = useState({
     adminReFreshKey: 0,
   });
-  // console.log('admin state', adminState);
 
   const [unpaidDog, setUnpaidDog] = useState([]);
 
@@ -46,6 +47,8 @@ function Admin({ state, setState }) {
       });
   }, []);
 
+  //-------------------------------------------------------------------------------------------
+
   //------------------------------------------------------------------------------------------------
 
   useEffect(() => {
@@ -53,7 +56,7 @@ function Admin({ state, setState }) {
       .then((res) => {
         setAdminWalkRequests(res.data);
       });
-  }, [adminState.adminReFreshKey]);
+  }, [adminState.adminReFreshKey, state.reFreshKey]);
 
   //------------------------------------------------------------------------------------------------
 
@@ -62,7 +65,7 @@ function Admin({ state, setState }) {
       .then((res) => {
         setAdminUnpaidRequests(res.data);
       });
-  }, [adminState.adminReFreshKey]);
+  }, [adminState.adminReFreshKey, state.reFreshKey]);
   //-------------------------------------------------------------------------------------------
   if (!state.user) {
     return <div> Loading User... </div>;

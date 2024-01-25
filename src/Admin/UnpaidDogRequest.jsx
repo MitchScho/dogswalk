@@ -15,13 +15,13 @@ import './index.scss';
 function UnpaidDogRequest({ walkRequest, setState, setAdminState }) {
   console.log('unpaid dog walk request', walkRequest);
 
-  const [modalData, setModalData] = useState(null);
-
   const date = moment(walkRequest.date);
 
   const isPaidForClass = walkRequest.paidFor
     ? 'paidFor-accepted'
     : 'notPaidFor-notAccepted';
+
+  const [modalData, setModalData] = useState(null);
 
   const closeModal = () => {
     setModalData(null);
