@@ -25,9 +25,7 @@ function WalkRequest({
 }) {
   const [modalData, setModalData] = useState(null);
   const [walkRequestUser, setWalkRequestUser] = useState(null);
-  // console.log('admin state', adminState);
   console.log('walk request', walkRequest);
-  // const params = useParams();
 
   useEffect(() => {
     getWalkRequestUser(walkRequest.userId)
@@ -76,8 +74,7 @@ function WalkRequest({
   //-----------------------------------------------------------------------------
   const confirmUpdate = (id, payload) => {
     updateWalkRequest(id, payload)
-      .then((res) => {
-        console.log('confirm update response', res);
+      .then(() => {
         setAdminState((prev) => ({
           ...prev,
           adminReFreshKey: prev.adminReFreshKey + 1,

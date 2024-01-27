@@ -8,24 +8,21 @@ import { NavLink } from 'react-router-dom';
 import './index.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleLeft } from '@fortawesome/free-solid-svg-icons';
-// import './WalkRequests.scss';
 //---------------------------------------------------------------------------
 import { deletePaidWalkRequests } from '../api';
-// import WalkRequestList from './WalkRequestList';
 import WalkRequest from './WalkRequest';
 
 function WalkRequests({
-  adminWalkRequests, state, setState, adminState,
+  state, setState, adminState,
   setAdminState,
 }) {
   //------------------------------------------------------------------------------------------------
 
-  if (!adminWalkRequests) {
+  if (!adminState.walkRequests) {
     return <div>Loading...</div>;
   }
 
   const clearPaidRequests = () => {
-    // console.log("clear paid requests");
     deletePaidWalkRequests().then(() => {
       setAdminState((prev) => ({
         ...prev,
@@ -34,7 +31,7 @@ function WalkRequests({
     });
   };
     // --- Create Admin Walk List Array ----
-  const walkRequestArray = adminWalkRequests.map((walkRequest) => (
+  const walkRequestArray = adminState.walkRequests.map((walkRequest) => (
     <WalkRequest
       key={walkRequest.id}
       walkRequest={walkRequest}

@@ -12,8 +12,14 @@ import ConfirmationModal from '../components/ConfirmationModal';
 import { updateWalkRequest } from '../api';
 import './index.scss';
 
-function UnpaidDogRequest({ walkRequest, setState, setAdminState }) {
+function UnpaidDogRequest({
+  walkRequest,
+  setState,
+  adminState,
+  setAdminState,
+}) {
   console.log('unpaid dog walk request', walkRequest);
+  console.log('unpaid dog request admin unpaidRequest state', adminState.unpaidRequests);
 
   const date = moment(walkRequest.date);
 
@@ -39,6 +45,7 @@ function UnpaidDogRequest({ walkRequest, setState, setAdminState }) {
           ...prev,
           reFreshKey: prev.reFreshKey + 1,
         }));
+        // setTrigger(!trigger);
       })
       .catch((err) => {
         console.log(err.message);
@@ -51,9 +58,12 @@ function UnpaidDogRequest({ walkRequest, setState, setAdminState }) {
     setModalData({
       back: closeModal,
       // eslint-disable-next-line max-len
-      confirm: () => confirmUpdate(walkRequest.id, {
-        paidFor: !walkRequest.paidFor,
-      }),
+      confirm: () => {
+        // walkRequest.paidFor = true;
+        confirmUpdate(walkRequest.id, {
+          paidFor: !walkRequest.paidFor,
+        });
+      },
       message: walkRequest.paidFor
         ? 'Confirm walk is not paid for'
         : 'Confirm this is paid for',
@@ -76,10 +86,7 @@ function UnpaidDogRequest({ walkRequest, setState, setAdminState }) {
           className={isPaidForClass}
         >
           <div style={{ paddingRight: '1em' }}>{date.format('MMM D')}</div>
-          <FontAwesomeIcon
-            style={{ paddingLeft: '1em' }}
-            icon={faDollarSign}
-          />
+          <FontAwesomeIcon style={{ paddingLeft: '1em' }} icon={faDollarSign} />
         </button>
       )}
     </div>

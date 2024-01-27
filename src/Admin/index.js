@@ -25,13 +25,12 @@ import {
 
 //-------------------------------------------------------------------------------------------------
 function Admin({ state, setState }) {
-  const [adminWalkRequests, setAdminWalkRequests] = useState(state.walkRequests);
-  const [adminUnpaidRequests, setAdminUnpaidRequests] = useState(state.walkRequests);
   const [adminState, setAdminState] = useState({
+    unpaidRequests: [],
+    walkRequests: [],
+    unpaidDog: [],
     adminReFreshKey: 0,
   });
-
-  const [unpaidDog, setUnpaidDog] = useState([]);
 
   useEffect(() => {
     getMe()
@@ -54,18 +53,28 @@ function Admin({ state, setState }) {
   useEffect(() => {
     getAdminWalkRequests()
       .then((res) => {
-        setAdminWalkRequests(res.data);
+        setAdminState((prev) => ({
+          ...prev,
+          walkRequests: res.data,
+        }));
+      });
+    getUnpaidRequests()
+      .then((res) => {
+        setAdminState((prev) => ({
+          ...prev,
+          unpaidRequests: res.data,
+        }));
       });
   }, [adminState.adminReFreshKey, state.reFreshKey]);
 
   //------------------------------------------------------------------------------------------------
 
-  useEffect(() => {
-    getUnpaidRequests()
-      .then((res) => {
-        setAdminUnpaidRequests(res.data);
-      });
-  }, [adminState.adminReFreshKey, state.reFreshKey]);
+  // useEffect(() => {
+  //   getUnpaidRequests()
+  //     .then((res) => {
+  //       setAdminUnpaidRequests(res.data);
+  //     });
+  // }, [adminState.adminReFreshKey, state.reFreshKey]);
   //-------------------------------------------------------------------------------------------
   if (!state.user) {
     return <div> Loading User... </div>;
@@ -81,7 +90,6 @@ function Admin({ state, setState }) {
           path="/walk-requests"
           element={(
             <WalkRequests
-              adminWalkRequests={adminWalkRequests}
               state={state}
               setState={setState}
               adminState={adminState}
@@ -93,8 +101,8 @@ function Admin({ state, setState }) {
           path="/unpaid-requests"
           element={(
             <UnpaidRequests
-              adminUnpaidRequests={adminUnpaidRequests}
-              setUnpaidDog={setUnpaidDog}
+              adminState={adminState}
+              setAdminState={setAdminState}
             />
           )}
         />
@@ -102,8 +110,8 @@ function Admin({ state, setState }) {
           path="/unpaid-dog-requests"
           element={(
             <UnpaidDogRequests
-              unpaidDog={unpaidDog}
               setState={setState}
+              adminState={adminState}
               setAdminState={setAdminState}
             />
         )}

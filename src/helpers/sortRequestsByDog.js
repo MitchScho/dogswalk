@@ -10,7 +10,7 @@ export default function sortRequestsByDog(unpaidRequests) {
         id: request.id,
         date: request.date,
         userId: request.userId,
-        payedFor: request.payedFor,
+        paidFor: request.paidFor,
         isAccepted: request.isAccepted,
         dogId: dog.id,
         dogName: dog.name,

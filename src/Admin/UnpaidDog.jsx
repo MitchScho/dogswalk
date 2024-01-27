@@ -9,21 +9,24 @@ import { useNavigate } from 'react-router-dom';
 // import UnpaidDogRequest from './UnpaidDogRequest';
 
 function UnpaidDog({
-  unPaidDog, setUnpaidDog,
+  unpaidDog, setAdminState,
 }) {
   // console.log("unpaidDog", unpaidDog[1][0].dogName);
 
-  // // console.log('unPaidDog', unPaidDog);
   const navigate = useNavigate();
   //--------------------------------------------------------------------------------------------
 
   const handleClick = () => {
-    setUnpaidDog(unPaidDog);
+    setAdminState((prev) => ({
+      ...prev,
+      unpaidDog,
+      adminReFreshKey: prev.adminReFreshKey + 1,
+    }));
     navigate('/admin/unpaid-dog-requests');
   };
 
   return (
-    <div onClick={handleClick}>{unPaidDog[0]}</div>
+    <div onClick={handleClick}>{unpaidDog[0]}</div>
   );
 }
 

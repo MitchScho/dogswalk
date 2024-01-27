@@ -7,22 +7,26 @@ import { faCircleLeft } from '@fortawesome/free-solid-svg-icons';
 import UnpaidDog from './UnpaidDog';
 import sortRequestsByDog from '../helpers/sortRequestsByDog';
 
-function UnpaidRequests({ adminUnpaidRequests, setUnpaidDog }) {
-  console.log('Unpaid requests', adminUnpaidRequests);
+function UnpaidRequests({ adminState, setAdminState }) {
+  console.log('Unpaid requests', adminState.unpaidRequests);
 
-  const dogsWithUnpaidRequests = sortRequestsByDog(adminUnpaidRequests);
+  const dogsWithUnpaidRequests = sortRequestsByDog(adminState.unpaidRequests);
+  // const [trigger, setTrigger] = useState(null);
 
+  // useEffect(() => {
+  //   sortRequestsByDog(adminState.unpaidRequests);
+  // }, [dogsWithUnpaidRequests]);
   //------------------------------------------------------------------------------------------------
   console.log('dogs With Unpaid Requests', dogsWithUnpaidRequests);
 
   // --- Create Unpaid Dog List Array ----
   const unpaidRequestsDogList = Object.entries(dogsWithUnpaidRequests).map(
-    (unPaidDog) => (
-      <div key={unPaidDog[1][0].dogId} className="light-button">
+    (unpaidDog) => (
+      <div key={unpaidDog[1][0].dogId} className="light-button">
         <UnpaidDog
-          key={unPaidDog[1][0].dogId}
-          unPaidDog={unPaidDog}
-          setUnpaidDog={setUnpaidDog}
+          key={unpaidDog[1][0].dogId}
+          unpaidDog={unpaidDog}
+          setAdminState={setAdminState}
         />
       </div>
       // <NavLink
@@ -33,7 +37,6 @@ function UnpaidRequests({ adminUnpaidRequests, setUnpaidDog }) {
       // </NavLink>
     ),
   );
-  // console.log('unpaidRequestsDogList', unpaidRequestsDogList);
 
   return (
     <>
@@ -45,9 +48,7 @@ function UnpaidRequests({ adminUnpaidRequests, setUnpaidDog }) {
           {' '}
         </NavLink>
       </div>
-      <div className="button-list-container">
-        {unpaidRequestsDogList}
-      </div>
+      <div className="button-list-container">{unpaidRequestsDogList}</div>
     </>
   );
 }
