@@ -2,16 +2,19 @@
 /* eslint-disable react/button-has-type */
 /* eslint-disable react/react-in-jsx-scope */
 /* eslint-disable react/prop-types */
-import { NavLink } from 'react-router-dom';
 //--------------------------------------------------------------------------
 // --- Style Imports ---
 import './index.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleLeft } from '@fortawesome/free-solid-svg-icons';
-//---------------------------------------------------------------------------
-import { deletePaidWalkRequests } from '../api';
+// --- Router Imports ---
+import { NavLink } from 'react-router-dom';
+// --- Component Imports ---
 import WalkRequest from './WalkRequest';
+// --- API Imports ---
+import { deletePaidWalkRequests } from '../api';
 
+//---------------------------------------------------------------------------
 function WalkRequests({
   state, setState, adminState,
   setAdminState,

@@ -1,41 +1,22 @@
 /* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable react/prop-types */
 import React, { useEffect } from 'react';
+// --- Router Imports ---
 import { NavLink } from 'react-router-dom';
-// import ProfileDogAvatar from './DogAvatar';
+// --- Style Imports ---
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleLeft } from '@fortawesome/free-solid-svg-icons';
 import './Profile.scss';
+// --- Component Imports ---
 import DogAvatar from './DogAvatar';
+// --- Api Imports ---
 import { getUsersDogs } from '../api';
 
 function Profile({
   handleDeleteDog, state, setState, addDog, setInputDog, inputDog,
 }) {
   //-------------------------------------------------------------------------------
-  // --- Duplicated code.......Review this..... -------------------------
-  // const [selectedDogs, setSelectedDogs] = useState([]);
 
-  // const selectDogs = (dog) => {
-  //   if (selectedDogs.includes(dog)) {
-  //     const newDogList = selectedDogs.filter(
-  //       (selectedDog) => selectedDog !== dog,
-  //     );
-  //     return setSelectedDogs(newDogList);
-  //   }
-  //   return setSelectedDogs((prev) => [...prev, dog]);
-  // };
-  // const selectDogs = (dog) => {
-  //   setSelectedDogs((prevSelectedDogs) => {
-  //     if (prevSelectedDogs.includes(dog)) {
-  //       return prevSelectedDogs.filter((selectedDog) => selectedDog !== dog);
-  //     }
-  //     return [...prevSelectedDogs, dog];
-  //   });
-  // };
-
-  //----------------------------------------------------------------
-  console.log('State Re Fresh', state.reFreshKey);
   useEffect(() => {
     getUsersDogs(state.user.id).then((dogs) => {
       setState((prev) => ({
@@ -48,8 +29,6 @@ function Profile({
   if (!state.dogs) {
     return <div>Loading no Dogs yet...</div>;
   }
-
-  //---------------------------------------------------------------
 
   //-----------------------------------------------------------------------
 
@@ -71,8 +50,6 @@ function Profile({
       </button>
     </div>
   ));
-
-  // console.log(usersDogList);
 
   //-----------------------------------------------------------------
 

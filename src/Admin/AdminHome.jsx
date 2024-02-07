@@ -1,6 +1,7 @@
 /* eslint-disable react/jsx-no-undef */
 /* eslint-disable no-lone-blocks */
 /* eslint-disable react/react-in-jsx-scope */
+//---------------------------------------------------------------------------
 import { Link } from 'react-router-dom';
 
 function AdminHome() {

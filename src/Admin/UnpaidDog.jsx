@@ -3,30 +3,24 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable react/prop-types */
 /* eslint-disable react/react-in-jsx-scope */
+//---------------------------------------------------------------------------
 import { useNavigate } from 'react-router-dom';
-// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-// import { faCircleLeft } from '@fortawesome/free-solid-svg-icons';
-// import UnpaidDogRequest from './UnpaidDogRequest';
 
-function UnpaidDog({
-  unpaidDog, setAdminState,
-}) {
-  // console.log("unpaidDog", unpaidDog[1][0].dogName);
-
+function UnpaidDog({ unpaidDog, setAdminState }) {
   const navigate = useNavigate();
   //--------------------------------------------------------------------------------------------
 
-  const handleClick = () => {
+  const updateAndNavigateUnpaidDog = () => {
     setAdminState((prev) => ({
       ...prev,
       unpaidDog,
       adminReFreshKey: prev.adminReFreshKey + 1,
     }));
-    navigate('/admin/unpaid-dog-requests');
+    navigate('/admin/unpaid-dog-requests', { unpaidDog });
   };
 
   return (
-    <div onClick={handleClick}>{unpaidDog[0]}</div>
+    <div onClick={updateAndNavigateUnpaidDog}>{unpaidDog[0]}</div>
   );
 }
 

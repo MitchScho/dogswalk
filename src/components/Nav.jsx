@@ -1,13 +1,15 @@
 /* eslint-disable react/button-has-type */
 /* eslint-disable react/react-in-jsx-scope */
 /* eslint-disable react/prop-types */
-import './Nav.scss';
-import { useNavigate, NavLink } from 'react-router-dom';
 import Cookies from 'js-cookie';
+// --- Style Imports ---
+import './Nav.scss';
+// --- Router Imports ---
+import { useNavigate, NavLink } from 'react-router-dom';
 
 function Nav({ state, setState }) {
   const navigate = useNavigate();
-  // console.log('user state', state.user);
+
   const admin = state.user.role === 'admin';
   const handleLogout = () => {
     Cookies.remove('token');

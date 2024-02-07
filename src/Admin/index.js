@@ -1,23 +1,23 @@
 /* eslint-disable react/jsx-filename-extension */
 /* eslint-disable react/react-in-jsx-scope */
 /* eslint-disable react/prop-types */
+//---------------------------------------------------------------------------
 import { useEffect, useState } from 'react';
-
-// --- Component Imports ---
+// --- Router Imports ---
 import {
   Routes, Route,
 } from 'react-router-dom';
 
-// import AdminWalkRequest from './AdminWalkRequest';
+// --- Component Imports ---
 import WalkRequests from './WalkRequests';
 import UnpaidRequests from './UnpaidRequests';
 import UnpaidDogRequests from './UnpaidDogRequests';
 import AdminHome from './AdminHome';
 import Nav from '../components/Nav';
-// import WalkRequest from './WalkRequest';
-// --- Router Imports ---
+
 // --- Style Imports ---
 import './index.scss';
+
 // --- API Imports ---
 import {
   getMe, getAdminWalkRequests, getUnpaidRequests,
@@ -32,6 +32,7 @@ function Admin({ state, setState }) {
     adminReFreshKey: 0,
   });
 
+  // --- getUser data ---
   useEffect(() => {
     getMe()
       .then((res) => {
@@ -46,10 +47,8 @@ function Admin({ state, setState }) {
       });
   }, []);
 
-  //-------------------------------------------------------------------------------------------
-
   //------------------------------------------------------------------------------------------------
-
+  // --- get walkRequests data and unpaidRequest data ---
   useEffect(() => {
     getAdminWalkRequests()
       .then((res) => {
@@ -69,13 +68,6 @@ function Admin({ state, setState }) {
 
   //------------------------------------------------------------------------------------------------
 
-  // useEffect(() => {
-  //   getUnpaidRequests()
-  //     .then((res) => {
-  //       setAdminUnpaidRequests(res.data);
-  //     });
-  // }, [adminState.adminReFreshKey, state.reFreshKey]);
-  //-------------------------------------------------------------------------------------------
   if (!state.user) {
     return <div> Loading User... </div>;
   }

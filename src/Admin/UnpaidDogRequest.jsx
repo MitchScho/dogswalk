@@ -3,24 +3,25 @@
 /* eslint-disable react/button-has-type */
 /* eslint-disable react/prop-types */
 /* eslint-disable react/react-in-jsx-scope */
+//---------------------------------------------------------------------------
 import moment from 'moment';
 import { useState } from 'react';
+// --- Style Imports ---
+import './index.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faDollarSign } from '@fortawesome/free-solid-svg-icons';
-// import { NavLink } from 'react-router-dom';
+// --- Component Imports ---
 import ConfirmationModal from '../components/ConfirmationModal';
+// --- API Imports ---
 import { updateWalkRequest } from '../api';
-import './index.scss';
 
 function UnpaidDogRequest({
   walkRequest,
-  setState,
-  adminState,
-  setAdminState,
+  setTrigger,
+  trigger,
+  unpaidDog2,
+  setUnpaidDog2,
 }) {
-  console.log('unpaid dog walk request', walkRequest);
-  console.log('unpaid dog request admin unpaidRequest state', adminState.unpaidRequests);
-
   const date = moment(walkRequest.date);
 
   const isPaidForClass = walkRequest.paidFor
@@ -33,19 +34,20 @@ function UnpaidDogRequest({
     setModalData(null);
   };
 
+  const dumpUnpaidDog = unpaidDog2;
+  const indexOfWalkRequest = unpaidDog2.indexOf(walkRequest);
+
+  const walkRequestDump = walkRequest;
   //-----------------------------------------------------------------------------
   const confirmUpdate = (id, payload) => {
+    walkRequestDump.paidFor = !walkRequestDump.paidFor;
     updateWalkRequest(id, payload)
       .then(() => {
-        setAdminState((prev) => ({
-          ...prev,
-          adminReFreshKey: prev.adminReFreshKey + 1,
-        }));
-        setState((prev) => ({
-          ...prev,
-          reFreshKey: prev.reFreshKey + 1,
-        }));
-        // setTrigger(!trigger);
+        // This setTrigger state is purely used to trigger a refresh in the upstream component.
+        // I don't believe this to be necessary re visit and check if actually needed.
+        setTrigger(!trigger);
+        dumpUnpaidDog[indexOfWalkRequest] = walkRequestDump;
+        setUnpaidDog2(dumpUnpaidDog);
       })
       .catch((err) => {
         console.log(err.message);
@@ -57,9 +59,7 @@ function UnpaidDogRequest({
   const handlePaidFor = () => {
     setModalData({
       back: closeModal,
-      // eslint-disable-next-line max-len
       confirm: () => {
-        // walkRequest.paidFor = true;
         confirmUpdate(walkRequest.id, {
           paidFor: !walkRequest.paidFor,
         });

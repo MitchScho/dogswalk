@@ -2,10 +2,12 @@
 /* eslint-disable react/button-has-type */
 /* eslint-disable react/react-in-jsx-scope */
 /* eslint-disable react/prop-types */
+// --- Helper Imports ---
 import getAvailibleSpots from '../helpers/getAvailibleSpots';
-import { deleteDogWalkRequest } from '../api';
 // --- Style Imports ---
 import './DateListItem.scss';
+// --- Api Imports ---
+import { deleteDogWalkRequest } from '../api';
 //------------------------------------------------------------------------------------------------
 
 function DateListItem({

@@ -2,21 +2,20 @@
 /* eslint-disable react/button-has-type */
 /* eslint-disable react/prop-types */
 /* eslint-disable react/react-in-jsx-scope */
+//---------------------------------------------------------------------------
 import moment from 'moment';
 import { useEffect, useState } from 'react';
 // --- Style Imports ---
 import './index.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faDollarSign, faCheck } from '@fortawesome/free-solid-svg-icons';
-// ---Import Components ---
+// --- Component Imports ---
 import ConfirmationModal from '../components/ConfirmationModal';
-// --- Import api ---
+// --- Api Imports ---
 import {
   updateWalkRequest, getWalkRequestUser,
 } from '../api';
-//---------------------------------------------------------------------
-
-// -----------------------------------------------------------------------------------------------
+// --- Helper Imports ---
 import getAvailibleSpots from '../helpers/getAvailibleSpots';
 //-------------------------------------------------------------------
 
@@ -25,7 +24,6 @@ function WalkRequest({
 }) {
   const [modalData, setModalData] = useState(null);
   const [walkRequestUser, setWalkRequestUser] = useState(null);
-  console.log('walk request', walkRequest);
 
   useEffect(() => {
     getWalkRequestUser(walkRequest.userId)

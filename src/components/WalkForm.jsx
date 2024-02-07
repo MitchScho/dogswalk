@@ -3,10 +3,12 @@
 /* eslint-disable react/react-in-jsx-scope */
 /* eslint-disable react/prop-types */
 import { useState } from 'react';
-import DogAvatar from './DogAvatar';
-import { requestDogWalk } from '../api';
 // --- Style Imports ---
 import './WalkForm.scss';
+// --- Component Imports ---
+import DogAvatar from './DogAvatar';
+// --- Api Imports ---
+import { requestDogWalk } from '../api';
 //--------------------------------------------------------------------------------------------------
 
 function WalkForm({
@@ -15,15 +17,6 @@ function WalkForm({
   //-------------------------------------------------------------------------------
   const [selectedDogs, setSelectedDogs] = useState([]);
 
-  // const selectDogs = (dog) => {
-  //   if (selectedDogs.includes(dog)) {
-  //     const newDogList = selectedDogs.filter(
-  //       (selectedDog) => selectedDog !== dog,
-  //     );
-  //     return setSelectedDogs(newDogList);
-  //   }
-  //   setSelectedDogs((prev) => [...prev, dog]);
-  // };
   const selectDogs = (dog) => {
     setSelectedDogs((prevSelectedDogs) => {
       if (prevSelectedDogs.includes(dog)) {
@@ -32,7 +25,6 @@ function WalkForm({
       return [...prevSelectedDogs, dog];
     });
   };
-  //-------------------------------------------------------------------------------------
 
   //------------------------------------------------------------------------------------------
 

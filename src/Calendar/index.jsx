@@ -1,11 +1,13 @@
 /* eslint-disable react/react-in-jsx-scope */
 /* eslint-disable react/prop-types */
 import { useEffect, useState } from 'react';
+// --- Router Imports ---
 import { Routes, Route } from 'react-router-dom';
+// --- Component Imports ---
 import DateList from '../components/DateList';
 import Profile from '../components/Profile';
 import Nav from '../components/Nav';
-
+// --- API Imports ---
 import { getMe, deleteDog, addDogForUser } from '../api';
 
 //-------------------------------------------------------------------------------------------
@@ -26,15 +28,13 @@ function Calendar({ state, setState }) {
         console.log(err.message);
       });
   }, []);
-  //----------------------------------------
+  //-------------------------------------------------------------------------------------
 
   if (!state.user) {
     return <div>Loading User Application...</div>;
   }
-  //----------------------------------------------
+  //---------------------------------------------------------------------------------------
   const addDog = (userId) => {
-    // e.preventDefault();
-
     addDogForUser(userId, inputDog)
       .then(() => {
         setState((prev) => ({
@@ -45,7 +45,7 @@ function Calendar({ state, setState }) {
       });
   };
 
-  //-----------------------------------------
+  //-------------------------------------------------------------------------------------
 
   const handleDeleteDog = (dogId) => {
     deleteDog(dogId).then(() => {

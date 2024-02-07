@@ -1,21 +1,29 @@
 /* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable react/react-in-jsx-scope */
 /* eslint-disable react/prop-types */
-import { NavLink } from 'react-router-dom';
+//---------------------------------------------------------------------------
+import { useEffect, useState } from 'react';
+// --- Style Imports ---
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleLeft } from '@fortawesome/free-solid-svg-icons';
+// --- Router Imports ---
+import { NavLink } from 'react-router-dom';
+// --- Component Imports ---
 import UnpaidDog from './UnpaidDog';
+// --- API Imports ---
 import sortRequestsByDog from '../helpers/sortRequestsByDog';
 
 function UnpaidRequests({ adminState, setAdminState }) {
   console.log('Unpaid requests', adminState.unpaidRequests);
 
-  const dogsWithUnpaidRequests = sortRequestsByDog(adminState.unpaidRequests);
-  // const [trigger, setTrigger] = useState(null);
+  // const dogsWithUnpaidRequests = sortRequestsByDog(adminState.unpaidRequests);
+  const [dogsWithUnpaidRequests, setDogsWithUnpaidRequests] = useState([]);
 
-  // useEffect(() => {
-  //   sortRequestsByDog(adminState.unpaidRequests);
-  // }, [dogsWithUnpaidRequests]);
+  useEffect(() => {
+    const sortedRequests = sortRequestsByDog(adminState.unpaidRequests);
+    setDogsWithUnpaidRequests(sortedRequests);
+  }, [adminState.adminReFreshKey]);
+
   //------------------------------------------------------------------------------------------------
   console.log('dogs With Unpaid Requests', dogsWithUnpaidRequests);
 
