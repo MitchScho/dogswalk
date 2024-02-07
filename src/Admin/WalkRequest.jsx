@@ -96,6 +96,7 @@ function WalkRequest({
       // eslint-disable-next-line max-len
       confirm: () => confirmUpdate(walkRequest.id, {
         isAccepted: !walkRequest.isAccepted,
+        paidFor: walkRequest.paidFor,
       }),
       message: walkRequest.isAccepted
         ? 'Confirm walk is not accepted'
@@ -111,6 +112,7 @@ function WalkRequest({
       // eslint-disable-next-line max-len
       confirm: () => confirmUpdate(walkRequest.id, {
         paidFor: !walkRequest.paidFor,
+        isAccepted: walkRequest.isAccepted,
       }),
       message: walkRequest.paidFor
         ? 'Confirm walk is not paid for'

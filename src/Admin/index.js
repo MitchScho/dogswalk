@@ -94,7 +94,6 @@ function Admin({ state, setState }) {
           element={(
             <UnpaidRequests
               adminState={adminState}
-              setAdminState={setAdminState}
             />
           )}
         />

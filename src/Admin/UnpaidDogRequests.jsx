@@ -8,35 +8,49 @@ import { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleLeft } from '@fortawesome/free-solid-svg-icons';
 // --- Router Imports ---
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 // --- Component Imports ---
 import UnpaidDogRequest from './UnpaidDogRequest';
+/// --- Api Imports ---
+import { getAdminWalkRequestsForDog } from '../api';
 //-----------------------------------------------------------------------------------------------
 
 function UnpaidDogRequests({
   setState, setAdminState, adminState,
 }) {
-  console.log('unpaidDogRequests component unpaidDog...', adminState.unpaidDog[1]);
+  const { state } = useLocation();
+  console.log('unpaidDogRequests component unpaidDog... id?', state.dogId);
 
   // when that new state gets updated in the unpaid dog request trigger
   // the unPaidDog state change here
   const [trigger, setTrigger] = useState(false);
-  const [unpaidDog2, setUnpaidDog2] = useState(adminState.unpaidDog);
+  const [temporaryRequestList, setTemporaryRequestList] = useState([]);
 
+  // useEffect(() => {
+  //   setAdminState((prev) => ({
+  //     ...prev,
+  //     unpaidDog: unpaidDog2,
+  //     adminReFreshKey: prev.adminReFreshKey + 1,
+  //   }));
+  //   setState((prev) => ({
+  //     ...prev,
+  //     reFreshKey: prev.reFreshKey + 1,
+  //   }));
+  //   console.log('trigger upstream unpaidDog');
+  // }, [trigger]);
   useEffect(() => {
-    setAdminState((prev) => ({
-      ...prev,
-      unpaidDog: unpaidDog2,
-      adminReFreshKey: prev.adminReFreshKey + 1,
-    }));
-    setState((prev) => ({
-      ...prev,
-      reFreshKey: prev.reFreshKey + 1,
-    }));
-    console.log('trigger upstream unpaidDog');
-  }, [trigger]);
+    const id = state.dogId;
+    getAdminWalkRequestsForDog(id).then((res) => {
+      console.log('Admin walk request for dog response', res);
+      setTemporaryRequestList(res.data);
+    });
+  }, []);
 
-  const requestList = adminState.unpaidDog[1].map((walkRequest) => (
+  console.log('temporaryRequestList', temporaryRequestList);
+  const [unpaidDog2, setUnpaidDog2] = useState(temporaryRequestList);
+  // console.log('Un paid dog list', adminState.unpaidDog[1]);
+  // adminState.unpaidDog[1]
+  const requestList = temporaryRequestList.map((walkRequest) => (
     <div key={walkRequest.id} className="light-button">
       <UnpaidDogRequest
         key={walkRequest.id}
@@ -57,10 +71,8 @@ function UnpaidDogRequests({
       <div className="header-container">
         <div />
         <div>
-          {adminState.unpaidDog[1][0].dogName}
-          s
-          {' '}
-          Un Paid Requests
+          {/* {adminState.unpaidDog[1][0].dogName} */}
+          s Un Paid Requests
         </div>
         <NavLink to="/admin/unpaid-requests">
           <FontAwesomeIcon className="back-icon" icon={faCircleLeft} />

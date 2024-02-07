@@ -6,22 +6,22 @@
 //---------------------------------------------------------------------------
 import { useNavigate } from 'react-router-dom';
 
-function UnpaidDog({ unpaidDog, setAdminState }) {
+function UnpaidDog({ dogId, dogName }) {
   const navigate = useNavigate();
   //--------------------------------------------------------------------------------------------
 
   const updateAndNavigateUnpaidDog = () => {
-    setAdminState((prev) => ({
-      ...prev,
-      unpaidDog,
-      adminReFreshKey: prev.adminReFreshKey + 1,
-    }));
-    navigate('/admin/unpaid-dog-requests', { unpaidDog });
+    // setAdminState((prev) => ({
+    //   ...prev,
+    //   unpaidDog,
+    //   adminReFreshKey: prev.adminReFreshKey + 1,
+    // }));
+
+    console.log('DOG IS IN UNPAID DOG: ', dogId);
+    navigate('/admin/unpaid-dog-requests', { state: { dogId } });
   };
 
-  return (
-    <div onClick={updateAndNavigateUnpaidDog}>{unpaidDog[0]}</div>
-  );
+  return <div onClick={updateAndNavigateUnpaidDog}>{dogName}</div>;
 }
 
 export default UnpaidDog;

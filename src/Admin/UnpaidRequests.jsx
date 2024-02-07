@@ -13,7 +13,7 @@ import UnpaidDog from './UnpaidDog';
 // --- API Imports ---
 import sortRequestsByDog from '../helpers/sortRequestsByDog';
 
-function UnpaidRequests({ adminState, setAdminState }) {
+function UnpaidRequests({ adminState }) {
   console.log('Unpaid requests', adminState.unpaidRequests);
 
   // const dogsWithUnpaidRequests = sortRequestsByDog(adminState.unpaidRequests);
@@ -30,11 +30,16 @@ function UnpaidRequests({ adminState, setAdminState }) {
   // --- Create Unpaid Dog List Array ----
   const unpaidRequestsDogList = Object.entries(dogsWithUnpaidRequests).map(
     (unpaidDog) => (
-      <div key={unpaidDog[1][0].dogId} className="light-button">
+      <div
+        key={unpaidDog[1][0].dogId}
+        className="light-button"
+      >
         <UnpaidDog
-          key={unpaidDog[1][0].dogId}
-          unpaidDog={unpaidDog}
-          setAdminState={setAdminState}
+          // key={unpaidDog[1][0].dogId}
+          dogId={unpaidDog[1][0].dogId}
+          dogName={unpaidDog[0]}
+          // unpaidDog={unpaidDog}
+          // setAdminState={setAdminState}
         />
       </div>
       // <NavLink

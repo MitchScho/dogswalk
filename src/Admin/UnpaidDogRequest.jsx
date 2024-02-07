@@ -62,6 +62,7 @@ function UnpaidDogRequest({
       confirm: () => {
         confirmUpdate(walkRequest.id, {
           paidFor: !walkRequest.paidFor,
+          isAccepted: true,
         });
       },
       message: walkRequest.paidFor
