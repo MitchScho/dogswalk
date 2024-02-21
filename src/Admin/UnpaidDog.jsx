@@ -18,7 +18,7 @@ function UnpaidDog({ dogId, dogName }) {
     // }));
 
     console.log('DOG IS IN UNPAID DOG: ', dogId);
-    navigate('/admin/unpaid-dog-requests', { state: { dogId } });
+    navigate('/admin/unpaid-dog-requests', { state: { dogId, dogName } });
   };
 
   return <div onClick={updateAndNavigateUnpaidDog}>{dogName}</div>;

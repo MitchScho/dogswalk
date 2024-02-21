@@ -1,6 +1,8 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable react/prop-types */
-import React, { useEffect } from 'react';
+import React, { useState } from 'react';
 // --- Router Imports ---
 import { NavLink } from 'react-router-dom';
 // --- Style Imports ---
@@ -9,22 +11,14 @@ import { faCircleLeft } from '@fortawesome/free-solid-svg-icons';
 import './Profile.scss';
 // --- Component Imports ---
 import DogAvatar from './DogAvatar';
+import ProfileAvatar from './ProfileAvatar';
 // --- Api Imports ---
-import { getUsersDogs } from '../api';
+// import { getUsersDogs } from '../api';
 
 function Profile({
-  handleDeleteDog, state, setState, addDog, setInputDog, inputDog,
+  handleDeleteDog, state, addDog, setInputDog, inputDog,
 }) {
-  //-------------------------------------------------------------------------------
-
-  useEffect(() => {
-    getUsersDogs(state.user.id).then((dogs) => {
-      setState((prev) => ({
-        ...prev,
-        dogs: dogs.data,
-      }));
-    });
-  }, [state.reFreshKey]);
+  const [displayProfileAvatar, setDisplayProfileAvatar] = useState(false);
 
   if (!state.dogs) {
     return <div>Loading no Dogs yet...</div>;
@@ -36,6 +30,7 @@ function Profile({
     <div
       key={dog.id}
       className="flex flex-row justify-between items-center"
+      onClick={() => setDisplayProfileAvatar(!displayProfileAvatar)}
     >
       <DogAvatar
         key={dog.id}
@@ -52,6 +47,7 @@ function Profile({
   ));
 
   //-----------------------------------------------------------------
+  //----------------------------------------
 
   return (
     <div className="border-solid flex items-center justify-center flex-col">
@@ -63,6 +59,7 @@ function Profile({
         </NavLink>
       </div>
       <div>{usersDogList}</div>
+      {displayProfileAvatar && <ProfileAvatar />}
       <form className="w-half max-w-sm">
         <div className="flex items-center border-b border-grey-500 py-2">
           <input
@@ -73,7 +70,11 @@ function Profile({
             placeholder="Register Dog"
             aria-label="Full name"
           />
-          <button className="add-button" type="button" onClick={() => addDog(state.user.id, inputDog)}>
+          <button
+            className="add-button"
+            type="button"
+            onClick={() => addDog(state.user.id, inputDog)}
+          >
             Add Dog
           </button>
         </div>

@@ -8,7 +8,9 @@ import DateList from '../components/DateList';
 import Profile from '../components/Profile';
 import Nav from '../components/Nav';
 // --- API Imports ---
-import { getMe, deleteDog, addDogForUser } from '../api';
+import {
+  getMe, deleteDog, addDogForUser, getUsersDogs,
+} from '../api';
 
 //-------------------------------------------------------------------------------------------
 
@@ -29,11 +31,23 @@ function Calendar({ state, setState }) {
       });
   }, []);
   //-------------------------------------------------------------------------------------
+  useEffect(() => {
+    if (state.user) {
+      getUsersDogs(state.user.id).then((dogs) => {
+        setState((prev) => ({
+          ...prev,
+          dogs: dogs.data,
+        }));
+      });
+    }
+  }, [state.reFreshKey]);
 
+  //-----------------------------------------------------------------------------------
   if (!state.user) {
     return <div>Loading User Application...</div>;
   }
   //---------------------------------------------------------------------------------------
+
   const addDog = (userId) => {
     addDogForUser(userId, inputDog)
       .then(() => {
@@ -48,12 +62,13 @@ function Calendar({ state, setState }) {
   //-------------------------------------------------------------------------------------
 
   const handleDeleteDog = (dogId) => {
-    deleteDog(dogId).then(() => {
-      setState((prev) => ({
-        ...prev,
-        reFreshKey: prev.reFreshKey + 1,
-      }));
-    });
+    deleteDog(dogId)
+      .then(() => {
+        setState((prev) => ({
+          ...prev,
+          reFreshKey: prev.reFreshKey + 1,
+        }));
+      });
   };
 
   //-------------------------------------------

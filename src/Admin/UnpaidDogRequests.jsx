@@ -20,6 +20,7 @@ function UnpaidDogRequests({
 }) {
   const { state } = useLocation();
   console.log('unpaidDogRequests component unpaidDog... id?', state.dogId);
+  console.log('unpaidDogRequests component unpaidDog?', state);
 
   // when that new state gets updated in the unpaid dog request trigger
   // the unPaidDog state change here
@@ -48,7 +49,7 @@ function UnpaidDogRequests({
 
   console.log('temporaryRequestList', temporaryRequestList);
   const [unpaidDog2, setUnpaidDog2] = useState(temporaryRequestList);
-  // console.log('Un paid dog list', adminState.unpaidDog[1]);
+  // console.log('Un paid dod 2', unpaidDog2);
   // adminState.unpaidDog[1]
   const requestList = temporaryRequestList.map((walkRequest) => (
     <div key={walkRequest.id} className="light-button">
@@ -71,8 +72,9 @@ function UnpaidDogRequests({
       <div className="header-container">
         <div />
         <div>
-          {/* {adminState.unpaidDog[1][0].dogName} */}
-          s Un Paid Requests
+          {state.dogName}
+          &apos;s Un Paid Requests
+
         </div>
         <NavLink to="/admin/unpaid-requests">
           <FontAwesomeIcon className="back-icon" icon={faCircleLeft} />

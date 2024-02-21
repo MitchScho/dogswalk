@@ -21,6 +21,7 @@ function UnpaidDogRequest({
   trigger,
   unpaidDog2,
   setUnpaidDog2,
+  setAdminState,
 }) {
   const date = moment(walkRequest.date);
 
@@ -48,6 +49,10 @@ function UnpaidDogRequest({
         setTrigger(!trigger);
         dumpUnpaidDog[indexOfWalkRequest] = walkRequestDump;
         setUnpaidDog2(dumpUnpaidDog);
+        setAdminState((prev) => ({
+          ...prev,
+          adminReFreshKey: prev.adminReFreshKey + 1,
+        }));
       })
       .catch((err) => {
         console.log(err.message);

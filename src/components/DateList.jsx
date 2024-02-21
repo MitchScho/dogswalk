@@ -33,7 +33,7 @@ function DateList({
   // --- Create Date List ---
 
   const startDate = moment();
-  const endDate = moment().add(1, 'week');
+  const endDate = moment().add(2, 'week');
 
   const dates = getCalendarWeek(startDate, endDate);
   const datesArray = dates.map((date) => (
