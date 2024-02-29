@@ -20,6 +20,20 @@ h4 {
   border-radius: 10px
 }
 
+.save-button {
+  border: none;
+  background: rgb(37, 194, 134);
+  border-radius: 10px;
+  cursor: pointer;
+  color: grey;
+  border-radius: 10px;
+  padding: 0.5em;
+}
+
+.save-button:hover {
+  background:rgba(24, 125, 86, 0.507);
+}
+
 .delete-button {
    border: none;
    background: rgb(61, 24, 125);
@@ -28,9 +42,9 @@ h4 {
    color: grey;
   
    border-radius: 10px;
+   margin:0.5em;
    padding: 0.5em;
 }
-
 .delete-button:hover {
   background:rgb(79, 33, 158);
 }

@@ -14,7 +14,7 @@ export default function sortRequestsByDog(unpaidRequests) {
         isAccepted: request.isAccepted,
         dogId: dog.id,
         dogName: dog.name,
-        avatar: dog.avatar,
+        image: dog.image,
         createdAt: request.createdAt,
         updatedAt: request.updatedAt,
       };

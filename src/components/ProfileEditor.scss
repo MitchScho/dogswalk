@@ -1,0 +1,36 @@
+.profile_editor_container {
+  padding: 4;
+}
+
+.profile_editor {
+  display: flex;
+  // flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  // flex flex-column justify-content-center align-items-center
+}
+
+img {
+  height: 200px;
+  width: 200px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid grey;
+
+}
+
+// .editor_controls {
+//   display: flex;
+// }
+
+@media (max-width: 600px) {
+  .profile_editor {
+    display: flex;
+    flex-wrap: wrap;
+  }
+}
+@media (min-width: 400px) {
+  .editor_controls {
+    display: flex
+  }
+}

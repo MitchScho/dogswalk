@@ -132,9 +132,22 @@ export function updateWalkRequest(id, payload) {
     },
   };
 
-  // const id = payload.walkId;
   return axios
     .put(`http://localhost:8000/api/admin/walks-requests/${id}`, payload, config);
+}
+
+//-------------------------------------------------------------------------------------------------
+export function updateDogProfile(id, payload) {
+  const authToken = Cookies.get('token');
+
+  const config = {
+    headers: {
+      Authorization: `Bearer ${authToken}`,
+    },
+  };
+
+  return axios
+    .put(`http://localhost:8000/api/dogs/${id}`, payload, config);
 }
 
 //-------------------------------------------------------------------------------------------------
