@@ -12,7 +12,6 @@ import './Profile.scss';
 // --- Component Imports ---
 import DogAvatar from './DogAvatar';
 // --- Api Imports ---
-// import { getUsersDogs } from '../api';
 
 function Profile({
   handleDeleteDog, state, addDog, setInputDog, inputDog,
@@ -60,8 +59,7 @@ function Profile({
           </button>
         </div>
       </form>
-      <div>{usersDogList}</div>
-      {/* {displayProfileAvatar && <ProfileAvatar />} */}
+      <div className="profile-img">{usersDogList}</div>
     </div>
   );
 }

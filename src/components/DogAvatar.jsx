@@ -4,8 +4,9 @@
 /* eslint-disable react/react-in-jsx-scope */
 /* eslint-disable react/prop-types */
 import React, { useState, useEffect } from 'react';
-// import { Buffer } from 'buffer';
+// --- Style Imports ---
 import './DogAvatar.scss';
+// --- Component Imports ---
 import Avatar from '../dog.thumbnail.png';
 import Modal from './widgets/Modal';
 import ProfileEditor from './ProfileEditor';
@@ -17,13 +18,7 @@ function DogAvatar({
   const [disabled, setDisabled] = useState(true);
   const [selected, setSelected] = useState(false);
   const [displayProfileAvatar, setDisplayProfileAvatar] = useState(false);
-  const [imageData, setImageData] = useState(dog.image);
-  // const imageData = btoa(
-  //   String.fromCharCode(...new Uint8Array(dog.image.data)),
-  // );
-
-  console.log('disabled', disabled);
-  console.log('imagedata', imageData);
+  const [updatedDog, setUpdatedDog] = useState(dog);
 
   useEffect(() => {
     if (selectDogs) {
@@ -53,8 +48,8 @@ function DogAvatar({
         tabIndex={disabled ? undefined : 0}
         disabled={disabled}
       >
-        <img src={imageData == null ? Avatar : imageData} alt="" />
-        {dog.name}
+        <img src={updatedDog.image == null ? Avatar : updatedDog.image} alt="" />
+        {updatedDog.name}
       </div>
       <Modal
         isOpen={displayProfileAvatar}
@@ -63,9 +58,9 @@ function DogAvatar({
       >
         <ProfileEditor
           handleDeleteDog={handleDeleteDog}
-          dog={dog}
+          dog={updatedDog}
           onModalClose={() => setDisplayProfileAvatar(false)}
-          setImageData={setImageData}
+          setUpdatedDog={setUpdatedDog}
         />
       </Modal>
     </>

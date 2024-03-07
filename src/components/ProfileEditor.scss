@@ -1,13 +1,12 @@
 .profile_editor_container {
   padding: 4;
+  text-align: center;
 }
 
 .profile_editor {
   display: flex;
-  // flex-direction: column;
   justify-content: center;
   align-items: center;
-  // flex flex-column justify-content-center align-items-center
 }
 
 img {
@@ -19,8 +18,17 @@ img {
 
 }
 
+.editor-buttons {
+  display: flex;
+  align-items: flex-end;
+  margin-top: 20px;
+  
+}
+
 // .editor_controls {
 //   display: flex;
+//    justify-content: center;
+//    align-items: center;
 // }
 
 @media (max-width: 600px) {
@@ -28,9 +36,16 @@ img {
     display: flex;
     flex-wrap: wrap;
   }
+   .editor-buttons {
+     display: flex;
+     justify-content: center;
+     align-items: center;
+
+   }
 }
 @media (min-width: 400px) {
   .editor_controls {
     display: flex
   }
+ 
 }

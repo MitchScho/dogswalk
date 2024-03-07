@@ -65,10 +65,7 @@ function WalkForm({
       </div>
       <div className="dog-form-controls">
         <div
-          style={{
-            display: 'flex',
-            justifyContent: 'space-between',
-          }}
+          className="walk-form-img"
         >
           {dogList}
         </div>
