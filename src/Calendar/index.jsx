@@ -7,6 +7,8 @@ import { Routes, Route } from 'react-router-dom';
 import DateList from '../components/DateList';
 import Profile from '../components/Profile';
 import Nav from '../components/Nav';
+import Loader from '../components/widgets/Loader';
+// import Modal from '../components/widgets/Modal';
 // --- API Imports ---
 import {
   getMe, deleteDog, addDogForUser, getUsersDogs,
@@ -43,8 +45,13 @@ function Calendar({ state, setState }) {
   }, [state.reFreshKey]);
 
   //-----------------------------------------------------------------------------------
+  // const [user, setUser] = useState(state.user);
+  // setUser(false);
+  //----------------------
   if (!state.user) {
-    return <div>Loading User Application...</div>;
+    return (
+      <Loader />
+    );
   }
   //---------------------------------------------------------------------------------------
 

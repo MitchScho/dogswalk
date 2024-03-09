@@ -32,34 +32,38 @@ function Profile({
   //----------------------------------------
 
   return (
-    <div className="border-solid flex items-center justify-center flex-col">
-      <div className="back-icon-container">
-        <div />
-        <h4>Profile</h4>
-        <NavLink to="/calendar">
-          <FontAwesomeIcon className="back-icon" icon={faCircleLeft} />
-        </NavLink>
-      </div>
-      <form className="w-half max-w-sm">
-        <div className="flex items-center border-b border-grey-500 py-2">
-          <input
-            value={inputDog}
-            onChange={(e) => setInputDog(e.target.value)}
-            className="appearance-none bg-transparent border-none w-half text-white-700 mr-3 py-1 px-2 leading-tight focus:outline-none"
-            type="text"
-            placeholder="Register Dog"
-            aria-label="Full name"
-          />
-          <button
-            className="add-button"
-            type="button"
-            onClick={() => addDog(state.user.id, inputDog)}
-          >
-            Add Dog
-          </button>
+    <div className="profile_overlay">
+      <div className="profile-container">
+        <div className="profile-header">
+          <div />
+          <h4>Profile</h4>
+          <NavLink to="/calendar">
+            <FontAwesomeIcon className="back-icon" icon={faCircleLeft} />
+          </NavLink>
         </div>
-      </form>
-      <div className="profile-img">{usersDogList}</div>
+        <div className="profile-body">
+          <form className="w-half max-w-sm">
+            <div className="flex items-center border-b border-grey-500 py-2">
+              <input
+                value={inputDog}
+                onChange={(e) => setInputDog(e.target.value)}
+                className="appearance-none bg-transparent border-none w-half text-white-700 mr-3 py-1 px-2 leading-tight focus:outline-none"
+                type="text"
+                placeholder="Register Dog"
+                aria-label="Full name"
+              />
+              <button
+                className="add-button"
+                type="button"
+                onClick={() => addDog(state.user.id, inputDog)}
+              >
+                Add Dog
+              </button>
+            </div>
+          </form>
+          <div className="img-container">{usersDogList}</div>
+        </div>
+      </div>
     </div>
   );
 }

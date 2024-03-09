@@ -20,6 +20,7 @@ function ProfileEditor({
 }) {
   const [img, setImg] = useState(dog.image);
   const [dogName, setDogName] = useState(dog.name);
+  const [dogAddress, setDogAddress] = useState(dog.address);
   const [imageCrop, setImageCrop] = useState(false);
   const [src, setSrc] = useState(img);
   const [profileImg, setProfileImg] = useState(null);
@@ -47,6 +48,7 @@ function ProfileEditor({
     onModalClose();
     let image = img;
     const name = dogName;
+    const address = dogAddress;
 
     try {
       if (profileImg != null) {
@@ -60,7 +62,7 @@ function ProfileEditor({
         image = imageURL;
       }
 
-      const payload = { name, image };
+      const payload = { name, image, address };
       updateDogProfile(dog.id, payload)
         .then((res) => {
           setUpdatedDog(res.data);
@@ -94,8 +96,15 @@ function ProfileEditor({
               value={dogName}
               onChange={(value) => setDogName(value.target.value)}
               type="text"
+              placeholder="Name"
             />
-            <p>Address</p>
+            <textarea
+              value={dogAddress}
+              rows={5}
+              onChange={(value) => setDogAddress(value.target.value)}
+              type="text"
+              placeholder="Address"
+            />
           </div>
           <div className="editor-buttons">
             <button className="save-button" type="button" onClick={handleSave}>

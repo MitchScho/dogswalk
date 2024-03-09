@@ -1,26 +1,27 @@
 .profile_editor_container {
-  padding: 4;
   text-align: center;
 }
 
 .profile_editor {
   display: flex;
   justify-content: center;
-  align-items: center;
 }
 
-img {
-  height: 200px;
-  width: 200px;
-  border-radius: 50%;
-  object-fit: cover;
+input {
+  background: rgb(61, 24, 125);
   border: 2px solid grey;
+  border-radius: 25px;
+}
 
+textarea {
+  background: rgb(61, 24, 125);
+  
 }
 
 .editor-buttons {
   display: flex;
   align-items: flex-end;
+  justify-content: space-between;
   margin-top: 20px;
   
 }

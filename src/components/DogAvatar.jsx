@@ -10,6 +10,7 @@ import './DogAvatar.scss';
 import Avatar from '../dog.thumbnail.png';
 import Modal from './widgets/Modal';
 import ProfileEditor from './ProfileEditor';
+import Loader from './widgets/Loader';
 //-------------------------------------------------------------------------------------------------
 
 function DogAvatar({
@@ -26,6 +27,10 @@ function DogAvatar({
       setSelected(selectedDogs.includes(dog));
     }
   }, [selectDogs, dog]);
+
+  if (!dog) {
+    return <Loader />;
+  }
 
   const handleClick = () => {
     if (!disabled) {
@@ -48,7 +53,10 @@ function DogAvatar({
         tabIndex={disabled ? undefined : 0}
         disabled={disabled}
       >
-        <img src={updatedDog.image == null ? Avatar : updatedDog.image} alt="" />
+        <img
+          src={updatedDog.image == null ? Avatar : updatedDog.image}
+          alt=""
+        />
         {updatedDog.name}
       </div>
       <Modal

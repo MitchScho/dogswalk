@@ -7,7 +7,6 @@ function Modal({
 }) {
   const handleClose = () => {
     onClose();
-    console.log('clicked on close', isOpen);
   };
 
   if (!isOpen) {

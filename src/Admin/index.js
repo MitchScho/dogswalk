@@ -14,7 +14,7 @@ import UnpaidRequests from './UnpaidRequests';
 import UnpaidDogRequests from './UnpaidDogRequests';
 import AdminHome from './AdminHome';
 import Nav from '../components/Nav';
-
+import Loader from '../components/widgets/Loader';
 // --- Style Imports ---
 import './index.scss';
 
@@ -69,7 +69,7 @@ function Admin({ state, setState }) {
   //------------------------------------------------------------------------------------------------
 
   if (!state.user) {
-    return <div> Loading User... </div>;
+    return <Loader />;
   }
   //-----------------------------------------------------------------------------------------------
 
