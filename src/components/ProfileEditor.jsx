@@ -82,6 +82,7 @@ function ProfileEditor({
       <div className="profile_editor">
         <label htmlFor="getImage">
           <img
+            className="profile-img"
             onClick={() => {
               setSrc(null);
               setImageCrop(true);
@@ -93,6 +94,7 @@ function ProfileEditor({
         <div className="editor_controls">
           <div>
             <input
+              className="dog-name-input"
               value={dogName}
               onChange={(value) => setDogName(value.target.value)}
               type="text"

@@ -52,18 +52,24 @@ border-radius: 45%;
 
 .back-icon:hover {
   background: rgb(61, 24, 125);
+  border: 2px solid border rgb(61, 24, 125);
 }
 .purple-button:hover {
   background: rgb(61, 24, 125);
 }
 
-.light-button {
+.dashboard-button {
   background: rgb(61, 24, 125);
   margin:0.5em;
-  border-radius: 10px;
+  border-radius: 30px;
   padding: 0.5em;
+  width: 30vw;
+  height: 15vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.light-button:hover {
+.dashboard-button:hover {
   background:rgb(79, 33, 158);
 }

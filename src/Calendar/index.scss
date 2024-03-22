@@ -1,0 +1,25 @@
+.d-list {
+  width: 70vw;
+}
+
+
+.light-button:hover {
+  background: rgb(79, 33, 158);
+
+}
+
+.light-button {
+  border: 2px solid grey;
+  border-radius: 30px;
+  padding: 0.5em;
+  width: 9em;
+  height: 3em;
+}
+
+// @media (max-width: 1000px) {
+//   .profile-component {
+//     display: none
+//   }
+
+// }
+

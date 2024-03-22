@@ -2,13 +2,15 @@
 /* eslint-disable react/prop-types */
 import { useEffect, useState } from 'react';
 // --- Router Imports ---
-import { Routes, Route } from 'react-router-dom';
+// import { Routes, Route } from 'react-router-dom';
 // --- Component Imports ---
 import DateList from '../components/DateList';
 import Profile from '../components/Profile';
 import Nav from '../components/Nav';
 import Loader from '../components/widgets/Loader';
 // import Modal from '../components/widgets/Modal';
+// --- Style Imports ---
+import './index.scss';
 // --- API Imports ---
 import {
   getMe, deleteDog, addDogForUser, getUsersDogs,
@@ -83,25 +85,19 @@ function Calendar({ state, setState }) {
   return (
     <>
       <Nav state={state} setState={setState} />
-      <Routes>
-        <Route
-          path="/"
-          element={<DateList state={state} setState={setState} />}
+      <div className="flex justify-between">
+        <Profile
+          className="profile-component"
+          handleDeleteDog={handleDeleteDog}
+          addDog={addDog}
+          state={state}
+          setState={setState}
+          setInputDog={setInputDog}
+          inputDog={inputDog}
         />
-        <Route
-          path="/profile"
-          element={(
-            <Profile
-              handleDeleteDog={handleDeleteDog}
-              addDog={addDog}
-              state={state}
-              setState={setState}
-              setInputDog={setInputDog}
-              inputDog={inputDog}
-            />
-)}
-        />
-      </Routes>
+        <DateList state={state} setState={setState} />
+      </div>
+
     </>
   );
 }

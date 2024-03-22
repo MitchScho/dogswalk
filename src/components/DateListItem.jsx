@@ -71,7 +71,7 @@ function DateListItem({
   //------------------------------------------------------------------------------------------------
   const requestButton = (usersCurrentRequest, availableSpots) => {
     if (usersCurrentRequest) {
-      return <button className="light-button" onClick={deleteWalkRequest}>Delete Walk Request</button>;
+      return <button className="light-button" onClick={deleteWalkRequest}>Delete Request</button>;
     }
 
     return availableSpots > 0 ? (
@@ -87,15 +87,21 @@ function DateListItem({
   // ---- Component return --------
 
   return (
-    <div className="dateListItem">
-      <div>{date.format('ddd')}</div>
-      <div>
-        {availibleSpotsForDate}
-        {' '}
-        spots available
+    <div className="date-list-item-container">
+      <div className=" flex justify-between items-center">
+        <div>{date.format('dddd')}</div>
+        <div>{date.format('MMM D')}</div>
       </div>
-      <div>{requestButton(usersCurrentWalkRequest, availibleSpotsForDate)}</div>
-      <div>{date.format('MMM D')}</div>
+      <div className="date-list-item-footer">
+        <div>
+          {availibleSpotsForDate}
+          {' '}
+          spots available
+        </div>
+        <div>
+          {requestButton(usersCurrentWalkRequest, availibleSpotsForDate)}
+        </div>
+      </div>
     </div>
   );
 }

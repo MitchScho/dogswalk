@@ -1,5 +1,5 @@
 nav {
-  height: 3em;
+  height: 5em;
   display:flex;
   justify-content: space-between;
   align-items:center;
@@ -12,7 +12,15 @@ nav {
   margin-bottom: 1.5em
 }
 
+.purple-button {
+  
+  width: 8em;
+  height: 3em;
+}
 .purple-button:hover {
   background:rgb(79, 33, 158);
-  border-radius: 10px;
+  border-radius: 30px;
+  border: 2px solid grey;
+  width: 8em;
+  height: 3em;
 }

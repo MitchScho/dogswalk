@@ -6,10 +6,10 @@
 //---------------------------------------------------------------------------
 import { useNavigate } from 'react-router-dom';
 
-function UnpaidDog({ dogId, dogName }) {
+function UnpaidDog({ dogId, dogName, unpaidDog }) {
   const navigate = useNavigate();
   //--------------------------------------------------------------------------------------------
-
+  console.log('unpaid Dog', unpaidDog[1][0].image);
   const updateAndNavigateUnpaidDog = () => {
     // setAdminState((prev) => ({
     //   ...prev,
@@ -21,7 +21,11 @@ function UnpaidDog({ dogId, dogName }) {
     navigate('/admin/unpaid-dog-requests', { state: { dogId, dogName } });
   };
 
-  return <div onClick={updateAndNavigateUnpaidDog}>{dogName}</div>;
+  return (
+    <div onClick={updateAndNavigateUnpaidDog}>
+      <img src={unpaidDog[1][0].image} alt="" />
+    </div>
+  );
 }
 
 export default UnpaidDog;

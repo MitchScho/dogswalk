@@ -7,11 +7,11 @@ import { Link } from 'react-router-dom';
 function AdminHome() {
   return (
     <div style={{
-      display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
+      display: 'flex', flexDirection: 'column', alignItems: 'center', alignContent: 'center',
     }}
     >
-      <Link className="light-button" to="/admin/walk-requests"> Walk Requests </Link>
-      <Link className="light-button" to="/admin/unpaid-requests"> Unpaid Requests </Link>
+      <Link className="dashboard-button" to="/admin/walk-requests"> Walk Requests </Link>
+      <Link className="dashboard-button" to="/admin/unpaid-requests"> Unpaid Requests </Link>
     </div>
   );
 }

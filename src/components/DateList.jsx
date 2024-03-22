@@ -11,6 +11,7 @@ import { getUsersDogs } from '../api';
 import getCalendarWeek from '../helpers/getCalendarWeek';
 // --- Style Imports ---
 import './DateList.scss';
+import '../Calendar/index.scss';
 //-------------------------------------------------------------------------------------------------
 
 function DateList({
@@ -59,7 +60,7 @@ function DateList({
   //-----------------------------------------------------------------------------------------------
   // --- Component Return ---
 
-  return <div>{datesArray}</div>;
+  return <div className="d-list">{datesArray}</div>;
 }
 
 export default DateList;

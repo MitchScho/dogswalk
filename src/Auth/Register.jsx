@@ -38,6 +38,7 @@ function Register() {
       >
         <label>username</label>
         <input
+          className="auth-input"
           value={userName}
           onChange={(e) => setUserName(e.target.value)}
           name="username"
@@ -47,6 +48,7 @@ function Register() {
         />
         <label htmlFor="email">email</label>
         <input
+          className="auth-input"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           type="email"
@@ -56,6 +58,7 @@ function Register() {
         />
         <label htmlFor="password">password</label>
         <input
+          className="auth-input"
           value={pass}
           onChange={(e) => setPass(e.target.value)}
           type="password"

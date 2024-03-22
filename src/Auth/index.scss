@@ -29,18 +29,19 @@ label {
   padding: 0.25rem 0;
 }
 
-input {
+.auth-input {
   margin: 0.5rem 0;
   padding: 0.75rem;
-  border-radius: 10px;
+  border-radius: 30px;
   border: none;
+  background: rgb(61, 24, 125)
 }
 
 .auth-button {
   border: none;
   background: rgb(61, 24, 125);
   padding: 20px;
-  border-radius: 10px;
+  border-radius: 30px;
   cursor: pointer;
   color: grey;
 

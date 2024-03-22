@@ -44,6 +44,7 @@ function Login() {
       <form className="login-form" onSubmit={loginSubmit}>
         <label htmlFor="username">username</label>
         <input
+          className="auth-input"
           value={userName}
           onChange={(e) => setUserName(e.target.value)}
           type="username"
@@ -53,6 +54,7 @@ function Login() {
         />
         <label htmlFor="password">password</label>
         <input
+          className="auth-input"
           value={pass}
           onChange={(e) => setPass(e.target.value)}
           type="password"

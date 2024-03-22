@@ -19,12 +19,20 @@ function Profile({
   if (!state.dogs) {
     return <div>Loading no Dogs yet...</div>;
   }
+  //---------------------------------------------------------------------
+  const profileImgClass = 'profile-img';
 
   //-----------------------------------------------------------------------
 
   const usersDogList = state.dogs.map((dog) => (
     <div key={dog.id} className="flex flex-row justify-between items-center">
-      <DogAvatar key={dog.id} dog={dog} handleDeleteDog={handleDeleteDog} />
+      <DogAvatar
+        key={dog.id}
+        imgClass={profileImgClass}
+        dog={dog}
+        handleDeleteDog={handleDeleteDog}
+      />
+      <p>{dog.address}</p>
     </div>
   ));
 
@@ -43,6 +51,7 @@ function Profile({
         </div>
         <div className="profile-body">
           <form className="w-half max-w-sm">
+            <div className="img-container">{usersDogList}</div>
             <div className="flex items-center border-b border-grey-500 py-2">
               <input
                 value={inputDog}
@@ -61,7 +70,6 @@ function Profile({
               </button>
             </div>
           </form>
-          <div className="img-container">{usersDogList}</div>
         </div>
       </div>
     </div>

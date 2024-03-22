@@ -43,6 +43,10 @@ function WalkForm({
     }
   };
 
+  //-------------------------------------------------------------------------------
+  const walkFormImgClass = 'walk-form-img-class';
+  const lightButtonClass = 'light-button';
+  const cancelButtonClass = 'cancel-request-button';
   //---------------------------------------------------------------------------------------------
 
   const dogList = state.dogs.map((dog) => (
@@ -50,7 +54,7 @@ function WalkForm({
       key={dog.id}
       dog={dog}
       selectDogs={selectDogs}
-      // selectedClass={selectedClass}
+      imgClass={walkFormImgClass}
       selectedDogs={selectedDogs}
     />
   ));
@@ -58,30 +62,28 @@ function WalkForm({
   //-----------------------------------------------------------------------------------------------
 
   return (
-    <>
+    <div className="walk-form-container">
       <div className="walk-form-date">
         <div>{date.format('dddd')}</div>
         <div>{date.format('MMM D')}</div>
       </div>
       <div className="dog-form-controls">
-        <div
-          className="walk-form-img"
-        >
-          {dogList}
-        </div>
+        <div className="walk-form-img">{dogList}</div>
         <div className="walk-request-buttons">
           <button
-            className="light-button"
+            className={`${lightButtonClass} + ${cancelButtonClass}`}
             onClick={() => {
               setAddWalkDate(null);
             }}
           >
             Cancel
           </button>
-          <button className="light-button" onClick={confirmWalk}>Request Walk</button>
+          <button className="light-button" onClick={confirmWalk}>
+            Request Walk
+          </button>
         </div>
       </div>
-    </>
+    </div>
   );
 }
 

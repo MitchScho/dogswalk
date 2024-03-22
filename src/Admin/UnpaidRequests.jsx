@@ -32,13 +32,12 @@ function UnpaidRequests({ adminState }) {
     (unpaidDog) => (
       <div
         key={unpaidDog[1][0].dogId}
-        className="light-button"
       >
         <UnpaidDog
           // key={unpaidDog[1][0].dogId}
           dogId={unpaidDog[1][0].dogId}
           dogName={unpaidDog[0]}
-          // unpaidDog={unpaidDog}
+          unpaidDog={unpaidDog}
           // setAdminState={setAdminState}
         />
       </div>

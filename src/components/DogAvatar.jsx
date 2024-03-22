@@ -14,7 +14,7 @@ import Loader from './widgets/Loader';
 //-------------------------------------------------------------------------------------------------
 
 function DogAvatar({
-  dog, selectDogs, selectedDogs, handleDeleteDog,
+  dog, selectDogs, selectedDogs, handleDeleteDog, imgClass,
 }) {
   const [disabled, setDisabled] = useState(true);
   const [selected, setSelected] = useState(false);
@@ -31,7 +31,7 @@ function DogAvatar({
   if (!dog) {
     return <Loader />;
   }
-
+  console.log('dog', dog);
   const handleClick = () => {
     if (!disabled) {
       selectDogs(dog);
@@ -42,13 +42,13 @@ function DogAvatar({
     }
   };
 
-  const selectedClass = selected ? 'selected-dog' : 'unselected-dog';
+  const selectedClass = selected ? 'selected-dog' : null;
 
   return (
     <>
       <div
         onClick={handleClick}
-        className={selectedClass}
+        className="unselected-dog"
         role="button"
         tabIndex={disabled ? undefined : 0}
         disabled={disabled}
@@ -56,6 +56,7 @@ function DogAvatar({
         <img
           src={updatedDog.image == null ? Avatar : updatedDog.image}
           alt=""
+          className={`${imgClass} ${selectedClass}`}
         />
         {updatedDog.name}
       </div>
