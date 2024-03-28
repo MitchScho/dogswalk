@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 // --- Router Imports ---
 // import { Routes, Route } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 // --- Component Imports ---
 import DateList from '../components/DateList';
 import Profile from '../components/Profile';
@@ -86,7 +87,27 @@ function Calendar({ state, setState }) {
     <>
       <Nav state={state} setState={setState} />
       <div className="flex justify-between">
-        <Profile
+        <Routes>
+          <Route
+            path="/"
+            element={<DateList state={state} setState={setState} />}
+          />
+          <Route
+            path="/profile"
+            element={(
+              <Profile
+                className="profile-component"
+                handleDeleteDog={handleDeleteDog}
+                addDog={addDog}
+                state={state}
+                setState={setState}
+                setInputDog={setInputDog}
+                inputDog={inputDog}
+              />
+            )}
+          />
+        </Routes>
+        {/* <Profile
           className="profile-component"
           handleDeleteDog={handleDeleteDog}
           addDog={addDog}
@@ -95,9 +116,8 @@ function Calendar({ state, setState }) {
           setInputDog={setInputDog}
           inputDog={inputDog}
         />
-        <DateList state={state} setState={setState} />
+        <DateList state={state} setState={setState} /> */}
       </div>
-
     </>
   );
 }

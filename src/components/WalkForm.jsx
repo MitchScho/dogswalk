@@ -68,7 +68,7 @@ function WalkForm({
         <div>{date.format('MMM D')}</div>
       </div>
       <div className="dog-form-controls">
-        <div className="walk-form-img">{dogList}</div>
+        <div className="walk-form-img-container">{dogList}</div>
         <div className="walk-request-buttons">
           <button
             className={`${lightButtonClass} + ${cancelButtonClass}`}

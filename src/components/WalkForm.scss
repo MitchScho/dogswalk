@@ -28,6 +28,12 @@ border-radius: 50%;
 height: 70px;
 width: 70px
 }
+.walk-form-img-container {
+  display: flex;
+  width: 100%;
+  overflow: hidden;
+  overflow-x: scroll;
+}
 
 .walk-request-buttons {
   padding-bottom: 0.6em;

@@ -5,6 +5,7 @@
 /* eslint-disable react/react-in-jsx-scope */
 //---------------------------------------------------------------------------
 import { useNavigate } from 'react-router-dom';
+import './UnpaidDog.scss';
 
 function UnpaidDog({ dogId, dogName, unpaidDog }) {
   const navigate = useNavigate();
@@ -23,7 +24,7 @@ function UnpaidDog({ dogId, dogName, unpaidDog }) {
 
   return (
     <div onClick={updateAndNavigateUnpaidDog}>
-      <img src={unpaidDog[1][0].image} alt="" />
+      <img className="unpaid-dog-img" src={unpaidDog[1][0].image} alt="" />
     </div>
   );
 }

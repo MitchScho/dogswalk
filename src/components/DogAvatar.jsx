@@ -7,20 +7,26 @@ import React, { useState, useEffect } from 'react';
 // --- Style Imports ---
 import './DogAvatar.scss';
 // --- Component Imports ---
-import Avatar from '../dog.thumbnail.png';
+// import Avatar from '../dog.thumbnail.png';
 import Modal from './widgets/Modal';
 import ProfileEditor from './ProfileEditor';
 import Loader from './widgets/Loader';
+import ImageLoader from './widgets/ImageLoader';
 //-------------------------------------------------------------------------------------------------
 
 function DogAvatar({
-  dog, selectDogs, selectedDogs, handleDeleteDog, imgClass,
+  dog,
+  selectDogs,
+  selectedDogs,
+  handleDeleteDog,
+  imgClass,
 }) {
   const [disabled, setDisabled] = useState(true);
   const [selected, setSelected] = useState(false);
   const [displayProfileAvatar, setDisplayProfileAvatar] = useState(false);
   const [updatedDog, setUpdatedDog] = useState(dog);
-
+  // const [imgLoading, setImgLoading] = useState(true);
+  // const [dogImage, setDogImage] = useState(dog.image);
   useEffect(() => {
     if (selectDogs) {
       setDisabled(false);
@@ -42,6 +48,11 @@ function DogAvatar({
     }
   };
 
+  //   if
+  // setTimeout(() => {
+  //   setImgLoading
+  // }, 2000);
+
   const selectedClass = selected ? 'selected-dog' : null;
 
   return (
@@ -53,9 +64,8 @@ function DogAvatar({
         tabIndex={disabled ? undefined : 0}
         disabled={disabled}
       >
-        <img
-          src={updatedDog.image == null ? Avatar : updatedDog.image}
-          alt=""
+        <ImageLoader
+          imageURL={updatedDog.image}
           className={`${imgClass} ${selectedClass}`}
         />
         {updatedDog.name}
