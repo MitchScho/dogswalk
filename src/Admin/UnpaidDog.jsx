@@ -1,12 +1,13 @@
 /* eslint-disable import/no-extraneous-dependencies */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
-/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable react/button-has-type */
 /* eslint-disable react/prop-types */
 /* eslint-disable react/react-in-jsx-scope */
 //---------------------------------------------------------------------------
 import { useNavigate } from 'react-router-dom';
+// --- Image Imports ---
+import Avatar from '../dog.thumbnail.png';
 
-function UnpaidDog({ dogId, dogName }) {
+function UnpaidDog({ dogId, dogName, dogImage }) {
   const navigate = useNavigate();
   //--------------------------------------------------------------------------------------------
 
@@ -21,7 +22,33 @@ function UnpaidDog({ dogId, dogName }) {
     navigate('/admin/unpaid-dog-requests', { state: { dogId, dogName } });
   };
 
-  return <div onClick={updateAndNavigateUnpaidDog}>{dogName}</div>;
+  return (
+    <button
+      type="button"
+      onClick={updateAndNavigateUnpaidDog}
+      style={{
+        width: '100%',
+        height: '100%',
+        padding: 0,
+        border: 'none',
+        background: 'transparent',
+        cursor: 'pointer',
+        borderRadius: '50%',
+        overflow: 'hidden',
+      }}
+    >
+      <img
+        src={dogImage == null ? Avatar : dogImage}
+        alt={dogName}
+        style={{
+          width: '100%',
+          height: '100%',
+          objectFit: 'cover',
+          display: 'block',
+        }}
+      />
+    </button>
+  );
 }
 
 export default UnpaidDog;

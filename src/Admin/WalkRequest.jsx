@@ -17,6 +17,8 @@ import {
 } from '../api';
 // --- Helper Imports ---
 import getAvailibleSpots from '../helpers/getAvailibleSpots';
+// --- Image Imports ---
+import Avatar from '../dog.thumbnail.png';
 //-------------------------------------------------------------------
 
 function WalkRequest({
@@ -49,12 +51,14 @@ function WalkRequest({
   //------------------------------------------------------------------------------------
   // --- Button Style rendering ---
 
-  const isAcceptedClass = walkRequest.isAccepted
-    ? 'paidFor-accepted'
-    : 'notPaidFor-notAccepted';
-  const isPaidForClass = walkRequest.paidFor
-    ? 'paidFor-accepted'
-    : 'notPaidFor-notAccepted';
+  // const isAcceptedClass = walkRequest.isAccepted
+  //   ? 'paidFor-accepted'
+  //   : 'notPaidFor-notAccepted';
+  // const isPaidForClass = walkRequest.paidFor
+  //   ? 'paidFor-accepted'
+  //   : 'notPaidFor-notAccepted';
+  const acceptBtnClass = `status-btn status-btn--accept ${walkRequest.isAccepted ? 'is-on' : 'is-off'}`;
+  const paidBtnClass = `status-btn status-btn--paid ${walkRequest.paidFor ? 'is-on' : 'is-off'}`;
 
   // -----------------------------------------------------------------------------------------------
   // --- Number of dogs on walk ---
@@ -122,7 +126,12 @@ function WalkRequest({
   //-----------------------------------------------------------------------------------------------
   // --- Dogs array to be displayed --------
   const dogs = walkRequest.dogs.map((dog) => (
-    <div key={dog.id}>{dog.name}</div>
+    <img
+      key={dog.id}
+      src={dog.image == null ? Avatar : dog.image}
+      alt={dog.name}
+      className="walk-request-dog-image"
+    />
   ));
 
   //------------------------------------------------------------------------------------------------
@@ -143,7 +152,7 @@ function WalkRequest({
           <div>{adminWalkRequestDate.format('MMM D')}</div>
           <div>{walkRequestUser && walkRequestUser.username}</div>
           <div>{dogs}</div>
-          <button
+          {/* <button
             style={{ marginRight: '1em' }}
             onClick={handleIsAccepted}
             className={isAcceptedClass}
@@ -153,13 +162,33 @@ function WalkRequest({
           {walkRequest.isAccepted ? (
             <button onClick={handlePaidFor} className={isPaidForClass}>
               <FontAwesomeIcon icon={faDollarSign} />
-            </button>
-          ) : (
-            <div />
-          )}
+            </button> */}
           <div>
-            {numberOfDogsOnWalk}
-            dogs already on this date
+            <button
+              onClick={handleIsAccepted}
+              className={acceptBtnClass}
+              aria-pressed={walkRequest.isAccepted}
+            >
+              <FontAwesomeIcon icon={faCheck} />
+              <span className="sr-only">Accept</span>
+            </button>
+
+            {walkRequest.isAccepted ? (
+              <button
+                onClick={handlePaidFor}
+                className={paidBtnClass}
+                aria-pressed={walkRequest.paidFor}
+              >
+                <FontAwesomeIcon icon={faDollarSign} />
+                <span className="sr-only">Paid</span>
+              </button>
+            ) : (
+              <div />
+            )}
+            <div>
+              {numberOfDogsOnWalk}
+              dogs on this date
+            </div>
           </div>
         </div>
       )}

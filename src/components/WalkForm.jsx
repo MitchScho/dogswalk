@@ -58,7 +58,7 @@ function WalkForm({
   //-----------------------------------------------------------------------------------------------
 
   return (
-    <>
+    <div className="walk-form-wrapper">
       <div className="walk-form-date">
         <div>{date.format('dddd')}</div>
         <div>{date.format('MMM D')}</div>
@@ -81,7 +81,7 @@ function WalkForm({
           <button className="light-button" onClick={confirmWalk}>Request Walk</button>
         </div>
       </div>
-    </>
+    </div>
   );
 }
 

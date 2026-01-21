@@ -1,6 +1,7 @@
 /* eslint-disable react/button-has-type */
 /* eslint-disable react/react-in-jsx-scope */
 /* eslint-disable react/prop-types */
+import { useState } from 'react';
 import Cookies from 'js-cookie';
 // --- Style Imports ---
 import './Nav.scss';
@@ -9,6 +10,7 @@ import { useNavigate, NavLink } from 'react-router-dom';
 
 function Nav({ state, setState }) {
   const navigate = useNavigate();
+  const [menuOpen, setMenuOpen] = useState(false);
 
   const admin = state.user.role === 'admin';
   const handleLogout = () => {
@@ -18,6 +20,15 @@ function Nav({ state, setState }) {
       user: null,
     }));
     navigate('/');
+    setMenuOpen(false);
+  };
+
+  const toggleMenu = () => {
+    setMenuOpen(!menuOpen);
+  };
+
+  const closeMenu = () => {
+    setMenuOpen(false);
   };
 
   return (
@@ -30,15 +41,40 @@ function Nav({ state, setState }) {
           {state.user.username}
         </h1>
       )}
-      {!admin
-      && (
-      <NavLink className="purple-button" to="/calendar/profile">
-        Profile
-      </NavLink>
-      )}
-      <button className="purple-button" onClick={handleLogout}>
-        Logout
+      <div className="nav-buttons">
+        {!admin && (
+          <NavLink className="purple-button" to="/calendar/profile">
+            Profile
+          </NavLink>
+        )}
+        <button className="purple-button" onClick={handleLogout}>
+          Logout
+        </button>
+      </div>
+      <button className="hamburger-menu" onClick={toggleMenu} aria-label="Menu">
+        <span className={`hamburger-line ${menuOpen ? 'open' : ''}`} />
+        <span className={`hamburger-line ${menuOpen ? 'open' : ''}`} />
+        <span className={`hamburger-line ${menuOpen ? 'open' : ''}`} />
       </button>
+      {menuOpen && (
+        <div className="dropdown-menu">
+          {!admin && (
+            <NavLink
+              className="dropdown-item"
+              to="/calendar/profile"
+              onClick={closeMenu}
+            >
+              Profile
+            </NavLink>
+          )}
+          <button
+            className="dropdown-item"
+            onClick={handleLogout}
+          >
+            Logout
+          </button>
+        </div>
+      )}
     </nav>
   );
 }

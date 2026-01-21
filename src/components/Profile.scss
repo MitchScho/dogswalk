@@ -13,6 +13,7 @@
 h4 {
   margin-right:7em;
   margin-left:7em;
+  color: rgba(255, 255, 255, 0.9);
 }
 
 .back-icon:hover {
@@ -25,7 +26,7 @@ h4 {
   background: rgb(37, 194, 134);
   border-radius: 10px;
   cursor: pointer;
-  color: grey;
+  color: rgba(255, 255, 255, 0.9);
   border-radius: 10px;
   padding: 0.5em;
 }
@@ -39,7 +40,7 @@ h4 {
    background: rgb(61, 24, 125);
    border-radius: 10px;
    cursor: pointer;
-   color: grey;
+   color: rgba(255, 255, 255, 0.9);
   
    border-radius: 10px;
    margin:0.5em;
@@ -50,18 +51,41 @@ h4 {
 }
 
 .add-button {
-   border: none;
-   background: rgb(61, 24, 125);
-   border-radius: 10px;
-   cursor: pointer;
-   color: grey;
-   margin:0.5em;
-   border-radius: 10px;
-   padding: 0.5em;
+  position: relative;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 999px;
+  padding: 0.55em 1.8em;
+  min-width: 90px;
+  min-height: 44px;
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.9);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.12s ease, box-shadow 0.18s ease, background 0.18s ease, border-color 0.18s ease;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.25), 0 4px 8px rgba(0,0,0,0.18);
+  margin: 0.5em;
 }
 
 .add-button:hover {
-  background:rgb(79, 33, 158);
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.20);
+  transform: translateY(-2px);
+  box-shadow: 0 3px 4px rgba(0,0,0,0.30), 0 8px 14px rgba(0,0,0,0.24);
+}
+
+.add-button:active {
+  transform: translateY(0px) scale(0.98);
+  box-shadow: 0 1px 1px rgba(0,0,0,0.35);
+}
+
+input {
+  color: rgba(255, 255, 255, 0.9) !important;
+}
+
+input::placeholder {
+  color: rgba(255, 255, 255, 0.6);
 }
 
 input:focus::placeholder {

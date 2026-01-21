@@ -52,7 +52,7 @@ function UnpaidDogRequests({
   // console.log('Un paid dod 2', unpaidDog2);
   // adminState.unpaidDog[1]
   const requestList = temporaryRequestList.map((walkRequest) => (
-    <div key={walkRequest.id} className="light-button">
+    <div key={walkRequest.id}>
       <UnpaidDogRequest
         key={walkRequest.id}
         walkRequest={walkRequest}

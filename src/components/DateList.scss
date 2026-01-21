@@ -1,14 +1,54 @@
+.dateList-container {
+  background-color: #1e1b4b;
+  min-height: 100vh;
+  width: 100%;
+  padding-bottom: 2em;
+}
+
 .dateList {
-  background: rgb(61, 24, 125);
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.10);
   width: 97%;
-  height: 14vh;
-  margin:1em;
-  border-radius: 10px;
-  margin-right:1em;
+  min-height: 14vh;
+  margin: 1em;
+  margin-right: 1em;
+  border-radius: 14px;
+  padding: 1em;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.25), 0 4px 10px rgba(0, 0, 0, 0.18);
+  transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
   
   
   
  
 
   
+}
+
+.dateList:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 3px 4px rgba(0, 0, 0, 0.30), 0 10px 18px rgba(0, 0, 0, 0.24);
+  border-color: rgba(255, 255, 255, 0.18);
+}
+
+// Tablet (iPad) - 768px and below
+@media (max-width: 768px) {
+  .dateList {
+    width: 95%;
+    margin: 0.75em;
+    padding: 0.75em;
+  }
+}
+
+// Phone - 480px and below
+@media (max-width: 480px) {
+  .dateList {
+    width: 92%;
+    margin: 0.5em auto;
+    padding: 0.5em;
+    min-height: auto;
+  }
+
+  .dateList-container {
+    padding-bottom: 1em;
+  }
 }

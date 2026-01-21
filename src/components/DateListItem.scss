@@ -2,19 +2,109 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  // align-content: center;
   height: 100%;
-  padding-left:1em;
-  padding-right:1em;
-  
+  width: 100%;
+  min-height: 14vh;
+  padding-left: 0;
+  padding-right: 0;
+}
 
+.dateListItem > div:first-child {
+  font-weight: 600;
+  font-size: 1.1em;
+  color: rgba(255, 255, 255, 0.9);
+  padding-left: 2em;
+  flex-shrink: 0;
+}
+
+.dateListItem > div:nth-child(2) {
+  flex: 1;
+  color: rgba(255, 255, 255, 0.8);
+  text-align: center;
+}
+
+.dateListItem > div:nth-child(3) {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.dateListItem > div:last-child {
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.85);
+  padding-right: 2em;
+  flex-shrink: 0;
 }
 
 .light-button {
-  border-radius: 10px;
-  padding: 0.5em;
+  border-radius: 8px;
+  padding: 0.6em 1.2em;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  color: rgba(255, 255, 255, 0.9);
+  cursor: pointer;
+  transition: background 0.18s ease, transform 0.12s ease, box-shadow 0.18s ease;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+  font-weight: 500;
 }
+
 .light-button:hover {
-  background: rgb(79, 33, 158);
-  
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.20);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.30);
+}
+
+.light-button:active {
+  transform: translateY(0);
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.35);
+}
+
+// Tablet (iPad) - 768px and below
+@media (max-width: 768px) {
+  .dateListItem {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75em;
+    padding: 1em 0;
+    min-height: auto;
+  }
+
+  .dateListItem > div:first-child,
+  .dateListItem > div:last-child {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .dateListItem > div:nth-child(2),
+  .dateListItem > div:nth-child(3) {
+    flex: none;
+    width: 100%;
+    text-align: center;
+  }
+
+  .dateListItem > div:nth-child(3) {
+    justify-content: center;
+  }
+}
+
+// Phone - 480px and below
+@media (max-width: 480px) {
+  .dateListItem {
+    gap: 0.5em;
+    padding: 0.75em 0;
+  }
+
+  .dateListItem > div:first-child {
+    font-size: 1em;
+  }
+
+  .light-button {
+    padding: 0.5em 1em;
+    font-size: 0.85em;
+    width: 100%;
+    max-width: 200px;
+  }
 }

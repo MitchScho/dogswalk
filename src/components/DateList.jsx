@@ -59,7 +59,7 @@ function DateList({
   //-----------------------------------------------------------------------------------------------
   // --- Component Return ---
 
-  return <div>{datesArray}</div>;
+  return <div className="dateList-container">{datesArray}</div>;
 }
 
 export default DateList;
