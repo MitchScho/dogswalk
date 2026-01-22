@@ -15,6 +15,8 @@ import UnpaidDogRequests from './UnpaidDogRequests';
 import DogRequests from './DogRequests';
 import DogRequestDetail from './DogRequestDetail';
 import AdminHome from './AdminHome';
+import Schedule from './Schedule';
+import AdminWalk from './AdminWalk';
 import Nav from '../components/Nav';
 
 // --- Style Imports ---
@@ -116,6 +118,14 @@ function Admin({ state, setState }) {
         <Route
           path="/dog-requests/detail"
           element={<DogRequestDetail />}
+        />
+        <Route
+          path="/schedule"
+          element={<Schedule state={state} />}
+        />
+        <Route
+          path="/schedule/:date"
+          element={<AdminWalk state={state} />}
         />
       </Routes>
     </>
