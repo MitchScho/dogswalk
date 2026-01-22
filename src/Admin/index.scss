@@ -60,15 +60,6 @@
 }
 
 .walkRequest-container {
-  background-color: rgb(61, 24, 125);
-  display: flex;
-  justify-content: space-between;
-  //align-items: center;
-  //padding-left: 0.5em;
-  //padding-right: 0.5em;
-  height: 45%;
-  //margin: 0.5em;
-  border-radius: 5px;
   background: rgba(255, 255, 255, 0.06);
   border: 1px solid rgba(255, 255, 255, 0.10);
   border-radius: 14px;
@@ -76,44 +67,60 @@
   margin: 0.7em 0.7em 0;
   color: rgba(255, 255, 255, 0.9);
 
-  display: grid;
-  grid-template-columns: 52px 72px 140px 1fr auto;
-  align-items: center;
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
   gap: 0.75em;
 
   box-shadow: 0 1px 2px rgba(0,0,0,0.25), 0 4px 10px rgba(0,0,0,0.18);
   transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
-
 }
 
-.walkRequest-container > div {
-  color: rgba(255, 255, 255, 0.9);
-}
-
-.walkRequest-container > div:nth-child(1) {
-  font-weight: 600;
-  color: rgba(255, 255, 255, 0.9);
-}
-
-.walkRequest-container > div:nth-child(2) {
-  font-weight: 500;
-  color: rgba(255, 255, 255, 0.85);
-}
-
-.walkRequest-container > div:nth-child(3) {
-  color: rgba(255, 255, 255, 0.9);
-}
-
-.walkRequest-container > div:nth-child(5) {
+.walk-request-field {
+  flex: 1 1 0;
+  min-width: 0;
   display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+  color: rgba(255, 255, 255, 0.9);
+  justify-content: center;
   align-items: center;
-  gap: 0.75em;
-  justify-content: flex-end;
 }
 
-.walkRequest-container > div:nth-child(5) > div:last-child {
-  color: rgba(255, 255, 255, 0.8);
+.walk-request-field strong {
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.95);
   font-size: 0.9em;
+  text-align: center;
+}
+
+.walk-request-mobile-heading {
+  display: none;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.95);
+  font-size: 0.9em;
+  text-align: left;
+  width: 100%;
+  margin-bottom: 0.5em;
+}
+
+.walkRequest-header {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+.walkRequest-header:hover {
+  transform: none !important;
+  box-shadow: none !important;
+  border-color: transparent !important;
+}
+
+.walk-request-field > div {
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 0.9em;
+  text-align: center;
+  width: 100%;
 }
 
 .walkRequest-container:hover {
@@ -121,19 +128,30 @@
   box-shadow: 0 3px 4px rgba(0,0,0,0.30), 0 10px 18px rgba(0,0,0,0.24);
   border-color: rgba(255, 255, 255, 0.18);
 }
-.walkRequest-container > div:nth-child(4) {
+
+.walk-request-dogs {
   display: flex;
   flex-wrap: wrap;
   gap: 0.35em;
   align-items: center;
+  justify-content: center;
 }
 
-.walkRequest-container > div:nth-child(4) > div {
-  padding: 0.15em 0.5em;
-  border-radius: 999px;
+.walk-request-message-placeholder {
+  width: 100%;
+}
+
+.walk-request-message-input {
+  width: 100%;
+  min-height: 60px;
+  padding: 0.5em;
   background: rgba(255, 255, 255, 0.08);
   border: 1px solid rgba(255, 255, 255, 0.10);
-  font-size: 0.85rem;
+  border-radius: 8px;
+  color: rgba(255, 255, 255, 0.85);
+  resize: vertical;
+  font-family: inherit;
+  font-size: 0.9em;
 }
 
 .walk-request-dog-image {
@@ -378,8 +396,113 @@
 .unpaid-light-button:focus-visible {
   outline: none;
   box-shadow:
-    0 0 0 3px rgba(255, 255, 255, 0.6),
-    0 10px 24px rgba(246, 39, 39, 0.35);
+  0 0 0 3px rgba(255, 255, 255, 0.6),
+  0 10px 24px rgba(246, 39, 39, 0.35);
+}
+
+// --- Dog Requests (avatars + detail table) ---
+.dog-requests-avatars {
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1em;
+}
+
+.dog-requests-empty {
+  color: rgba(255, 255, 255, 0.7);
+  margin: 1.5em 0;
+}
+
+.dog-request-detail-container {
+  padding: 1em;
+  margin: 0 0.5em 1em;
+  overflow-x: auto;
+}
+
+.dog-requests-table {
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+  border-collapse: collapse;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.25), 0 4px 10px rgba(0, 0, 0, 0.18);
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.dog-requests-table th {
+  text-align: left;
+  padding: 0.9em 1em;
+  background: rgba(255, 255, 255, 0.08);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.95);
+}
+
+.dog-requests-table td {
+  padding: 0.85em 1em;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.dog-requests-table-row:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.dog-requests-table-row:last-child td {
+  border-bottom: none;
+}
+
+.dog-requests-table-empty {
+  text-align: center;
+  padding: 2em 1em;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.dog-requests-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35em;
+  padding: 0.25em 0.6em;
+  border-radius: 999px;
+  font-size: 0.9em;
+}
+
+.dog-requests-status--accepted {
+  background: rgba(4, 132, 4, 0.22);
+  border: 1px solid rgba(4, 132, 4, 0.55);
+  color: rgba(255, 255, 255, 0.95);
+}
+
+.dog-requests-status--pending {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.dog-requests-status--paid {
+  background: rgba(255, 193, 7, 0.22);
+  border: 1px solid rgba(255, 193, 7, 0.55);
+  color: rgba(255, 255, 255, 0.95);
+}
+
+.dog-requests-status--unpaid {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
 
 // Tablet (iPad) - 768px and below
@@ -448,53 +571,15 @@
     margin-right: auto;
   }
   .walkRequest-container {
-    display: flex;
-    flex-direction: row;
     flex-wrap: wrap;
-    gap: 0.5em 0.75em;
+    gap: 0.75em;
     padding: 0.75em;
     margin: 0.5em;
   }
 
-  .walkRequest-container > div {
-    width: 100%;
-  }
-
-  .walkRequest-container > div:nth-child(1),
-  .walkRequest-container > div:nth-child(2),
-  .walkRequest-container > div:nth-child(3) {
-    display: inline-flex;
-    width: auto;
-    margin-right: 0.5em;
-  }
-
-  .walkRequest-container > div:nth-child(4) {
-    width: 100%;
-    margin-top: 1em;
-    padding-top: 0.75em;
-    justify-content: center;
-  }
-
-  .walkRequest-container > div:nth-child(5) {
-    flex-basis: 100%;
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    gap: 0.25em;
-    border-top: none;
-    padding-top: 0.75em;
-    margin-top: 0.5em;
-  }
-
-  .walkRequest-container > div:nth-child(5) > div:last-child {
-    order: -1;
-  }
-
-  .walkRequest-container > div:nth-child(5) button {
-    width: 10em;
-    margin-left: 0.25em;
+  .walk-request-field {
+    flex: 1 1 calc(50% - 0.375em);
+    min-width: 200px;
   }
 
   .walk-request-dog-image {
@@ -568,54 +653,18 @@
     width: 100%;
   }
   .walkRequest-container {
-    display: flex;
-    flex-direction: row;
     flex-wrap: wrap;
-    gap: 0.5em 0.75em;
+    gap: 0.75em;
     padding: 0.75em;
     margin: 0.5em;
   }
 
-  .walkRequest-container > div {
-    width: 100%;
-  }
-
-  .walkRequest-container > div:nth-child(1),
-  .walkRequest-container > div:nth-child(2),
-  .walkRequest-container > div:nth-child(3) {
-    display: inline-flex;
-    width: auto;
-    margin-right: 0.5em;
-  }
-
-  .walkRequest-container > div:nth-child(4) {
-    width: 100%;
-    margin-top: 1em;
-    padding-top: 0.75em;
-    justify-content: center;
-  }
-
-  .walkRequest-container > div:nth-child(5) {
-    flex-basis: 100%;
-    width: 50%;
-    max-width: 50%;
-    margin-left: auto;
-    margin-right: auto;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.5em;
-    border-top: none;
-    padding-top: 0.75em;
-    margin-top: 0.5em;
-  }
-
-  .walkRequest-container > div:nth-child(5) .status-btn {
-    width: 100%;
-  }
-
-  .walkRequest-container > div:nth-child(5) button {
-    width: 100%;
+  .walk-request-field {
+    flex: 1 1 100%;
+    min-width: 100%;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 1em;
   }
 
   .walk-request-dog-image {
@@ -623,6 +672,29 @@
     height: 100px;
     min-width: 100px;
     min-height: 100px;
+  }
+
+  // Show mobile headings on phone screens and style for two-column layout
+  .walk-request-mobile-heading {
+    display: block;
+    flex: 0 0 auto;
+    min-width: 120px;
+    width: 120px;
+    text-align: left;
+    margin: 0;
+    padding-right: 0.5em;
+  }
+
+  // Style the content (divs and buttons) to take remaining space
+  .walk-request-field > div:not(.walk-request-mobile-heading),
+  .walk-request-field > button {
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+
+  // Hide header row on phone screens
+  .walkRequest-header {
+    display: none;
   }
 }
 

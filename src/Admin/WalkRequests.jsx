@@ -11,8 +11,6 @@ import { faCircleLeft } from '@fortawesome/free-solid-svg-icons';
 import { NavLink } from 'react-router-dom';
 // --- Component Imports ---
 import WalkRequest from './WalkRequest';
-// --- API Imports ---
-import { deletePaidWalkRequests } from '../api';
 
 //---------------------------------------------------------------------------
 function WalkRequests({
@@ -25,15 +23,7 @@ function WalkRequests({
     return <div>Loading...</div>;
   }
 
-  const clearPaidRequests = () => {
-    deletePaidWalkRequests().then(() => {
-      setAdminState((prev) => ({
-        ...prev,
-        adminReFreshKey: prev.adminReFreshKey + 1,
-      }));
-    });
-  };
-    // --- Create Admin Walk List Array ----
+  // --- Create Admin Walk List Array ----
   const walkRequestArray = adminState.walkRequests.map((walkRequest) => (
     <WalkRequest
       key={walkRequest.id}
@@ -50,13 +40,33 @@ function WalkRequests({
   return (
     <>
       <div className="header-container">
-        <button className="purple-button" onClick={clearPaidRequests}>
-          Clear Paid Requests
-        </button>
         <h3>Walk Requests</h3>
         <NavLink to="/admin">
           <FontAwesomeIcon className="back-icon" icon={faCircleLeft} />
         </NavLink>
+      </div>
+      <div className="walkRequest-container walkRequest-header">
+        <div className="walk-request-field">
+          <strong>Request Date</strong>
+        </div>
+        <div className="walk-request-field">
+          <strong>User</strong>
+        </div>
+        <div className="walk-request-field">
+          <strong>Message</strong>
+        </div>
+        <div className="walk-request-field">
+          <strong>Dogs</strong>
+        </div>
+        <div className="walk-request-field">
+          <strong>Accept Request</strong>
+        </div>
+        <div className="walk-request-field">
+          <strong>Dogs On Walk</strong>
+        </div>
+        <div className="walk-request-field">
+          <strong>Walk Date</strong>
+        </div>
       </div>
       <div>{walkRequestArray}</div>
     </>

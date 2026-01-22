@@ -12,6 +12,8 @@ import {
 import WalkRequests from './WalkRequests';
 import UnpaidRequests from './UnpaidRequests';
 import UnpaidDogRequests from './UnpaidDogRequests';
+import DogRequests from './DogRequests';
+import DogRequestDetail from './DogRequestDetail';
 import AdminHome from './AdminHome';
 import Nav from '../components/Nav';
 
@@ -105,7 +107,15 @@ function Admin({ state, setState }) {
               adminState={adminState}
               setAdminState={setAdminState}
             />
-        )}
+          )}
+        />
+        <Route
+          path="/dog-requests"
+          element={<DogRequests adminState={adminState} />}
+        />
+        <Route
+          path="/dog-requests/detail"
+          element={<DogRequestDetail />}
         />
       </Routes>
     </>

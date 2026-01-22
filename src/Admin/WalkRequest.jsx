@@ -8,7 +8,7 @@ import { useEffect, useState } from 'react';
 // --- Style Imports ---
 import './index.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faDollarSign, faCheck } from '@fortawesome/free-solid-svg-icons';
+import { faCheck } from '@fortawesome/free-solid-svg-icons';
 // --- Component Imports ---
 import ConfirmationModal from '../components/ConfirmationModal';
 // --- Api Imports ---
@@ -50,15 +50,7 @@ function WalkRequest({
 
   //------------------------------------------------------------------------------------
   // --- Button Style rendering ---
-
-  // const isAcceptedClass = walkRequest.isAccepted
-  //   ? 'paidFor-accepted'
-  //   : 'notPaidFor-notAccepted';
-  // const isPaidForClass = walkRequest.paidFor
-  //   ? 'paidFor-accepted'
-  //   : 'notPaidFor-notAccepted';
   const acceptBtnClass = `status-btn status-btn--accept ${walkRequest.isAccepted ? 'is-on' : 'is-off'}`;
-  const paidBtnClass = `status-btn status-btn--paid ${walkRequest.paidFor ? 'is-on' : 'is-off'}`;
 
   // -----------------------------------------------------------------------------------------------
   // --- Number of dogs on walk ---
@@ -100,7 +92,6 @@ function WalkRequest({
       // eslint-disable-next-line max-len
       confirm: () => confirmUpdate(walkRequest.id, {
         isAccepted: !walkRequest.isAccepted,
-        paidFor: walkRequest.paidFor,
       }),
       message: walkRequest.isAccepted
         ? 'Confirm walk is not accepted'
@@ -108,21 +99,6 @@ function WalkRequest({
     });
   };
 
-  //------------------------------------------------------------------------------------------------
-  // --- Handles confirmation of paidFor status ---
-  const handlePaidFor = () => {
-    setModalData({
-      back: closeModal,
-      // eslint-disable-next-line max-len
-      confirm: () => confirmUpdate(walkRequest.id, {
-        paidFor: !walkRequest.paidFor,
-        isAccepted: walkRequest.isAccepted,
-      }),
-      message: walkRequest.paidFor
-        ? 'Confirm walk is not paid for'
-        : 'Confirm this is paid for',
-    });
-  };
   //-----------------------------------------------------------------------------------------------
   // --- Dogs array to be displayed --------
   const dogs = walkRequest.dogs.map((dog) => (
@@ -133,6 +109,11 @@ function WalkRequest({
       className="walk-request-dog-image"
     />
   ));
+
+  // --- Date request was made ---
+  const requestCreatedDate = walkRequest.createdAt
+    ? moment(walkRequest.createdAt)
+    : null;
 
   //------------------------------------------------------------------------------------------------
 
@@ -147,23 +128,34 @@ function WalkRequest({
         />
       ) : (
         <div className="walkRequest-container">
-          {/* <FontAwesomeIcon icon={faEnvelope} /> */}
-          <div>{adminWalkRequestDate.format('ddd')}</div>
-          <div>{adminWalkRequestDate.format('MMM D')}</div>
-          <div>{walkRequestUser && walkRequestUser.username}</div>
-          <div>{dogs}</div>
-          {/* <button
-            style={{ marginRight: '1em' }}
-            onClick={handleIsAccepted}
-            className={isAcceptedClass}
-          >
-            <FontAwesomeIcon icon={faCheck} />
-          </button>
-          {walkRequest.isAccepted ? (
-            <button onClick={handlePaidFor} className={isPaidForClass}>
-              <FontAwesomeIcon icon={faDollarSign} />
-            </button> */}
-          <div>
+          <div className="walk-request-field">
+            <strong className="walk-request-mobile-heading">Request Date</strong>
+            <div>
+              {requestCreatedDate
+                ? requestCreatedDate.format('ddd MMM D, YYYY')
+                : '—'}
+            </div>
+          </div>
+          <div className="walk-request-field">
+            <strong className="walk-request-mobile-heading">User</strong>
+            <div>{walkRequestUser && walkRequestUser.username}</div>
+          </div>
+          <div className="walk-request-field">
+            <strong className="walk-request-mobile-heading">Message</strong>
+            <div className="walk-request-message-placeholder">
+              <textarea
+                placeholder="Message placeholder"
+                readOnly
+                className="walk-request-message-input"
+              />
+            </div>
+          </div>
+          <div className="walk-request-field">
+            <strong className="walk-request-mobile-heading">Dogs</strong>
+            <div className="walk-request-dogs">{dogs}</div>
+          </div>
+          <div className="walk-request-field">
+            <strong className="walk-request-mobile-heading">Accept Request</strong>
             <button
               onClick={handleIsAccepted}
               className={acceptBtnClass}
@@ -172,22 +164,16 @@ function WalkRequest({
               <FontAwesomeIcon icon={faCheck} />
               <span className="sr-only">Accept</span>
             </button>
-
-            {walkRequest.isAccepted ? (
-              <button
-                onClick={handlePaidFor}
-                className={paidBtnClass}
-                aria-pressed={walkRequest.paidFor}
-              >
-                <FontAwesomeIcon icon={faDollarSign} />
-                <span className="sr-only">Paid</span>
-              </button>
-            ) : (
-              <div />
-            )}
+          </div>
+          <div className="walk-request-field">
+            <strong className="walk-request-mobile-heading">Dogs On Walk</strong>
+            <div>{numberOfDogsOnWalk}</div>
+          </div>
+          <div className="walk-request-field">
+            <strong className="walk-request-mobile-heading">Walk Date</strong>
             <div>
-              {numberOfDogsOnWalk}
-              dogs on this date
+              {adminWalkRequestDate.format('ddd')}
+              {adminWalkRequestDate.format(' MMM D, YYYY')}
             </div>
           </div>
         </div>

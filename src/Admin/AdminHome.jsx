@@ -12,6 +12,7 @@ function AdminHome() {
     >
       <Link className="light-button" to="/admin/walk-requests"> Walk Requests </Link>
       <Link className="light-button" to="/admin/unpaid-requests"> Unpaid Requests </Link>
+      <Link className="light-button" to="/admin/dog-requests"> Dog Requests </Link>
     </div>
   );
 }
