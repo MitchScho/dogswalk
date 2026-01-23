@@ -266,6 +266,14 @@
 .header-container > h3:nth-child(2) ~ a .back-icon {
   font-size: 2em;
 }
+
+.header-container h3 ~ a .back-icon {
+  font-size: 2em;
+}
+
+.header-container > h3 ~ a .back-icon {
+  font-size: 2em;
+}
 .purple-button {
   color: rgba(255, 255, 255, 0.9);
 }
@@ -291,8 +299,12 @@
 
 .dog-light-button {
   background: transparent;
-  width: 8em;
-  height: 8em;
+  width: 128px;
+  height: 128px;
+  min-width: 128px;
+  min-height: 128px;
+  max-width: 128px;
+  max-height: 128px;
   border-radius: 50%;
   padding: 0;
   position: relative;
@@ -308,6 +320,7 @@
     filter 0.15s ease;
   color: rgba(255, 255, 255, 0.9);
   filter: brightness(1);
+  flex-shrink: 0;
 }
 
 .dog-light-button:hover {
@@ -588,6 +601,16 @@
     min-width: 100px;
     min-height: 100px;
   }
+
+  // Keep dog-light-button fixed size on tablet
+  .dog-light-button {
+    width: 128px;
+    height: 128px;
+    min-width: 128px;
+    min-height: 128px;
+    max-width: 128px;
+    max-height: 128px;
+  }
 }
 
 // Phone - 480px and below
@@ -674,6 +697,16 @@
     min-height: 100px;
   }
 
+  // Keep dog-light-button fixed size on phone
+  .dog-light-button {
+    width: 128px;
+    height: 128px;
+    min-width: 128px;
+    min-height: 128px;
+    max-width: 128px;
+    max-height: 128px;
+  }
+
   // Show mobile headings on phone screens and style for two-column layout
   .walk-request-mobile-heading {
     display: block;
@@ -698,3 +731,104 @@
   }
 }
 
+// Admin Home Card Buttons
+.admin-home-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 1em;
+  padding: 1.5em;
+  min-height: 60vh;
+}
+
+.admin-home-card {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  border-radius: 14px;
+  color: rgba(255, 255, 255, 0.9);
+  padding: 1.5em 2em;
+  cursor: pointer;
+  font-weight: 500;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 80px;
+  width: 280px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.25), 0 4px 10px rgba(0, 0, 0, 0.18);
+  transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease, background 0.18s ease;
+}
+
+.admin-home-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.30), 0 12px 24px rgba(0, 0, 0, 0.24);
+  border-color: rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.admin-home-card:active {
+  transform: translateY(-2px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.30), 0 6px 12px rgba(0, 0, 0, 0.24);
+}
+
+// Undo Toast
+.undo-toast {
+  position: absolute;
+  bottom: -60px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  padding: 0.75em 1.25em;
+  display: flex;
+  align-items: center;
+  gap: 1em;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4), 0 8px 24px rgba(0, 0, 0, 0.3);
+  z-index: 20;
+  animation: slideUpToast 0.3s ease;
+  min-width: 200px;
+}
+
+@keyframes slideUpToast {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
+.undo-toast-message {
+  color: rgba(255, 255, 255, 0.95);
+  font-weight: 500;
+  font-size: 0.9em;
+  flex: 1;
+}
+
+.undo-toast-button {
+  background: rgba(79, 33, 158, 0.9);
+  border: 1px solid rgba(79, 33, 158, 1);
+  border-radius: 6px;
+  padding: 0.4em 0.9em;
+  color: rgba(255, 255, 255, 1);
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.85em;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.undo-toast-button:hover {
+  background: rgba(79, 33, 158, 1);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(79, 33, 158, 0.4);
+}
+
+.undo-toast-button:active {
+  transform: translateY(0);
+}

@@ -3,6 +3,40 @@
   color: rgba(255, 255, 255, 0.9);
 }
 
+.schedule-top-header {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  padding: 1.5em 1em;
+  margin: 0.5em;
+  color: rgba(255, 255, 255, 0.9);
+  position: relative;
+  margin-bottom: 1em;
+}
+
+.schedule-page-title {
+  color: rgba(255, 255, 255, 0.9);
+  margin: 0;
+  font-weight: 600;
+  font-size: 1.75em;
+  grid-column: 2;
+  justify-self: center;
+}
+
+.schedule-top-header > a {
+  grid-column: 3;
+  justify-self: end;
+}
+
+.schedule-top-header .back-icon {
+  margin-right: 1em;
+  font-size: 2em;
+}
+
+.schedule-top-header .back-icon:hover {
+  background: rgb(61, 24, 125);
+}
+
 .schedule-header {
   display: flex;
   justify-content: space-between;
@@ -153,6 +187,29 @@
 
 // Phone media query
 @media (max-width: 480px) {
+  .schedule-top-header {
+    grid-template-columns: 1fr auto 1fr;
+    margin: 0;
+    gap: 1em;
+  }
+
+  .schedule-page-title {
+    grid-column: 2;
+    justify-self: center;
+    text-align: center;
+    font-size: 1.5em;
+  }
+
+  .schedule-top-header > a {
+    grid-column: 3;
+    justify-self: end;
+    margin-right: 0.5em;
+  }
+
+  .schedule-top-header .back-icon {
+    margin-right: 0;
+  }
+
   .schedule-header {
     flex-direction: column;
     gap: 0.75em;

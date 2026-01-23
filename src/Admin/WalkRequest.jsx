@@ -9,8 +9,6 @@ import { useEffect, useState } from 'react';
 import './index.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheck } from '@fortawesome/free-solid-svg-icons';
-// --- Component Imports ---
-import ConfirmationModal from '../components/ConfirmationModal';
 // --- Api Imports ---
 import {
   updateWalkRequest, getWalkRequestUser,
@@ -24,8 +22,10 @@ import Avatar from '../dog.thumbnail.png';
 function WalkRequest({
   setAdminState, walkRequest, state, setState,
 }) {
-  const [modalData, setModalData] = useState(null);
   const [walkRequestUser, setWalkRequestUser] = useState(null);
+  const [optimisticAccepted, setOptimisticAccepted] = useState(null);
+  const [showUndoToast, setShowUndoToast] = useState(false);
+  const [undoTimeout, setUndoTimeout] = useState(null);
 
   useEffect(() => {
     getWalkRequestUser(walkRequest.userId)
@@ -36,6 +36,15 @@ function WalkRequest({
         console.log(err.message);
       });
   }, [walkRequest.userId]);
+
+  // Cleanup timeout on unmount
+  const clearUndoTimeout = () => {
+    if (undoTimeout) {
+      clearTimeout(undoTimeout);
+    }
+  };
+
+  useEffect(() => clearUndoTimeout, []);
 
   // -------------------------------------------------------------------------------------------
 
@@ -50,7 +59,12 @@ function WalkRequest({
 
   //------------------------------------------------------------------------------------
   // --- Button Style rendering ---
-  const acceptBtnClass = `status-btn status-btn--accept ${walkRequest.isAccepted ? 'is-on' : 'is-off'}`;
+  // Use optimistic state if available, otherwise use actual state
+  const currentAcceptedState = optimisticAccepted !== null
+    ? optimisticAccepted
+    : walkRequest.isAccepted;
+
+  const acceptBtnClass = `status-btn status-btn--accept ${currentAcceptedState ? 'is-on' : 'is-off'}`;
 
   // -----------------------------------------------------------------------------------------------
   // --- Number of dogs on walk ---
@@ -59,12 +73,8 @@ function WalkRequest({
     adminWalkRequestDate,
     state.walks,
   );
-  const numberOfDogsOnWalk = 12 - availibleSpotsForDate;
+  const numberOfDogsOnWalk = 22 - availibleSpotsForDate;
 
-  //---------------------------------------------------------------------------------------------
-  const closeModal = () => {
-    setModalData(null);
-  };
   //-----------------------------------------------------------------------------
   const confirmUpdate = (id, payload) => {
     updateWalkRequest(id, payload)
@@ -80,23 +90,46 @@ function WalkRequest({
       })
       .catch((err) => {
         console.log(err.message);
+        // Revert optimistic update on error
+        setOptimisticAccepted(null);
+        setShowUndoToast(false);
       });
-    closeModal();
   };
 
   //-----------------------------------------------------------------------------------------------
-  // --- Handles confirmation of isAccepted status ---
+  // --- Handles optimistic accept/reject with undo ---
   const handleIsAccepted = () => {
-    setModalData({
-      back: closeModal,
-      // eslint-disable-next-line max-len
-      confirm: () => confirmUpdate(walkRequest.id, {
-        isAccepted: !walkRequest.isAccepted,
-      }),
-      message: walkRequest.isAccepted
-        ? 'Confirm walk is not accepted'
-        : 'Confirm this is accepted',
-    });
+    const newAcceptedState = !walkRequest.isAccepted;
+
+    // Optimistic update
+    setOptimisticAccepted(newAcceptedState);
+    setShowUndoToast(true);
+
+    // Clear any existing timeout
+    if (undoTimeout) {
+      clearTimeout(undoTimeout);
+    }
+
+    // Set timeout to commit after 5 seconds
+    const timeout = setTimeout(() => {
+      confirmUpdate(walkRequest.id, {
+        isAccepted: newAcceptedState,
+      });
+      setShowUndoToast(false);
+      setOptimisticAccepted(null);
+    }, 5000);
+
+    setUndoTimeout(timeout);
+  };
+
+  // --- Handle undo action ---
+  const handleUndo = () => {
+    if (undoTimeout) {
+      clearTimeout(undoTimeout);
+      setUndoTimeout(null);
+    }
+    setOptimisticAccepted(null);
+    setShowUndoToast(false);
   };
 
   //-----------------------------------------------------------------------------------------------
@@ -118,64 +151,69 @@ function WalkRequest({
   //------------------------------------------------------------------------------------------------
 
   return (
-    <div>
-      {modalData ? (
-        <ConfirmationModal
-          style={{ display: 'flex', flexDirection: 'row-reverse' }}
-          confirm={modalData.confirm}
-          back={modalData.back}
-          message={modalData.message}
-        />
-      ) : (
-        <div className="walkRequest-container">
-          <div className="walk-request-field">
-            <strong className="walk-request-mobile-heading">Request Date</strong>
-            <div>
-              {requestCreatedDate
-                ? requestCreatedDate.format('ddd MMM D, YYYY')
-                : '—'}
-            </div>
+    <div className="walk-request-wrapper">
+      <div className="walkRequest-container">
+        <div className="walk-request-field">
+          <strong className="walk-request-mobile-heading">Request Date</strong>
+          <div>
+            {requestCreatedDate
+              ? requestCreatedDate.format('ddd MMM D, YYYY')
+              : '—'}
           </div>
-          <div className="walk-request-field">
-            <strong className="walk-request-mobile-heading">User</strong>
-            <div>{walkRequestUser && walkRequestUser.username}</div>
+        </div>
+        <div className="walk-request-field">
+          <strong className="walk-request-mobile-heading">User</strong>
+          <div>{walkRequestUser && walkRequestUser.username}</div>
+        </div>
+        <div className="walk-request-field">
+          <strong className="walk-request-mobile-heading">Message</strong>
+          <div className="walk-request-message-placeholder">
+            <textarea
+              placeholder="Message placeholder"
+              readOnly
+              className="walk-request-message-input"
+            />
           </div>
-          <div className="walk-request-field">
-            <strong className="walk-request-mobile-heading">Message</strong>
-            <div className="walk-request-message-placeholder">
-              <textarea
-                placeholder="Message placeholder"
-                readOnly
-                className="walk-request-message-input"
-              />
-            </div>
+        </div>
+        <div className="walk-request-field">
+          <strong className="walk-request-mobile-heading">Dogs</strong>
+          <div className="walk-request-dogs">{dogs}</div>
+        </div>
+        <div className="walk-request-field">
+          <strong className="walk-request-mobile-heading">Accept Request</strong>
+          <button
+            onClick={handleIsAccepted}
+            className={acceptBtnClass}
+            aria-pressed={walkRequest.isAccepted}
+          >
+            <FontAwesomeIcon icon={faCheck} />
+            <span className="sr-only">Accept</span>
+          </button>
+        </div>
+        <div className="walk-request-field">
+          <strong className="walk-request-mobile-heading">Dogs On Walk</strong>
+          <div>{numberOfDogsOnWalk}</div>
+        </div>
+        <div className="walk-request-field">
+          <strong className="walk-request-mobile-heading">Walk Date</strong>
+          <div>
+            {adminWalkRequestDate.format('ddd')}
+            {adminWalkRequestDate.format(' MMM D, YYYY')}
           </div>
-          <div className="walk-request-field">
-            <strong className="walk-request-mobile-heading">Dogs</strong>
-            <div className="walk-request-dogs">{dogs}</div>
-          </div>
-          <div className="walk-request-field">
-            <strong className="walk-request-mobile-heading">Accept Request</strong>
-            <button
-              onClick={handleIsAccepted}
-              className={acceptBtnClass}
-              aria-pressed={walkRequest.isAccepted}
-            >
-              <FontAwesomeIcon icon={faCheck} />
-              <span className="sr-only">Accept</span>
-            </button>
-          </div>
-          <div className="walk-request-field">
-            <strong className="walk-request-mobile-heading">Dogs On Walk</strong>
-            <div>{numberOfDogsOnWalk}</div>
-          </div>
-          <div className="walk-request-field">
-            <strong className="walk-request-mobile-heading">Walk Date</strong>
-            <div>
-              {adminWalkRequestDate.format('ddd')}
-              {adminWalkRequestDate.format(' MMM D, YYYY')}
-            </div>
-          </div>
+        </div>
+      </div>
+      {showUndoToast && (
+        <div className="undo-toast">
+          <span className="undo-toast-message">
+            {optimisticAccepted ? 'Request accepted' : 'Request rejected'}
+          </span>
+          <button
+            type="button"
+            className="undo-toast-button"
+            onClick={handleUndo}
+          >
+            Undo
+          </button>
         </div>
       )}
     </div>

@@ -1,7 +1,9 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react/react-in-jsx-scope */
 import { useState, useMemo } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, NavLink } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCircleLeft } from '@fortawesome/free-solid-svg-icons';
 import moment from 'moment';
 import './Schedule.scss';
 
@@ -62,6 +64,12 @@ function Schedule({ state }) {
 
   return (
     <div className="schedule-container">
+      <div className="schedule-top-header">
+        <h2 className="schedule-page-title">Schedule</h2>
+        <NavLink to="/admin">
+          <FontAwesomeIcon className="back-icon" icon={faCircleLeft} />
+        </NavLink>
+      </div>
       <div className="schedule-header">
         <button
           type="button"

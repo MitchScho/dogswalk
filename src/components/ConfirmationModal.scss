@@ -1,112 +1,165 @@
-.confirm {
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.10);
-  border-radius: 14px;
-  padding: 0.9em 1em;
-  margin: 0.7em 0.7em 0;
-  min-width: 500px;
-  max-width: 700px;
-  width: 100%;
-  min-height: 60px;
+.walk-request-wrapper {
+  position: relative;
+}
+
+.walkRequest-container--modal-open {
+  opacity: 0.4;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.confirm-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.25), 0 4px 10px rgba(0, 0, 0, 0.18);
-  transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+  justify-content: center;
+  z-index: 10;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.confirm {
+  background: rgba(255, 255, 255, 0.95);
+  border: 2px solid rgba(79, 33, 158, 0.8);
+  border-radius: 14px;
+  padding: 1.5em 2em;
+  width: 90%;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5em;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4), 0 8px 24px rgba(0, 0, 0, 0.3);
+  animation: slideUp 0.3s ease;
+  z-index: 11;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
 
 .button-list-container .confirm {
   margin: 0;
 }
 
-.confirm h4 {
-  color: rgba(255, 255, 255, 0.9);
+.confirm-message {
+  color: rgba(0, 0, 0, 0.9);
   margin: 0;
   font-weight: 500;
+  font-size: 1.1em;
+  text-align: center;
+  line-height: 1.4;
 }
 
-section {
+.confirm-buttons {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
-  gap: 0.75em;
+  gap: 1em;
+  width: 100%;
 }
 
 .modal-button {
   border-radius: 8px;
-  padding: 0.45em 0.9em;
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  color: rgba(255, 255, 255, 0.9);
+  padding: 0.7em 1.5em;
+  border: none;
   cursor: pointer;
-  transition: background 0.18s ease, transform 0.12s ease, box-shadow 0.18s ease, border-color 0.18s ease;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
-  font-weight: 500;
-  font-size: 0.9em;
+  transition: all 0.2s ease;
+  font-weight: 600;
+  font-size: 1em;
+  flex: 1;
+  max-width: 150px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
-.modal-button:hover {
-  background: rgba(255, 255, 255, 0.12);
-  border-color: rgba(255, 255, 255, 0.20);
-  transform: translateY(-1px);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.30);
+.modal-button--confirm {
+  background: rgba(4, 132, 4, 0.9);
+  color: rgba(255, 255, 255, 1);
+}
+
+.modal-button--confirm:hover {
+  background: rgba(4, 132, 4, 1);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(4, 132, 4, 0.4);
+}
+
+.modal-button--cancel {
+  background: rgba(200, 200, 200, 0.9);
+  color: rgba(0, 0, 0, 0.8);
+}
+
+.modal-button--cancel:hover {
+  background: rgba(180, 180, 180, 1);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
 .modal-button:active {
   transform: translateY(0);
-  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.35);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
 }
 
 // Tablet (iPad) - 768px and below
 @media (max-width: 768px) {
   .confirm {
-    min-width: auto;
-    max-width: 70%;
-    width: 70%;
-    margin: 0 auto 1em auto;
+    max-width: 85%;
+    padding: 1.25em 1.5em;
   }
 
-  .confirm h4 {
-    text-align: center;
+  .confirm-message {
+    font-size: 1em;
   }
 
-  section {
-    flex-direction: row;
-    justify-content: center;
+  .confirm-buttons {
+    gap: 0.75em;
+  }
+
+  .modal-button {
+    padding: 0.6em 1.2em;
+    font-size: 0.95em;
   }
 }
 
 // Phone - 480px and below
 @media (max-width: 480px) {
   .confirm {
-    padding: 0.75em;
-    margin: 0.5em auto;
-    gap: 0.75em;
-    width: 95%;
-    min-width: auto;
-    max-width: 95%;
-  }
-
-  .button-list-container .confirm {
-    width: 90%;
+    padding: 1em 1.25em;
+    gap: 1.25em;
     max-width: 90%;
-    margin: 0;
   }
 
-  .confirm h4 {
-    font-size: 0.9em;
-    text-align: center;
+  .confirm-message {
+    font-size: 0.95em;
   }
 
-  section {
-    flex-direction: row;
+  .confirm-buttons {
+    flex-direction: column;
     width: 100%;
     gap: 0.5em;
-    justify-content: center;
   }
 
   .modal-button {
-    width: auto;
-    max-width: none;
+    width: 100%;
+    max-width: 100%;
+    padding: 0.7em 1em;
   }
 }
