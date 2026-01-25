@@ -9,7 +9,7 @@ function AdminHome() {
   return (
     <div className="admin-home-container">
       <Link className="admin-home-card" to="/admin/walk-requests"> Walk Requests </Link>
-      <Link className="admin-home-card" to="/admin/unpaid-requests"> Unpaid Walks </Link>
+      <Link className="admin-home-card" to="/admin/unpaid-walks"> Unpaid Walks </Link>
       <Link className="admin-home-card" to="/admin/walk-history"> Walk History </Link>
       <Link className="admin-home-card" to="/admin/schedule"> Schedule </Link>
     </div>

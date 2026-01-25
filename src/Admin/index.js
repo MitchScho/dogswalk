@@ -11,6 +11,7 @@ import {
 // --- Component Imports ---
 import WalkRequests from './WalkRequests';
 import UnpaidWalks from './UnpaidWalks';
+import UnpaidWalksDetail from './UnpaidWalksDetail';
 import WalkHistory from './WalkHistory';
 import WalkHistoryDetail from './WalkHistoryDetail';
 import AdminHome from './AdminHome';
@@ -23,13 +24,12 @@ import './index.scss';
 
 // --- API Imports ---
 import {
-  getMe, getAdminWalkRequests, getUnpaidWalks, getAdminClients, getAdminWalks,
+  getMe, getAdminWalkRequests, getAdminClients, getAdminWalks,
 } from '../api';
 
 //-------------------------------------------------------------------------------------------------
 function Admin({ state, setState }) {
   const [adminState, setAdminState] = useState({
-    unpaidWalks: [],
     walkRequests: [],
     walks: [],
     clients: [],
@@ -59,13 +59,6 @@ function Admin({ state, setState }) {
         setAdminState((prev) => ({
           ...prev,
           walkRequests: res.data,
-        }));
-      });
-    getUnpaidWalks()
-      .then((res) => {
-        setAdminState((prev) => ({
-          ...prev,
-          unpaidWalks: res.data,
         }));
       });
     getAdminWalks()
@@ -114,10 +107,19 @@ function Admin({ state, setState }) {
           )}
         />
         <Route
-          path="/unpaid-requests"
+          path="/unpaid-walks"
           element={(
             <UnpaidWalks
               adminState={adminState}
+            />
+          )}
+        />
+        <Route
+          path="/unpaid-walks/detail"
+          element={(
+            <UnpaidWalksDetail
+              adminState={adminState}
+              setAdminState={setAdminState}
             />
           )}
         />

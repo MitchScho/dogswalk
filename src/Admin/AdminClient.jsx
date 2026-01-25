@@ -21,6 +21,11 @@ function AdminClient({
     }
   };
 
+  // Safety check for dogs array
+  if (!dogs || dogs.length === 0) {
+    return null;
+  }
+
   // If single dog, use the same style as AdminDog
   if (dogs.length === 1) {
     return (
@@ -38,7 +43,7 @@ function AdminClient({
     );
   }
 
-  // Multiple dogs - display them equally spaced
+  // Multiple dogs - display them equally spaced in a circular container
   return (
     <button
       type="button"
@@ -46,11 +51,11 @@ function AdminClient({
       className="admin-client-button admin-client-button--multiple"
     >
       <div className="admin-client-images-container">
-        {dogs.map((dog) => (
+        {dogs.map((dog, index) => (
           <img
-            key={dog.id}
+            key={dog.id || index}
             src={dog.image == null ? Avatar : dog.image}
-            alt={dog.name}
+            alt={dog.name || `Dog ${index + 1}`}
             className="admin-client-image admin-client-image--multiple"
           />
         ))}

@@ -18,6 +18,7 @@
 
 .admin-client-button--multiple {
   border-radius: 50%;
+  overflow: visible; // Allow overlapping images to be visible
 }
 
 .admin-client-image {
@@ -40,12 +41,45 @@
   width: 128px;
   height: 128px;
   border-radius: 50%;
-  overflow: hidden;
+  overflow: visible;
+  position: relative;
+  align-items: center;
+  justify-content: flex-start;
 }
 
 .admin-client-image--multiple {
-  flex: 1;
-  width: 0; // Allow flex to control width
-  height: 100%;
+  width: 128px;
+  height: 128px;
+  min-width: 128px;
+  min-height: 128px;
+  max-width: 128px;
+  max-height: 128px;
   object-fit: cover;
+  display: block;
+  border-radius: 50%;
+  position: absolute;
+  
+  // First image at the start
+  &:nth-child(1) {
+    left: 0;
+    z-index: 2;
+  }
+  
+  // Second image overlaps first by ~50% (64px)
+  &:nth-child(2) {
+    left: 64px; // Overlaps first image by half (64px)
+    z-index: 1;
+  }
+  
+  // Third image overlaps second by ~50%
+  &:nth-child(3) {
+    left: 64px;
+    z-index: 0;
+  }
+  
+  // For 4+ dogs, continue the pattern
+  &:nth-child(n+4) {
+    left: 64px;
+    z-index: -1;
+  }
 }

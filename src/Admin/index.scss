@@ -335,6 +335,12 @@
   color: rgba(255, 255, 255, 0.9);
   filter: brightness(1);
   flex-shrink: 0;
+  overflow: visible; // Allow overlapping images in AdminClient
+}
+
+// Add extra margin for buttons with multiple overlapping images in walk history
+.walk-history-avatars .dog-light-button {
+  margin: 0.5em 2em; // Extra horizontal margin to prevent overlap between adjacent buttons
 }
 
 .dog-light-button:hover {
@@ -363,6 +369,21 @@
   max-width: 128px !important;
   max-height: 128px !important;
   object-fit: cover;
+}
+
+// Override for multiple dog images in AdminClient - allow overlapping
+.dog-light-button .admin-client-images-container {
+  overflow: visible !important;
+}
+
+.dog-light-button .admin-client-images-container img.admin-client-image--multiple {
+  width: 128px !important;
+  height: 128px !important;
+  min-width: 128px !important;
+  min-height: 128px !important;
+  max-width: 128px !important;
+  max-height: 128px !important;
+  position: absolute !important;
 }
 
 
@@ -443,7 +464,19 @@
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 1em;
+  align-items: center;
+  gap: 4em; // Increased gap to prevent overlapping images from adjacent buttons
+}
+
+// Start wrapping earlier on smaller desktop screens
+@media (max-width: 900px) {
+  .walk-history-avatars {
+    gap: 3em;
+  }
+
+  .walk-history-avatars .dog-light-button {
+    margin: 0.5em 1.5em;
+  }
 }
 
 .walk-history-empty {
@@ -543,6 +576,23 @@
   border: 0;
 }
 
+// Medium screens - between 700px and 480px
+@media (max-width: 700px) and (min-width: 481px) {
+  .walk-history-avatars {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 1.5em;
+    width: 100%;
+  }
+
+  .walk-history-avatars .dog-light-button {
+    margin: 0.5em 0.75em;
+    flex-shrink: 0;
+  }
+}
+
 // Tablet (iPad) - 768px and below
 @media (max-width: 768px) {
   .header-container {
@@ -581,13 +631,27 @@
     width: 100%;
   }
 
-  .button-list-container {
-    display: block;
+  // Exception: don't apply width: 100% to dog-light-button inside walk-history-avatars
+  .walk-history-avatars > div {
+    width: auto !important;
+    margin-bottom: 0 !important;
   }
 
-  .button-list-container > div {
-    margin-bottom: 1em;
-    width: 100%;
+  // Keep walk-history-avatars as row with wrapping on tablet
+  .walk-history-avatars {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+    align-items: center !important;
+    gap: 2em;
+    width: 100% !important;
+  }
+
+  .walk-history-avatars .dog-light-button {
+    margin: 0.5em 1em !important;
+    flex-shrink: 0;
+    width: auto !important;
   }
 
   .button-list-container .paidFor-accepted,
@@ -635,6 +699,15 @@
     min-height: 128px;
     max-width: 128px;
     max-height: 128px;
+  }
+
+  // Reduce gap for walk history avatars on tablet
+  .walk-history-avatars {
+    gap: 2em;
+  }
+
+  .walk-history-avatars .dog-light-button {
+    margin: 0.5em 1em;
   }
 }
 
@@ -739,6 +812,20 @@
     min-height: 128px;
     max-width: 128px;
     max-height: 128px;
+  }
+
+  // Stack walk history avatars vertically on phone and center them
+  .walk-history-avatars {
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 1.5em;
+    width: 100% !important;
+  }
+
+  .walk-history-avatars .dog-light-button {
+    margin: 0.5em 0 !important;
+    width: auto !important;
   }
 
   // Show mobile headings on phone screens and style for two-column layout
