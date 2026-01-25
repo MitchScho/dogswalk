@@ -1,52 +1,77 @@
 /* eslint-disable react/react-in-jsx-scope */
 /* eslint-disable react/prop-types */
 //---------------------------------------------------------------------------
-import { useEffect, useState } from 'react';
+import { useMemo } from 'react';
 import moment from 'moment';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faArrowLeft, faCheck, faTimes, faDollarSign,
 } from '@fortawesome/free-solid-svg-icons';
 import { NavLink, Navigate, useLocation } from 'react-router-dom';
-import { getAdminWalkRequestsForDog } from '../api';
 import './index.scss';
 
-function WalkHistoryDetail() {
+function WalkHistoryDetail({ adminState }) {
   const { state: locationState } = useLocation();
-  const [requests, setRequests] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const userId = locationState?.userId;
+  const userName = locationState?.userName ?? 'Client';
 
-  const dogId = locationState?.dogId;
-  const dogName = locationState?.dogName ?? 'Dog';
+  // Build walk history from adminState
+  const history = useMemo(() => {
+    if (!userId || !adminState) return [];
 
-  useEffect(() => {
-    if (!dogId) {
-      setLoading(false);
-      return;
-    }
-    getAdminWalkRequestsForDog(dogId)
-      .then((res) => {
-        setRequests(res.data);
-      })
-      .catch((err) => {
-        console.error(err.message);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
-  }, [dogId]);
+    const historyItems = [];
 
-  if (loading) {
-    return (
-      <div className="header-container">
-        <div />
-        <h3>Loading…</h3>
-        <div />
-      </div>
+    // Get walk requests for this user
+    const walkRequests = (adminState.walkRequests || []).filter(
+      (wr) => wr.userId === parseInt(userId, 10),
     );
-  }
 
-  if (!dogId) {
+    walkRequests.forEach((wr) => {
+      historyItems.push({
+        id: wr.id,
+        type: 'walkRequest',
+        date: wr.date,
+        isAccepted: wr.isAccepted,
+        paidFor: wr.paidFor || false,
+        createdAt: wr.createdAt,
+        dogs: wr.dogs || [],
+      });
+    });
+
+    // Get walks that include this user's dogs
+    const userDogs = (adminState.clients || [])
+      .find((client) => client.id === parseInt(userId, 10))?.dogs || [];
+    const userDogIds = userDogs.map((dog) => dog.id);
+
+    const walks = (adminState.walks || []).filter((walk) => {
+      if (!walk.dogs || walk.dogs.length === 0) return false;
+      // Check if any of the walk's dogs belong to this user
+      return walk.dogs.some((dog) => userDogIds.includes(dog.id));
+    });
+
+    walks.forEach((walk) => {
+      // Only add walks that have at least one of this user's dogs
+      const userDogsInWalk = walk.dogs.filter((dog) => userDogIds.includes(dog.id));
+      if (userDogsInWalk.length > 0) {
+        historyItems.push({
+          id: walk.id,
+          type: 'walk',
+          date: walk.date,
+          isAccepted: true, // Walks are always accepted
+          paidFor: walk.paidFor || false,
+          createdAt: walk.createdAt,
+          dogs: userDogsInWalk,
+        });
+      }
+    });
+
+    // Sort by date descending
+    historyItems.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+    return historyItems;
+  }, [userId, adminState]);
+
+  if (!userId) {
     return <Navigate to="/admin/walk-history" replace />;
   }
 
@@ -55,7 +80,7 @@ function WalkHistoryDetail() {
       <div className="header-container">
         <div />
         <h3>
-          {dogName}
+          {userName}
           &apos;s Walk History
         </h3>
         <NavLink to="/admin/walk-history">
@@ -69,49 +94,47 @@ function WalkHistoryDetail() {
               <th>Date</th>
               <th>Accepted</th>
               <th>Paid For</th>
-              <th>Request ID</th>
-              <th>Created</th>
+              <th>Request Date</th>
             </tr>
           </thead>
           <tbody>
-            {requests.length === 0 ? (
+            {history.length === 0 ? (
               <tr>
-                <td colSpan={5} className="walk-history-table-empty">
-                  No walk requests for this dog.
+                <td colSpan={4} className="walk-history-table-empty">
+                  No walk history for this client.
                 </td>
               </tr>
             ) : (
-              requests.map((req) => {
-                const d = moment(req.date);
+              history.map((item) => {
+                const d = moment(item.date);
                 return (
-                  <tr key={req.id} className="walk-history-table-row">
+                  <tr key={`${item.type}-${item.id}`} className="walk-history-table-row">
                     <td>{d.format('ddd MMM D, YYYY')}</td>
                     <td>
                       <span
                         className={`walk-history-status ${
-                          req.isAccepted ? 'walk-history-status--accepted' : 'walk-history-status--pending'
+                          item.isAccepted ? 'walk-history-status--accepted' : 'walk-history-status--pending'
                         }`}
                       >
-                        {req.isAccepted ? (
+                        {item.isAccepted ? (
                           <FontAwesomeIcon icon={faCheck} />
                         ) : (
                           <FontAwesomeIcon icon={faTimes} />
                         )}
-                        <span className="sr-only">{req.isAccepted ? 'Accepted' : 'Not accepted'}</span>
+                        <span className="sr-only">{item.isAccepted ? 'Accepted' : 'Not accepted'}</span>
                       </span>
                     </td>
                     <td>
                       <span
                         className={`walk-history-status ${
-                          req.paidFor ? 'walk-history-status--paid' : 'walk-history-status--unpaid'
+                          item.paidFor ? 'walk-history-status--paid' : 'walk-history-status--unpaid'
                         }`}
                       >
                         <FontAwesomeIcon icon={faDollarSign} />
-                        <span className="sr-only">{req.paidFor ? 'Paid' : 'Unpaid'}</span>
+                        <span className="sr-only">{item.paidFor ? 'Paid' : 'Unpaid'}</span>
                       </span>
                     </td>
-                    <td>{req.id}</td>
-                    <td>{req.createdAt ? moment(req.createdAt).format('MMM D, YYYY') : '—'}</td>
+                    <td>{item.createdAt ? moment(item.createdAt).format('MMM D, YYYY') : '—'}</td>
                   </tr>
                 );
               })

@@ -10,8 +10,7 @@ import {
 
 // --- Component Imports ---
 import WalkRequests from './WalkRequests';
-import UnpaidRequests from './UnpaidRequests';
-import UnpaidDogRequests from './UnpaidDogRequests';
+import UnpaidWalks from './UnpaidWalks';
 import WalkHistory from './WalkHistory';
 import WalkHistoryDetail from './WalkHistoryDetail';
 import AdminHome from './AdminHome';
@@ -24,15 +23,16 @@ import './index.scss';
 
 // --- API Imports ---
 import {
-  getMe, getAdminWalkRequests, getUnpaidRequests,
+  getMe, getAdminWalkRequests, getUnpaidWalks, getAdminClients, getAdminWalks,
 } from '../api';
 
 //-------------------------------------------------------------------------------------------------
 function Admin({ state, setState }) {
   const [adminState, setAdminState] = useState({
-    unpaidRequests: [],
+    unpaidWalks: [],
     walkRequests: [],
-    unpaidDog: [],
+    walks: [],
+    clients: [],
     adminReFreshKey: 0,
   });
 
@@ -52,7 +52,7 @@ function Admin({ state, setState }) {
   }, []);
 
   //------------------------------------------------------------------------------------------------
-  // --- get walkRequests data and unpaidRequest data ---
+  // --- get walkRequests data, unpaidRequest data, walks, and clients ---
   useEffect(() => {
     getAdminWalkRequests()
       .then((res) => {
@@ -61,12 +61,32 @@ function Admin({ state, setState }) {
           walkRequests: res.data,
         }));
       });
-    getUnpaidRequests()
+    getUnpaidWalks()
       .then((res) => {
         setAdminState((prev) => ({
           ...prev,
-          unpaidRequests: res.data,
+          unpaidWalks: res.data,
         }));
+      });
+    getAdminWalks()
+      .then((res) => {
+        setAdminState((prev) => ({
+          ...prev,
+          walks: res.data,
+        }));
+      })
+      .catch((err) => {
+        console.error('Error fetching walks:', err.message);
+      });
+    getAdminClients()
+      .then((res) => {
+        setAdminState((prev) => ({
+          ...prev,
+          clients: res.data,
+        }));
+      })
+      .catch((err) => {
+        console.error('Error fetching clients:', err.message);
       });
   }, [adminState.adminReFreshKey, state.reFreshKey]);
 
@@ -96,18 +116,8 @@ function Admin({ state, setState }) {
         <Route
           path="/unpaid-requests"
           element={(
-            <UnpaidRequests
+            <UnpaidWalks
               adminState={adminState}
-            />
-          )}
-        />
-        <Route
-          path="/unpaid-dog-requests"
-          element={(
-            <UnpaidDogRequests
-              setState={setState}
-              adminState={adminState}
-              setAdminState={setAdminState}
             />
           )}
         />
@@ -117,7 +127,7 @@ function Admin({ state, setState }) {
         />
         <Route
           path="/walk-history/detail"
-          element={<WalkHistoryDetail />}
+          element={<WalkHistoryDetail adminState={adminState} />}
         />
         <Route
           path="/schedule"

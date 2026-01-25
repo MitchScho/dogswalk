@@ -76,7 +76,7 @@ export function getAdminWalkRequestsForDog(id) {
 }
 //------------------------------------------------------------------------------
 
-export function getUnpaidRequests() {
+export function getUnpaidWalks() {
   const authToken = Cookies.get('token');
 
   const config = {
@@ -85,7 +85,7 @@ export function getUnpaidRequests() {
     },
   };
 
-  return axios.get('http://localhost:8000/api/admin/unpaid-requests', config);
+  return axios.get('http://localhost:8000/api/admin/unpaid-walks', config);
 }
 
 //-------------------------------------------------------------------------------
@@ -194,6 +194,62 @@ export function deletePaidWalkRequests() {
   };
 
   return axios.delete('http://localhost:8000/api/admin/walks-requests', config);
+}
+
+//---------------------------------------------------------------------------------
+
+export function getAdminClients() {
+  const authToken = Cookies.get('token');
+
+  const config = {
+    headers: {
+      Authorization: `Bearer ${authToken}`,
+    },
+  };
+
+  return axios.get('http://localhost:8000/api/admin/clients', config);
+}
+
+//---------------------------------------------------------------------------------
+
+export function getClientWalkHistory(userId) {
+  const authToken = Cookies.get('token');
+
+  const config = {
+    headers: {
+      Authorization: `Bearer ${authToken}`,
+    },
+  };
+
+  return axios.get(`http://localhost:8000/api/admin/clients/${userId}/walk-history`, config);
+}
+
+//---------------------------------------------------------------------------------
+
+export function getAdminWalks() {
+  const authToken = Cookies.get('token');
+
+  const config = {
+    headers: {
+      Authorization: `Bearer ${authToken}`,
+    },
+  };
+
+  return axios.get('http://localhost:8000/api/admin/walks', config);
+}
+
+//---------------------------------------------------------------------------------
+
+export function updateWalk(walkId, payload) {
+  const authToken = Cookies.get('token');
+
+  const config = {
+    headers: {
+      Authorization: `Bearer ${authToken}`,
+    },
+  };
+
+  return axios.put(`http://localhost:8000/api/admin/walks/${walkId}`, payload, config);
 }
 
 //---------------------------------------------------------------------------------

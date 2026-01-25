@@ -1,0 +1,51 @@
+.admin-client-button {
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  border-radius: 50%;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.admin-client-button--single {
+  // Single dog uses same dimensions as AdminDog
+}
+
+.admin-client-button--multiple {
+  border-radius: 50%;
+}
+
+.admin-client-image {
+  display: block;
+  border: none;
+  object-fit: cover;
+}
+
+.admin-client-image--single {
+  width: 128px;
+  height: 128px;
+  min-width: 128px;
+  min-height: 128px;
+  max-width: 128px;
+  max-height: 128px;
+}
+
+.admin-client-images-container {
+  display: flex;
+  width: 128px;
+  height: 128px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.admin-client-image--multiple {
+  flex: 1;
+  width: 0; // Allow flex to control width
+  height: 100%;
+  object-fit: cover;
+}

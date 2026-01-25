@@ -1,37 +1,27 @@
 /* eslint-disable react/react-in-jsx-scope */
 /* eslint-disable react/prop-types */
 //---------------------------------------------------------------------------
-import { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { NavLink, useNavigate } from 'react-router-dom';
-import AdminDog from './AdminDog';
-import sortAllRequestsByDog from '../helpers/sortAllRequestsByDog';
+import AdminClient from './AdminClient';
 import './index.scss';
 
 function WalkHistory({ adminState }) {
   const navigate = useNavigate();
-  const [dogsWithRequests, setDogsWithRequests] = useState({});
+  const clients = adminState?.clients || [];
 
-  useEffect(() => {
-    const sorted = sortAllRequestsByDog(adminState.walkRequests || []);
-    setDogsWithRequests(sorted);
-  }, [adminState.walkRequests, adminState.adminReFreshKey]);
-
-  const dogList = Object.entries(dogsWithRequests).map(([dogName, requests]) => {
-    const { dogId, image } = requests[0];
-    return (
-      <div key={dogId} className="dog-light-button">
-        <AdminDog
-          dogId={dogId}
-          dogName={dogName}
-          dogImage={image}
-          navigate={navigate}
-          navigateTo="/admin/walk-history/detail"
-        />
-      </div>
-    );
-  });
+  const clientList = clients.map((client) => (
+    <div key={client.id} className="dog-light-button">
+      <AdminClient
+        userId={client.id}
+        userName={client.username || client.email}
+        dogs={client.dogs || []}
+        navigate={navigate}
+        navigateTo="/admin/walk-history/detail"
+      />
+    </div>
+  ));
 
   return (
     <>
@@ -43,8 +33,8 @@ function WalkHistory({ adminState }) {
         </NavLink>
       </div>
       <div className="button-list-container walk-history-avatars">
-        {dogList.length > 0 ? dogList : (
-          <p className="walk-history-empty">No dogs with walk requests.</p>
+        {clientList.length > 0 ? clientList : (
+          <p className="walk-history-empty">No clients found.</p>
         )}
       </div>
     </>
