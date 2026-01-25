@@ -14,18 +14,20 @@ import {
   updateWalkRequest, getWalkRequestUser,
 } from '../api';
 // --- Helper Imports ---
-import getAvailibleSpots from '../helpers/getAvailibleSpots';
+// import getAvailibleSpots from '../helpers/getAvailibleSpots';
 // --- Image Imports ---
 import Avatar from '../dog.thumbnail.png';
 //-------------------------------------------------------------------
 
 function WalkRequest({
-  setAdminState, walkRequest, state, setState,
+  setAdminState, walkRequest, setState, adminState,
+  onOptimisticStateChange, onClearOptimisticState,
 }) {
   const [walkRequestUser, setWalkRequestUser] = useState(null);
   const [optimisticAccepted, setOptimisticAccepted] = useState(null);
   const [showUndoToast, setShowUndoToast] = useState(false);
   const [undoTimeout, setUndoTimeout] = useState(null);
+  const [toastTimedOut, setToastTimedOut] = useState(false);
 
   useEffect(() => {
     getWalkRequestUser(walkRequest.userId)
@@ -45,6 +47,21 @@ function WalkRequest({
   };
 
   useEffect(() => clearUndoTimeout, []);
+
+  // Clear optimistic state when the request is actually removed from the list or marked as accepted
+  // Only clear after toast has timed out
+  useEffect(() => {
+    if (toastTimedOut && optimisticAccepted === true && walkRequest.isAccepted) {
+      // The request has been accepted on the server and toast has timed out, clear optimistic state
+      setOptimisticAccepted(null);
+      setShowUndoToast(false);
+      setToastTimedOut(false);
+      if (onClearOptimisticState) {
+        onClearOptimisticState(walkRequest.id);
+      }
+    }
+  }, [walkRequest.isAccepted, optimisticAccepted, toastTimedOut,
+    onClearOptimisticState, walkRequest.id]);
 
   // -------------------------------------------------------------------------------------------
 
@@ -68,12 +85,22 @@ function WalkRequest({
 
   // -----------------------------------------------------------------------------------------------
   // --- Number of dogs on walk ---
+  // Count dogs from all accepted walk requests for this date
+  const numberOfDogsOnWalk = (() => {
+    if (!adminState.walkRequests) return 0;
 
-  const availibleSpotsForDate = getAvailibleSpots(
-    adminWalkRequestDate,
-    state.walks,
-  );
-  const numberOfDogsOnWalk = 22 - availibleSpotsForDate;
+    const acceptedWalkRequestsForDate = adminState.walkRequests.filter((wr) => {
+      const isSameDate = moment(wr.date).isSame(adminWalkRequestDate, 'day');
+
+      const effectiveIsAccepted = wr.id === walkRequest.id
+        ? optimisticAccepted ?? wr.isAccepted
+        : wr.isAccepted;
+
+      return isSameDate && effectiveIsAccepted;
+    });
+
+    return acceptedWalkRequestsForDate.reduce((total, wr) => total + (wr.dogs?.length ?? 0), 0);
+  })();
 
   //-----------------------------------------------------------------------------
   const confirmUpdate = (id, payload) => {
@@ -105,6 +132,11 @@ function WalkRequest({
     setOptimisticAccepted(newAcceptedState);
     setShowUndoToast(true);
 
+    // Notify parent of optimistic state change
+    if (onOptimisticStateChange) {
+      onOptimisticStateChange(walkRequest.id, newAcceptedState);
+    }
+
     // Clear any existing timeout
     if (undoTimeout) {
       clearTimeout(undoTimeout);
@@ -115,8 +147,10 @@ function WalkRequest({
       confirmUpdate(walkRequest.id, {
         isAccepted: newAcceptedState,
       });
+      // Mark toast as timed out - this will trigger the request to be hidden
+      // after the server confirms it's accepted
       setShowUndoToast(false);
-      setOptimisticAccepted(null);
+      setToastTimedOut(true);
     }, 5000);
 
     setUndoTimeout(timeout);
@@ -130,6 +164,12 @@ function WalkRequest({
     }
     setOptimisticAccepted(null);
     setShowUndoToast(false);
+    setToastTimedOut(false);
+
+    // Clear optimistic state in parent
+    if (onClearOptimisticState) {
+      onClearOptimisticState(walkRequest.id);
+    }
   };
 
   //-----------------------------------------------------------------------------------------------
@@ -149,59 +189,67 @@ function WalkRequest({
     : null;
 
   //------------------------------------------------------------------------------------------------
+  // Determine if this request should be hidden
+  // Only hide if:
+  // 1. The toast has timed out AND the request is accepted on the server, OR
+  // 2. The request is accepted on the server (not optimistically)
+  const shouldHide = (toastTimedOut && optimisticAccepted === true && walkRequest.isAccepted)
+    || (optimisticAccepted === null && walkRequest.isAccepted);
 
   return (
     <div className="walk-request-wrapper">
-      <div className="walkRequest-container">
-        <div className="walk-request-field">
-          <strong className="walk-request-mobile-heading">Request Date</strong>
-          <div>
-            {requestCreatedDate
-              ? requestCreatedDate.format('ddd MMM D, YYYY')
-              : '—'}
+      {!shouldHide && (
+        <div className="walkRequest-container">
+          <div className="walk-request-field">
+            <strong className="walk-request-mobile-heading">Request Date</strong>
+            <div>
+              {requestCreatedDate
+                ? requestCreatedDate.format('ddd MMM D, YYYY')
+                : '—'}
+            </div>
+          </div>
+          <div className="walk-request-field">
+            <strong className="walk-request-mobile-heading">User</strong>
+            <div>{walkRequestUser && walkRequestUser.username}</div>
+          </div>
+          <div className="walk-request-field">
+            <strong className="walk-request-mobile-heading">Message</strong>
+            <div className="walk-request-message-placeholder">
+              <textarea
+                placeholder="Message placeholder"
+                readOnly
+                className="walk-request-message-input"
+              />
+            </div>
+          </div>
+          <div className="walk-request-field">
+            <strong className="walk-request-mobile-heading">Dogs</strong>
+            <div className="walk-request-dogs">{dogs}</div>
+          </div>
+          <div className="walk-request-field">
+            <strong className="walk-request-mobile-heading">Accept Request</strong>
+            <button
+              onClick={handleIsAccepted}
+              className={acceptBtnClass}
+              aria-pressed={walkRequest.isAccepted}
+            >
+              <FontAwesomeIcon icon={faCheck} />
+              <span className="sr-only">Accept</span>
+            </button>
+          </div>
+          <div className="walk-request-field">
+            <strong className="walk-request-mobile-heading">Dogs On Walk</strong>
+            <div>{numberOfDogsOnWalk}</div>
+          </div>
+          <div className="walk-request-field">
+            <strong className="walk-request-mobile-heading">Walk Date</strong>
+            <div>
+              {adminWalkRequestDate.format('ddd')}
+              {adminWalkRequestDate.format(' MMM D, YYYY')}
+            </div>
           </div>
         </div>
-        <div className="walk-request-field">
-          <strong className="walk-request-mobile-heading">User</strong>
-          <div>{walkRequestUser && walkRequestUser.username}</div>
-        </div>
-        <div className="walk-request-field">
-          <strong className="walk-request-mobile-heading">Message</strong>
-          <div className="walk-request-message-placeholder">
-            <textarea
-              placeholder="Message placeholder"
-              readOnly
-              className="walk-request-message-input"
-            />
-          </div>
-        </div>
-        <div className="walk-request-field">
-          <strong className="walk-request-mobile-heading">Dogs</strong>
-          <div className="walk-request-dogs">{dogs}</div>
-        </div>
-        <div className="walk-request-field">
-          <strong className="walk-request-mobile-heading">Accept Request</strong>
-          <button
-            onClick={handleIsAccepted}
-            className={acceptBtnClass}
-            aria-pressed={walkRequest.isAccepted}
-          >
-            <FontAwesomeIcon icon={faCheck} />
-            <span className="sr-only">Accept</span>
-          </button>
-        </div>
-        <div className="walk-request-field">
-          <strong className="walk-request-mobile-heading">Dogs On Walk</strong>
-          <div>{numberOfDogsOnWalk}</div>
-        </div>
-        <div className="walk-request-field">
-          <strong className="walk-request-mobile-heading">Walk Date</strong>
-          <div>
-            {adminWalkRequestDate.format('ddd')}
-            {adminWalkRequestDate.format(' MMM D, YYYY')}
-          </div>
-        </div>
-      </div>
+      )}
       {showUndoToast && (
         <div className="undo-toast">
           <span className="undo-toast-message">

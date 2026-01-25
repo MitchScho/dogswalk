@@ -6,7 +6,7 @@
 import { useState, useEffect } from 'react';
 // --- Style Imports ---
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCircleLeft } from '@fortawesome/free-solid-svg-icons';
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 // --- Router Imports ---
 import { NavLink, useLocation } from 'react-router-dom';
 // --- Component Imports ---
@@ -77,7 +77,7 @@ function UnpaidDogRequests({
 
         </div>
         <NavLink to="/admin/unpaid-requests">
-          <FontAwesomeIcon className="back-icon" icon={faCircleLeft} />
+          <FontAwesomeIcon className="back-icon" icon={faArrowLeft} />
         </NavLink>
       </div>
       <div className="button-list-container">{requestList}</div>

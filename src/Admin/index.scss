@@ -241,6 +241,18 @@
     justify-self: end;
 }
 
+.header-container > a:hover {
+  background: transparent !important;
+}
+
+.header-container > a:hover .back-icon {
+  background: transparent !important;
+}
+
+.header-container > a .back-icon:hover {
+  background: transparent !important;
+}
+
 .button-list-container {
    display: flex;
    align-items: center;
@@ -252,11 +264,13 @@
 }
 
 .back-icon {
-  margin-right: 1em;
+  margin-right: 0;
+  transition: transform 0.2s ease;
 }
 
 .back-icon:hover {
-  background: rgb(61, 24, 125);
+  background: transparent;
+  transform: translateX(-4px);
 }
 
 .header-container > div:nth-child(2):not(h3) ~ a .back-icon {
@@ -340,6 +354,17 @@
   font-weight: 500;
 }
 
+.dog-light-button img {
+  border: none !important;
+  width: 128px !important;
+  height: 128px !important;
+  min-width: 128px !important;
+  min-height: 128px !important;
+  max-width: 128px !important;
+  max-height: 128px !important;
+  object-fit: cover;
+}
+
 
 
 .light-button:hover {
@@ -413,26 +438,26 @@
   0 10px 24px rgba(246, 39, 39, 0.35);
 }
 
-// --- Dog Requests (avatars + detail table) ---
-.dog-requests-avatars {
+// --- Walk History (avatars + detail table) ---
+.walk-history-avatars {
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: center;
   gap: 1em;
 }
 
-.dog-requests-empty {
+.walk-history-empty {
   color: rgba(255, 255, 255, 0.7);
   margin: 1.5em 0;
 }
 
-.dog-request-detail-container {
+.walk-history-detail-container {
   padding: 1em;
   margin: 0 0.5em 1em;
   overflow-x: auto;
 }
 
-.dog-requests-table {
+.walk-history-table {
   width: 100%;
   max-width: 900px;
   margin: 0 auto;
@@ -445,7 +470,7 @@
   color: rgba(255, 255, 255, 0.9);
 }
 
-.dog-requests-table th {
+.walk-history-table th {
   text-align: left;
   padding: 0.9em 1em;
   background: rgba(255, 255, 255, 0.08);
@@ -454,26 +479,26 @@
   color: rgba(255, 255, 255, 0.95);
 }
 
-.dog-requests-table td {
+.walk-history-table td {
   padding: 0.85em 1em;
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
-.dog-requests-table-row:hover {
+.walk-history-table-row:hover {
   background: rgba(255, 255, 255, 0.05);
 }
 
-.dog-requests-table-row:last-child td {
+.walk-history-table-row:last-child td {
   border-bottom: none;
 }
 
-.dog-requests-table-empty {
+.walk-history-table-empty {
   text-align: center;
   padding: 2em 1em;
   color: rgba(255, 255, 255, 0.7);
 }
 
-.dog-requests-status {
+.walk-history-status {
   display: inline-flex;
   align-items: center;
   gap: 0.35em;
@@ -482,25 +507,25 @@
   font-size: 0.9em;
 }
 
-.dog-requests-status--accepted {
+.walk-history-status--accepted {
   background: rgba(4, 132, 4, 0.22);
   border: 1px solid rgba(4, 132, 4, 0.55);
   color: rgba(255, 255, 255, 0.95);
 }
 
-.dog-requests-status--pending {
+.walk-history-status--pending {
   background: rgba(255, 255, 255, 0.08);
   border: 1px solid rgba(255, 255, 255, 0.14);
   color: rgba(255, 255, 255, 0.85);
 }
 
-.dog-requests-status--paid {
+.walk-history-status--paid {
   background: rgba(255, 193, 7, 0.22);
   border: 1px solid rgba(255, 193, 7, 0.55);
   color: rgba(255, 255, 255, 0.95);
 }
 
-.dog-requests-status--unpaid {
+.walk-history-status--unpaid {
   background: rgba(255, 255, 255, 0.08);
   border: 1px solid rgba(255, 255, 255, 0.14);
   color: rgba(255, 255, 255, 0.85);
@@ -638,7 +663,16 @@
     margin-right: 0;
   }
 
+  // Remove right margin from all back-icons on phone
+  .back-icon {
+    margin-right: 0;
+  }
+
   .header-container > div:nth-child(2):not(h3) ~ a .back-icon {
+    margin-right: 0;
+  }
+
+  .header-container > h3 ~ a .back-icon {
     margin-right: 0;
   }
 
@@ -776,7 +810,7 @@
 // Undo Toast
 .undo-toast {
   position: absolute;
-  bottom: -60px;
+  top: -60px;
   left: 50%;
   transform: translateX(-50%);
   background: rgba(0, 0, 0, 0.9);
@@ -788,14 +822,14 @@
   gap: 1em;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4), 0 8px 24px rgba(0, 0, 0, 0.3);
   z-index: 20;
-  animation: slideUpToast 0.3s ease;
+  animation: slideDownToast 0.3s ease;
   min-width: 200px;
 }
 
-@keyframes slideUpToast {
+@keyframes slideDownToast {
   from {
     opacity: 0;
-    transform: translateX(-50%) translateY(10px);
+    transform: translateX(-50%) translateY(-10px);
   }
   to {
     opacity: 1;

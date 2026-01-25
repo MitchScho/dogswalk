@@ -4,7 +4,26 @@
 }
 
 .admin-walk-header {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
   margin-bottom: 2em;
+  position: relative;
+}
+
+.admin-walk-month-year {
+  font-size: 1.5em;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.85);
+  justify-self: start;
+}
+
+.admin-walk-day {
+  font-size: 1.75em;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.95);
+  justify-self: center;
+  text-align: center;
 }
 
 .admin-walk-back-button {
@@ -14,26 +33,27 @@
   cursor: pointer;
   display: flex;
   align-items: center;
-  gap: 0.5em;
-  font-size: 1em;
-  padding: 0.5em 0;
-  margin-bottom: 1em;
-  transition: color 0.18s ease;
+  padding: 0.5em;
+  justify-self: end;
 }
 
 .admin-walk-back-button:hover {
-  color: rgba(255, 255, 255, 1);
+  background: transparent;
 }
 
-.admin-walk-back-button svg {
-  font-size: 1.5em;
+.admin-walk-back-button:hover .back-icon {
+  background: transparent;
+  transform: translateX(-4px);
 }
 
-.admin-walk-title {
-  font-size: 1.75em;
-  font-weight: 600;
-  color: rgba(255, 255, 255, 0.95);
-  margin: 0;
+.admin-walk-back-button .back-icon {
+  font-size: 2em;
+  margin-right: 0;
+  transition: transform 0.2s ease;
+}
+
+.admin-walk-back-button .back-icon:hover {
+  background: transparent;
 }
 
 .admin-walk-empty {
@@ -43,108 +63,10 @@
   font-size: 1.1em;
 }
 
-.admin-walk-list {
-  display: flex;
-  flex-direction: column;
+.admin-walk-dogs-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   gap: 1em;
-}
-
-.admin-walk-item {
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.10);
-  border-radius: 14px;
-  padding: 1.5em;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.25), 0 4px 10px rgba(0, 0, 0, 0.18);
-  transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
-}
-
-.admin-walk-item:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 3px 4px rgba(0, 0, 0, 0.30), 0 10px 18px rgba(0, 0, 0, 0.24);
-  border-color: rgba(255, 255, 255, 0.18);
-}
-
-.admin-walk-item-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 1em;
-  padding-bottom: 1em;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.admin-walk-item-id {
-  font-size: 1.3em;
-  font-weight: 600;
-  color: rgba(255, 255, 255, 0.95);
-  margin: 0;
-}
-
-.admin-walk-item-meta {
-  display: flex;
-  align-items: center;
-  gap: 1em;
-}
-
-.admin-walk-item-date {
-  color: rgba(255, 255, 255, 0.8);
-  font-size: 0.9em;
-}
-
-.admin-walk-item-paid {
-  background: rgba(255, 193, 7, 0.22);
-  border: 1px solid rgba(255, 193, 7, 0.55);
-  color: rgba(255, 255, 255, 0.95);
-  padding: 0.25em 0.6em;
-  border-radius: 999px;
-  font-size: 0.85em;
-  font-weight: 500;
-}
-
-.admin-walk-item-dogs {
-  margin-top: 1em;
-}
-
-.admin-walk-item-dogs-title {
-  font-size: 1em;
-  font-weight: 600;
-  color: rgba(255, 255, 255, 0.9);
-  margin: 0 0 0.75em 0;
-}
-
-.admin-walk-item-dogs-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1em;
-}
-
-.admin-walk-item-dog {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.5em;
-}
-
-.admin-walk-item-dog-image {
-  width: 60px;
-  height: 60px;
-  object-fit: cover;
-  border-radius: 50%;
-  border: 2px solid rgba(255, 255, 255, 0.15);
-}
-
-.admin-walk-item-dog-name {
-  font-size: 0.9em;
-  color: rgba(255, 255, 255, 0.85);
-  text-align: center;
-}
-
-.admin-walk-item-spots {
-  margin-top: 1em;
-  padding-top: 1em;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
-  color: rgba(255, 255, 255, 0.8);
-  font-size: 0.9em;
 }
 
 // Phone media query
@@ -153,22 +75,31 @@
     padding: 1em;
   }
 
-  .admin-walk-title {
-    font-size: 1.5em;
-  }
-
-  .admin-walk-item-header {
-    flex-direction: column;
-    align-items: flex-start;
+  .admin-walk-header {
+    grid-template-columns: 1fr auto;
+    grid-template-rows: auto auto;
     gap: 0.5em;
   }
 
-  .admin-walk-item-meta {
-    width: 100%;
-    justify-content: space-between;
+  .admin-walk-month-year {
+    grid-column: 1 / -1;
+    justify-self: center;
+    font-size: 1.2em;
   }
 
-  .admin-walk-item-dogs-list {
-    justify-content: center;
+  .admin-walk-day {
+    grid-column: 1 / -1;
+    justify-self: center;
+    font-size: 1.5em;
+  }
+
+  .admin-walk-back-button {
+    grid-column: 2;
+    grid-row: 1;
+    justify-self: end;
+  }
+
+  .admin-walk-dogs-list {
+    grid-template-columns: 1fr;
   }
 }

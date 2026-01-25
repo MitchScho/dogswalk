@@ -16,9 +16,13 @@ h4 {
   color: rgba(255, 255, 255, 0.9);
 }
 
+.back-icon {
+  transition: transform 0.2s ease;
+}
+
 .back-icon:hover {
-  background:rgb(79, 33, 158);
-  border-radius: 10px
+  background: transparent;
+  transform: translateX(-4px);
 }
 
 .save-button {

@@ -5,13 +5,13 @@ import { useEffect, useState } from 'react';
 import moment from 'moment';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
-  faCircleLeft, faCheck, faTimes, faDollarSign,
+  faArrowLeft, faCheck, faTimes, faDollarSign,
 } from '@fortawesome/free-solid-svg-icons';
 import { NavLink, Navigate, useLocation } from 'react-router-dom';
 import { getAdminWalkRequestsForDog } from '../api';
 import './index.scss';
 
-function DogRequestDetail() {
+function WalkHistoryDetail() {
   const { state: locationState } = useLocation();
   const [requests, setRequests] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -47,7 +47,7 @@ function DogRequestDetail() {
   }
 
   if (!dogId) {
-    return <Navigate to="/admin/dog-requests" replace />;
+    return <Navigate to="/admin/walk-history" replace />;
   }
 
   return (
@@ -56,14 +56,14 @@ function DogRequestDetail() {
         <div />
         <h3>
           {dogName}
-          &apos;s Walk Requests
+          &apos;s Walk History
         </h3>
-        <NavLink to="/admin/dog-requests">
-          <FontAwesomeIcon className="back-icon" icon={faCircleLeft} />
+        <NavLink to="/admin/walk-history">
+          <FontAwesomeIcon className="back-icon" icon={faArrowLeft} />
         </NavLink>
       </div>
-      <div className="dog-request-detail-container">
-        <table className="dog-requests-table">
+      <div className="walk-history-detail-container">
+        <table className="walk-history-table">
           <thead>
             <tr>
               <th>Date</th>
@@ -76,7 +76,7 @@ function DogRequestDetail() {
           <tbody>
             {requests.length === 0 ? (
               <tr>
-                <td colSpan={5} className="dog-requests-table-empty">
+                <td colSpan={5} className="walk-history-table-empty">
                   No walk requests for this dog.
                 </td>
               </tr>
@@ -84,12 +84,12 @@ function DogRequestDetail() {
               requests.map((req) => {
                 const d = moment(req.date);
                 return (
-                  <tr key={req.id} className="dog-requests-table-row">
+                  <tr key={req.id} className="walk-history-table-row">
                     <td>{d.format('ddd MMM D, YYYY')}</td>
                     <td>
                       <span
-                        className={`dog-requests-status ${
-                          req.isAccepted ? 'dog-requests-status--accepted' : 'dog-requests-status--pending'
+                        className={`walk-history-status ${
+                          req.isAccepted ? 'walk-history-status--accepted' : 'walk-history-status--pending'
                         }`}
                       >
                         {req.isAccepted ? (
@@ -102,8 +102,8 @@ function DogRequestDetail() {
                     </td>
                     <td>
                       <span
-                        className={`dog-requests-status ${
-                          req.paidFor ? 'dog-requests-status--paid' : 'dog-requests-status--unpaid'
+                        className={`walk-history-status ${
+                          req.paidFor ? 'walk-history-status--paid' : 'walk-history-status--unpaid'
                         }`}
                       >
                         <FontAwesomeIcon icon={faDollarSign} />
@@ -123,4 +123,4 @@ function DogRequestDetail() {
   );
 }
 
-export default DogRequestDetail;
+export default WalkHistoryDetail;

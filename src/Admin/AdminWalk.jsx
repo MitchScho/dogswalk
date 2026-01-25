@@ -3,8 +3,8 @@
 import { useParams, useNavigate } from 'react-router-dom';
 import moment from 'moment';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCircleLeft } from '@fortawesome/free-solid-svg-icons';
-import Avatar from '../dog.thumbnail.png';
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
+import AdminWalkDog from './AdminWalkDog';
 import './AdminWalk.scss';
 
 function AdminWalk({ state }) {
@@ -24,18 +24,19 @@ function AdminWalk({ state }) {
   return (
     <div className="admin-walk-container">
       <div className="admin-walk-header">
+        <div className="admin-walk-month-year">
+          {selectedDate.format('MMMM YYYY')}
+        </div>
+        <div className="admin-walk-day">
+          {selectedDate.format('dddd D')}
+        </div>
         <button
           type="button"
           className="admin-walk-back-button"
           onClick={handleBack}
         >
-          <FontAwesomeIcon icon={faCircleLeft} />
-          <span>Back to Schedule</span>
+          <FontAwesomeIcon className="back-icon" icon={faArrowLeft} />
         </button>
-        <h2 className="admin-walk-title">
-          Walks for
-          {selectedDate.format('dddd, MMMM D, YYYY')}
-        </h2>
       </div>
 
       {walksForDate.length === 0 ? (
@@ -43,54 +44,12 @@ function AdminWalk({ state }) {
           <p>No walks scheduled for this date.</p>
         </div>
       ) : (
-        <div className="admin-walk-list">
-          {walksForDate.map((walk) => (
-            <div key={walk.id} className="admin-walk-item">
-              <div className="admin-walk-item-header">
-                <h3 className="admin-walk-item-id">
-                  Walk ID:
-                  {walk.id}
-                  {walk.id}
-                </h3>
-                <div className="admin-walk-item-meta">
-                  <span className="admin-walk-item-date">
-                    {moment(walk.date).format('h:mm A')}
-                  </span>
-                  {walk.payed_for && (
-                    <span className="admin-walk-item-paid">Paid</span>
-                  )}
-                </div>
-              </div>
-
-              {walk.dogs && walk.dogs.length > 0 && (
-                <div className="admin-walk-item-dogs">
-                  <h4 className="admin-walk-item-dogs-title">Dogs:</h4>
-                  <div className="admin-walk-item-dogs-list">
-                    {walk.dogs.map((dog) => (
-                      <div key={dog.id} className="admin-walk-item-dog">
-                        <img
-                          src={dog.image || dog.avatar || Avatar}
-                          alt={dog.name}
-                          className="admin-walk-item-dog-image"
-                        />
-                        <span className="admin-walk-item-dog-name">
-                          {dog.name}
-                        </span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              )}
-              {walk.availible_spots !== undefined && (
-                <div className="admin-walk-item-spots">
-                  <span>
-                    Available Spots:
-                    {walk.availible_spots}
-                  </span>
-                </div>
-              )}
-            </div>
-          ))}
+        <div className="admin-walk-dogs-list">
+          {walksForDate
+            .flatMap((walk) => walk.dogs ?? [])
+            .map((dog) => (
+              <AdminWalkDog key={dog.id} dog={dog} />
+            ))}
         </div>
       )}
     </div>

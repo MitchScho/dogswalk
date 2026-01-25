@@ -3,13 +3,13 @@
 //---------------------------------------------------------------------------
 import { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCircleLeft } from '@fortawesome/free-solid-svg-icons';
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { NavLink, useNavigate } from 'react-router-dom';
-import DogAvatar from '../components/DogAvatar';
+import AdminDog from './AdminDog';
 import sortAllRequestsByDog from '../helpers/sortAllRequestsByDog';
 import './index.scss';
 
-function DogRequests({ adminState }) {
+function WalkHistory({ adminState }) {
   const navigate = useNavigate();
   const [dogsWithRequests, setDogsWithRequests] = useState({});
 
@@ -18,20 +18,16 @@ function DogRequests({ adminState }) {
     setDogsWithRequests(sorted);
   }, [adminState.walkRequests, adminState.adminReFreshKey]);
 
-  const handleSelectDog = (dog) => {
-    navigate('/admin/dog-requests/detail', { state: { dogId: dog.id, dogName: dog.name } });
-  };
-
   const dogList = Object.entries(dogsWithRequests).map(([dogName, requests]) => {
     const { dogId, image } = requests[0];
-    const dog = { id: dogId, name: dogName, image };
     return (
       <div key={dogId} className="dog-light-button">
-        <DogAvatar
-          dog={dog}
-          selectDogs={handleSelectDog}
-          selectedDogs={[]}
-          handleDeleteDog={() => {}}
+        <AdminDog
+          dogId={dogId}
+          dogName={dogName}
+          dogImage={image}
+          navigate={navigate}
+          navigateTo="/admin/walk-history/detail"
         />
       </div>
     );
@@ -41,18 +37,18 @@ function DogRequests({ adminState }) {
     <>
       <div className="header-container">
         <div />
-        <h3>Dog Requests</h3>
+        <h3>Walk History</h3>
         <NavLink to="/admin">
-          <FontAwesomeIcon className="back-icon" icon={faCircleLeft} />
+          <FontAwesomeIcon className="back-icon" icon={faArrowLeft} />
         </NavLink>
       </div>
-      <div className="button-list-container dog-requests-avatars">
+      <div className="button-list-container walk-history-avatars">
         {dogList.length > 0 ? dogList : (
-          <p className="dog-requests-empty">No dogs with walk requests.</p>
+          <p className="walk-history-empty">No dogs with walk requests.</p>
         )}
       </div>
     </>
   );
 }
 
-export default DogRequests;
+export default WalkHistory;

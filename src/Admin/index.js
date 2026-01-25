@@ -12,8 +12,8 @@ import {
 import WalkRequests from './WalkRequests';
 import UnpaidRequests from './UnpaidRequests';
 import UnpaidDogRequests from './UnpaidDogRequests';
-import DogRequests from './DogRequests';
-import DogRequestDetail from './DogRequestDetail';
+import WalkHistory from './WalkHistory';
+import WalkHistoryDetail from './WalkHistoryDetail';
 import AdminHome from './AdminHome';
 import Schedule from './Schedule';
 import AdminWalk from './AdminWalk';
@@ -112,12 +112,12 @@ function Admin({ state, setState }) {
           )}
         />
         <Route
-          path="/dog-requests"
-          element={<DogRequests adminState={adminState} />}
+          path="/walk-history"
+          element={<WalkHistory adminState={adminState} />}
         />
         <Route
-          path="/dog-requests/detail"
-          element={<DogRequestDetail />}
+          path="/walk-history/detail"
+          element={<WalkHistoryDetail />}
         />
         <Route
           path="/schedule"

@@ -3,7 +3,7 @@
 import { useState, useMemo } from 'react';
 import { useNavigate, NavLink } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCircleLeft } from '@fortawesome/free-solid-svg-icons';
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import moment from 'moment';
 import './Schedule.scss';
 
@@ -56,6 +56,12 @@ function Schedule({ state }) {
   // Get walks for a specific day
   const getWalksForDay = (day) => state.walks.filter((walk) => moment(walk.date).isSame(day, 'day'));
 
+  // Get total number of dogs accepted for a specific day
+  const getDogsCountForDay = (day) => {
+    const walksForDay = getWalksForDay(day);
+    return walksForDay.reduce((total, walk) => total + (walk.dogs ? walk.dogs.length : 0), 0);
+  };
+
   // Check if day is today
   const isToday = (day) => day.isSame(moment(), 'day');
 
@@ -67,7 +73,7 @@ function Schedule({ state }) {
       <div className="schedule-top-header">
         <h2 className="schedule-page-title">Schedule</h2>
         <NavLink to="/admin">
-          <FontAwesomeIcon className="back-icon" icon={faCircleLeft} />
+          <FontAwesomeIcon className="back-icon" icon={faArrowLeft} />
         </NavLink>
       </div>
       <div className="schedule-header">
@@ -109,7 +115,7 @@ function Schedule({ state }) {
         <div className="schedule-days">
           {calendarDays.map((day) => {
             const dayHasWalks = hasWalks(day);
-            const walksCount = getWalksForDay(day).length;
+            const dogsCount = getDogsCountForDay(day);
             const dayIsToday = isToday(day);
             const dayIsCurrentMonth = isCurrentMonth(day);
 
@@ -127,9 +133,10 @@ function Schedule({ state }) {
                 <span className="schedule-day-number">{day.format('D')}</span>
                 {dayHasWalks && (
                   <span className="schedule-day-walks-count">
-                    {walksCount}
-                    walk
-                    {walksCount !== 1 ? 's' : ''}
+                    {dogsCount}
+                    {' '}
+                    dog
+                    {dogsCount !== 1 ? 's' : ''}
                   </span>
                 )}
               </button>

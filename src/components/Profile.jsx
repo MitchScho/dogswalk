@@ -7,7 +7,7 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 // --- Style Imports ---
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCircleLeft } from '@fortawesome/free-solid-svg-icons';
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import './Profile.scss';
 // --- Component Imports ---
 import DogAvatar from './DogAvatar';
@@ -37,7 +37,7 @@ function Profile({
         <div />
         <h4>Profile</h4>
         <NavLink to="/calendar">
-          <FontAwesomeIcon className="back-icon" icon={faCircleLeft} />
+          <FontAwesomeIcon className="back-icon" icon={faArrowLeft} />
         </NavLink>
       </div>
       <form className="w-half max-w-sm">
