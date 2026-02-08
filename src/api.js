@@ -253,3 +253,31 @@ export function updateWalk(walkId, payload) {
 }
 
 //---------------------------------------------------------------------------------
+
+export function removeDogFromWalk(walkId, dogId) {
+  const authToken = Cookies.get('token');
+
+  const config = {
+    headers: {
+      Authorization: `Bearer ${authToken}`,
+    },
+  };
+
+  return axios.delete(`http://localhost:8000/api/admin/walks/${walkId}/dogs/${dogId}`, config);
+}
+
+//---------------------------------------------------------------------------------
+
+export function addDogToWalk(walkId, dogId, date) {
+  const authToken = Cookies.get('token');
+
+  const config = {
+    headers: {
+      Authorization: `Bearer ${authToken}`,
+    },
+  };
+
+  return axios.post(`http://localhost:8000/api/admin/walks/${walkId}/dogs`, { dogId, date }, config);
+}
+
+//---------------------------------------------------------------------------------

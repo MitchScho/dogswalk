@@ -10,8 +10,65 @@ import { updateWalk } from '../api';
 import Avatar from '../dog.thumbnail.png';
 import './UnpaidWalksDetail.scss';
 
-// Walk price constant
-const WALK_PRICE = 30.00;
+// Walk price constants
+const SINGLE_DOG_PRICE = 30.00;
+const TWO_DOG_PRICE = 55.00;
+const DOG_DAY_SIT = 45.00;
+const DOG_NIGHT_STAY = 60.00;
+
+// Calculate price based on walk type and number of dogs
+const calculateWalkPrice = (walk) => {
+  const dogCount = walk.dogs?.length || 0;
+  const serviceType = walk.serviceType || walk.type || 'walk'; // Default to 'walk' if not specified
+
+  switch (serviceType.toLowerCase()) {
+    case 'daysit':
+    case 'day_sit':
+    case 'day sit':
+      return dogCount * DOG_DAY_SIT;
+    case 'nightstay':
+    case 'night_stay':
+    case 'night stay':
+      return dogCount * DOG_NIGHT_STAY;
+    case 'walk':
+    default:
+      // Regular walk pricing
+      if (dogCount === 1) {
+        return SINGLE_DOG_PRICE;
+      }
+      if (dogCount === 2) {
+        return TWO_DOG_PRICE;
+      }
+      // For 3+ dogs, use single dog price per dog
+      return dogCount * SINGLE_DOG_PRICE;
+  }
+};
+
+// Get price per unit for display
+const getPricePerUnit = (walk) => {
+  const dogCount = walk.dogs?.length || 0;
+  const serviceType = walk.serviceType || walk.type || 'walk';
+
+  switch (serviceType.toLowerCase()) {
+    case 'daysit':
+    case 'day_sit':
+    case 'day sit':
+      return DOG_DAY_SIT;
+    case 'nightstay':
+    case 'night_stay':
+    case 'night stay':
+      return DOG_NIGHT_STAY;
+    case 'walk':
+    default:
+      if (dogCount === 1) {
+        return SINGLE_DOG_PRICE;
+      }
+      if (dogCount === 2) {
+        return TWO_DOG_PRICE;
+      }
+      return SINGLE_DOG_PRICE;
+  }
+};
 
 function UnpaidWalksDetail({ adminState, setAdminState }) {
   const { state: locationState } = useLocation();
@@ -58,16 +115,24 @@ function UnpaidWalksDetail({ adminState, setAdminState }) {
   }, [userId, adminState.walks, dogs]);
 
   // Flatten walks into individual rows (one row per walk)
-  const invoiceRows = useMemo(() => unpaidWalks.map((walk) => ({
-    id: walk.id,
-    walkDate: walk.date,
-    requestDate: walk.createdAt || walk.date,
-    dogs: walk.dogs || [],
-    quantity: walk.dogs?.length || 0,
-    price: WALK_PRICE,
-    total: (walk.dogs?.length || 0) * WALK_PRICE,
-    paidFor: walk.paidFor,
-  })), [unpaidWalks]);
+  const invoiceRows = useMemo(() => unpaidWalks.map((walk) => {
+    const dogCount = walk.dogs?.length || 0;
+    const totalPrice = calculateWalkPrice(walk);
+    const pricePerUnit = getPricePerUnit(walk);
+    const serviceType = walk.serviceType || walk.type || 'walk';
+
+    return {
+      id: walk.id,
+      walkDate: walk.date,
+      requestDate: walk.createdAt || walk.date,
+      dogs: walk.dogs || [],
+      quantity: dogCount,
+      price: pricePerUnit,
+      total: totalPrice,
+      serviceType,
+      paidFor: walk.paidFor,
+    };
+  }), [unpaidWalks]);
 
   // Calculate invoice total
   const invoiceTotal = useMemo(
@@ -93,9 +158,9 @@ function UnpaidWalksDetail({ adminState, setAdminState }) {
       const newSet = new Set(prev);
       if (newSet.has(walkId)) {
         newSet.delete(walkId);
-      } else {
-        newSet.add(walkId);
+        return newSet;
       }
+      newSet.add(walkId);
       return newSet;
     });
   };
@@ -178,7 +243,9 @@ function UnpaidWalksDetail({ adminState, setAdminState }) {
                             moment(row.requestDate).format('MMM D, YYYY')
                           ) : (
                             <>
-                              <span className="unpaid-walks-request-date-visible">{moment(row.requestDate).format('MMM D, YYYY')}</span>
+                              <span className="unpaid-walks-request-date-visible">
+                                {moment(row.requestDate).format('MMM D, YYYY')}
+                              </span>
                               <span className="unpaid-walks-request-date-placeholder" />
                             </>
                           )}

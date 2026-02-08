@@ -1,11 +1,38 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react/react-in-jsx-scope */
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import Avatar from '../dog.thumbnail.png';
 import './AdminWalkDog.scss';
 
-function AdminWalkDog({ dog }) {
+function AdminWalkDog({
+  dog, isSelected, onCardClick, onDelete,
+}) {
   return (
-    <div className="admin-walk-dog-card">
+    <div
+      className={`admin-walk-dog-card ${isSelected ? 'selected' : ''}`}
+      onClick={onCardClick}
+      role="button"
+      tabIndex={0}
+      onKeyDown={(e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          onCardClick();
+        }
+      }}
+    >
+      {isSelected && (
+        <button
+          type="button"
+          className="admin-walk-dog-delete-button"
+          onClick={(e) => {
+            e.stopPropagation();
+            onDelete();
+          }}
+        >
+          <FontAwesomeIcon icon={faTimes} />
+        </button>
+      )}
       <div className="admin-walk-dog-image-container">
         <img
           src={dog.image || dog.avatar || Avatar}

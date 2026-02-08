@@ -137,7 +137,7 @@ function Admin({ state, setState }) {
         />
         <Route
           path="/schedule/:date"
-          element={<AdminWalk state={state} />}
+          element={<AdminWalk state={state} setState={setState} />}
         />
       </Routes>
     </>
