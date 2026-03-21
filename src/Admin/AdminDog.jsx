@@ -35,7 +35,7 @@ function AdminDog({
       }}
     >
       <img
-        src={dogImage == null ? Avatar : dogImage}
+        src={dogImage || Avatar}
         alt={dogName}
         style={{
           width: '128px',

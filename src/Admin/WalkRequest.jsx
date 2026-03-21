@@ -174,12 +174,21 @@ function WalkRequest({
 
   //-----------------------------------------------------------------------------------------------
   // --- Dogs array to be displayed --------
+  const getDogImageSrc = (dog) => {
+    const image = typeof dog?.image === 'string' ? dog.image.trim() : dog?.image;
+    return image || Avatar;
+  };
+
   const dogs = walkRequest.dogs.map((dog) => (
     <img
       key={dog.id}
-      src={dog.image == null ? Avatar : dog.image}
+      src={getDogImageSrc(dog)}
       alt={dog.name}
       className="walk-request-dog-image"
+      onError={(e) => {
+        e.currentTarget.onerror = null;
+        e.currentTarget.src = Avatar;
+      }}
     />
   ));
 

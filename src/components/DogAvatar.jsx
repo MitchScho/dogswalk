@@ -13,7 +13,7 @@ import ProfileEditor from './ProfileEditor';
 //-------------------------------------------------------------------------------------------------
 
 function DogAvatar({
-  dog, selectDogs, selectedDogs, handleDeleteDog,
+  dog, selectDogs, selectedDogs, handleDeleteDog, readOnly = false,
 }) {
   const [disabled, setDisabled] = useState(true);
   const [selected, setSelected] = useState(false);
@@ -28,6 +28,10 @@ function DogAvatar({
   }, [selectDogs, dog]);
 
   const handleClick = () => {
+    if (readOnly) {
+      return;
+    }
+
     if (!disabled) {
       selectDogs(dog);
       setSelected(!selected);
@@ -48,11 +52,11 @@ function DogAvatar({
         tabIndex={disabled ? undefined : 0}
         disabled={disabled}
       >
-        <img src={updatedDog.image == null ? Avatar : updatedDog.image} alt="" />
+        <img src={updatedDog.image || Avatar} alt="" />
         {updatedDog.name}
       </div>
       <Modal
-        isOpen={displayProfileAvatar}
+        isOpen={displayProfileAvatar && !readOnly}
         onClose={() => setDisplayProfileAvatar(false)}
         modalHeader="Edit Profile"
       >

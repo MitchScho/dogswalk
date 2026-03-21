@@ -11,6 +11,7 @@ function AdminHome() {
       <Link className="admin-home-card" to="/admin/walk-requests"> Walk Requests </Link>
       <Link className="admin-home-card" to="/admin/unpaid-walks"> Unpaid Walks </Link>
       <Link className="admin-home-card" to="/admin/walk-history"> Walk History </Link>
+      <Link className="admin-home-card" to="/admin/client-list"> Client List </Link>
       <Link className="admin-home-card" to="/admin/schedule"> Schedule </Link>
     </div>
   );

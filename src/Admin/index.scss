@@ -953,3 +953,81 @@
 .undo-toast-button:active {
   transform: translateY(0);
 }
+
+// --- Admin Client List / Profile ---
+.admin-client-list-container {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 0 1em 1em;
+}
+
+.admin-client-list-item {
+  width: 100%;
+  max-width: 700px;
+  margin: 0.4em 0;
+  text-align: center;
+  font-size: 1rem;
+}
+
+.admin-client-profile-container {
+  padding: 1em;
+  display: flex;
+  justify-content: center;
+}
+
+.admin-client-profile-card {
+  width: 100%;
+  max-width: 700px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  border-radius: 14px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.25), 0 4px 10px rgba(0, 0, 0, 0.18);
+  color: rgba(255, 255, 255, 0.9);
+  padding: 1em 1.25em;
+}
+
+.admin-client-profile-card h4 {
+  margin-top: 0.25em;
+  margin-bottom: 1em;
+}
+
+.admin-client-profile-dogs {
+  margin-top: 0.75em;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75em;
+}
+
+.admin-client-profile-dog-card {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 0.8em;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.9em;
+}
+
+.admin-client-profile-dog-avatar {
+  width: 128px;
+  min-width: 128px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.admin-client-profile-dog-details h5 {
+  margin: 0 0 0.45em;
+}
+
+.admin-client-profile-dog-details p {
+  margin: 0.2em 0;
+}
+
+@media (max-width: 480px) {
+  .admin-client-profile-dog-card {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+}

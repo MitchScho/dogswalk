@@ -21,9 +21,27 @@ function AdminClient({
     }
   };
 
-  // Safety check for dogs array
+  const getDogImageSrc = (dog) => {
+    const image = typeof dog?.image === 'string' ? dog.image.trim() : dog?.image;
+    const avatar = typeof dog?.avatar === 'string' ? dog.avatar.trim() : dog?.avatar;
+    return image || avatar || Avatar;
+  };
+
+  // If no dogs are present yet, still show a default avatar instead of rendering nothing.
   if (!dogs || dogs.length === 0) {
-    return null;
+    return (
+      <button
+        type="button"
+        onClick={handleClick}
+        className="admin-client-button admin-client-button--single"
+      >
+        <img
+          src={Avatar}
+          alt={userName || 'Client'}
+          className="admin-client-image admin-client-image--single"
+        />
+      </button>
+    );
   }
 
   // If single dog, use the same style as AdminDog
@@ -35,9 +53,13 @@ function AdminClient({
         className="admin-client-button admin-client-button--single"
       >
         <img
-          src={dogs[0].image == null ? Avatar : dogs[0].image}
+          src={getDogImageSrc(dogs[0])}
           alt={dogs[0].name}
           className="admin-client-image admin-client-image--single"
+          onError={(e) => {
+            e.currentTarget.onerror = null;
+            e.currentTarget.src = Avatar;
+          }}
         />
       </button>
     );
@@ -54,9 +76,13 @@ function AdminClient({
         {dogs.map((dog, index) => (
           <img
             key={dog.id || index}
-            src={dog.image == null ? Avatar : dog.image}
+            src={getDogImageSrc(dog)}
             alt={dog.name || `Dog ${index + 1}`}
             className="admin-client-image admin-client-image--multiple"
+            onError={(e) => {
+              e.currentTarget.onerror = null;
+              e.currentTarget.src = Avatar;
+            }}
           />
         ))}
       </div>

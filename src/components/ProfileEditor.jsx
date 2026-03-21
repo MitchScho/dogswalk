@@ -12,6 +12,7 @@ import Modal from './widgets/Modal';
 // --- Import Api ---
 import { updateDogProfile } from '../api';
 import { storage } from '../firebase';
+import DefaultDogImage from '../dog.thumbnail.png';
 // --- Style Imports ---
 import './ProfileEditor.scss';
 
@@ -84,7 +85,7 @@ function ProfileEditor({
               setSrc(null);
               setImageCrop(true);
             }}
-            src={profileImg != null ? profileImg : img ?? dog.image}
+            src={profileImg || img || dog.image || DefaultDogImage}
             alt=""
           />
         </label>

@@ -5,7 +5,7 @@
 import { useEffect, useState } from 'react';
 // --- Router Imports ---
 import {
-  Routes, Route,
+  Routes, Route, useLocation,
 } from 'react-router-dom';
 
 // --- Component Imports ---
@@ -17,6 +17,8 @@ import WalkHistoryDetail from './WalkHistoryDetail';
 import AdminHome from './AdminHome';
 import Schedule from './Schedule';
 import AdminWalk from './AdminWalk';
+import AdminClientList from './AdminClientList';
+import AdminClientProfile from './AdminClientProfile';
 import Nav from '../components/Nav';
 
 // --- Style Imports ---
@@ -29,6 +31,7 @@ import {
 
 //-------------------------------------------------------------------------------------------------
 function Admin({ state, setState }) {
+  const location = useLocation();
   const [adminState, setAdminState] = useState({
     walkRequests: [],
     walks: [],
@@ -53,6 +56,8 @@ function Admin({ state, setState }) {
 
   //------------------------------------------------------------------------------------------------
   // --- get walkRequests data, unpaidRequest data, walks, and clients ---
+  // Re-fetch on admin refresh key changes, app refresh key changes, and admin route changes
+  // so newly uploaded dog images are reflected across all admin pages.
   useEffect(() => {
     getAdminWalkRequests()
       .then((res) => {
@@ -81,7 +86,7 @@ function Admin({ state, setState }) {
       .catch((err) => {
         console.error('Error fetching clients:', err.message);
       });
-  }, [adminState.adminReFreshKey, state.reFreshKey]);
+  }, [adminState.adminReFreshKey, state.reFreshKey, location.pathname]);
 
   //------------------------------------------------------------------------------------------------
 
@@ -130,6 +135,14 @@ function Admin({ state, setState }) {
         <Route
           path="/walk-history/detail"
           element={<WalkHistoryDetail adminState={adminState} />}
+        />
+        <Route
+          path="/client-list"
+          element={<AdminClientList adminState={adminState} />}
+        />
+        <Route
+          path="/client-list/:clientId"
+          element={<AdminClientProfile adminState={adminState} />}
         />
         <Route
           path="/schedule"
